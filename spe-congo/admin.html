@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SPE Congo Section 117</title>
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+     <header>
+     <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"> <img src="images/WhatsApp Image 2026-02-14 at 15.38.44.jpeg" alt="SPE CONGO Section Logo" class="logo-img"></a>
+           
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-container-links" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Membres <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="partners.html">Partenaires</a>
+                        <a href="membres.html">Équipe Congo</a>
+                    </div>
+                </li>
+                <li><a href="calendrier.html">Calendrier</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="students.html">Étudiants</a></li>
+              
+            </ul>
+
+            <div class="auth-buttons">
+                <button onclick="openModal()" class="btn-login">Log In</button>
+                <button onclick="openSignupModal()" class="btn-signup">Sign-up</button>
+              
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <section class="hero hero-small">
+        <div class="hero-content">
+            
+            
+            <h2>SPE Admin</h2>
+        </div>
+    </section>
+
+<div class="admin-layout">
+    <nav class="sidebar">
+        <h2></h2>
+        <ul>
+            <li onclick="showSection('stats-section')">Statistiques</li>
+            <li onclick="showSection('mentors-section')">Mentors</li>
+            <li onclick="showSection('events-section')">Calendrier</li>
+            <li onclick="showSection('mentees-section')">Mentees</li>
+             <li onclick="showSection('relationships-section')">Binomes et évolution</li>
+             <li onclick="showSection('admin-news')">Médias</li>
+        </ul>
+        <button class="logout-btn" onclick="logout()">Déconnexion</button>
+    </nav>
+    
+    <main class="content">
+       <section id="mentors-section" class="admin-section hidden">
+    <div class="header-flex">
+        <h2>Gestion des Mentors</h2>
+        <span class="count-badge" id="total-mentors-count">0</span>
+    </div>
+    <div class="admin-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom & Poste</th>
+                    <th>Expertise</th>
+                    <th>Email</th>
+                    <th>Motivations</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="mentors-list-body"></tbody>
+        </table>
+    </div>
+</section>
+
+        <section id="events-section" class="admin-section hidden">
+            <h1>Calendrier des Événements</h1>
+            <div class="admin-card">
+               <form id="form-event">
+    <input type="text" id="event-title" placeholder="Titre de l'événement" required>
+    <input type="date" id="event-date" required>
+    <input type="text" id="event-location" placeholder="Lieu (ex: Brazzaville, En ligne...)" required>
+    <textarea id="event-desc" placeholder="Description"></textarea>
+    <button type="submit" class="btn-primary">Ajouter</button>
+</form>
+
+<div class="admin-card" style="margin-top: 30px;">
+    <h3>Liste des événements publiés</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="admin-event-list">
+            </tbody>
+    </table>
+</div>
+            </div>
+        </section>
+
+<section id="mentees-section" class="admin-section hidden">
+    <div class="header-flex">
+        <h2>Gestion des Mentees (Apprenants)</h2>
+        <span class="count-badge" id="total-mentees">0 inscrits</span>
+    </div>
+
+    <div class="admin-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom Complet</th>
+                    <th>École / Établissement</th>
+                    <th>Domaine d'intérêt</th>
+                    <th>Statut</th>
+                    <th>Documents</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="mentees-list-body">
+                </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="relationships-section" class="admin-section hidden">
+    <div class="section-header">
+        <h2> Suivi des Binômes & Évolution</h2>
+        <p>Consultez l'état d'avancement des duos Mentor-Mentee en temps réel.</p>
+    </div>
+
+    <div class="filter-bar">
+        <input type="text" id="search-relationship" placeholder="Rechercher un binôme..." onkeyup="filterRelationships()">
+    </div>
+
+    <div id="relationships-container" class="relationships-grid">
+        <div class="loading-spinner">Chargement des binômes...</div>
+    </div>
+</section>
+
+<section id="stats-section" class="admin-section hidden">
+    <div class="header-flex">
+    
+        <h2>Tableau de Bord Analytique</h2>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3> Mentors Actifs</h3>
+            <p id="total-mentors-count">0</p>
+        </div>
+        <div class="stat-card">
+            <h3> Mentees En Formation</h3>
+            <p id="total-mentees-count">0</p>
+        </div>
+        <div class="stat-card">
+            <h3> Binômes Actuels</h3>
+            <p id="total-rels-count">0</p>
+        </div>
+    </div>
+
+    <div class="chart-container" style="position: relative; height:40vh; width:80vw; margin: auto;">
+    <h3>Mentors par domaine d'expertise</h3>
+    <canvas id="sectorChart"></canvas>
+</div>
+
+<div class="chart-box">
+      <br>
+        <br><br><br>
+    <h3>Taux Global d'Accomplissement des Objectifs des Binomes </h3>
+    <div style="height: 250px; width: 250px; margin: auto;">
+        <canvas id="gaugeChart"></canvas>
+    </div>
+    <p id="gauge-text" style="text-align:center; font-weight:bold; font-size: 1.2rem;"></p>
+</div>
+
+<div class="chart-box" style="margin-top: 40px;">
+    <h3> Équilibre Offre (Mentors) vs Demande (Mentees)</h3>
+    <div style="height: 300px;">
+        <canvas id="offerDemandChart"></canvas>
+    </div>
+</div>
+
+<div class="chart-box" style="margin-top: 40px; width: 100%;">
+    <h3> Évolution des Inscriptions </h3>
+    <div style="height: 300px;">
+        <canvas id="growthChart"></canvas>
+    </div>
+</div>
+</section>
+
+
+<section id="admin-news" class="admin-card">
+    <h2><i class="fas fa-newspaper"></i> Publier une Actualité</h2>
+    <form id="add-news-form" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Titre de l'article</label>
+            <input type="text" id="news-title" placeholder="Ex: Conférence Technique SPE..." required>
+        </div>
+
+        <div class="form-group">
+    <label for="news-category">Catégorie de la News</label>
+    <select id="news-category" class="form-control">
+        <option value="News">News (Général)</option>
+        <option value="Evenement">Événement</option>
+        <option value="Conference">Conférence</option>
+        <option value="Communique">Communiqué</option>
+    </select>
+</div>
+        
+        <div class="form-group">
+            <label>Contenu</label>
+            <textarea id="news-content" rows="6" placeholder="Détaillez l'actualité ici..." required></textarea>
+        </div>
+
+       <div class="form-group">
+    <label>Image de l'article</label>
+    <input type="file" id="news-image-file" name="image_file" accept="image/*" class="file-input">
+    <p id="file-name-display" style="font-size: 0.8rem; color: #666;"></p>
+</div>
+
+<div class="form-group">
+    <label>Flyer de l'article (PDF ou image)</label>
+    <input type="file" id="news-flyer-file" name="flyer_file" 
+           accept="image/*,.pdf" class="file-input">
+    <p id="flyer-name-display" style="font-size:0.8rem; color:#666;"></p>
+</div>
+
+        <button type="submit" class="btn-save">Publier l'article</button>
+
+ </form>
+
+        <div class="admin-list-section">
+    <h2>Gérer les Actualités</h2>
+    <table class="admin-table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Titre</th>
+            <th>Catégorie</th>
+            <th>Date</th> <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="admin-news-list"></tbody>
+</table>
+</div>
+   
+</section>
+
+    </main>
+</div>
+
+
+
+
+<!--Modale de lecture des motivations des mentors-->
+<div id="motivationModal" class="modal">
+    <div class="modal-content">
+        
+        <div class="modal-header">
+             
+            <div id="modalPhotoContainer"></div> <div>
+                <h2 id="modalNom"></h2> <span id="modalExpertise" class="expertise-tag"></span> </div>
+           
+        </div>
+        
+       <div class="modal-body">
+    <h3><i class="fas fa-quote-left"></i>Pourquoi voulez-vous devenir mentor pour ce programme?</h3>
+    <p id="motivationText"></p>
+    <button class="btn-info" onclick="closeModal()">Fermer</button>
+</div>
+        </div>
+</div>
+
+<!-- MODALE MODIFIER NEWS -->
+<div id="editModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Modifier l'actualité</h2>
+        <form id="editForm">
+            <input type="hidden" id="edit-id">
+            <div class="form-group">
+                <label>Titre</label>
+                <input type="text" id="edit-title" required>
+            </div>
+            <div class="form-group">
+                <label>Catégorie</label>
+                <select id="edit-category">
+                    <option value="News">News (Général)</option>
+                    <option value="Evenement">Événement</option>
+                    <option value="Conference">Conférence</option>
+                    <option value="Communique">Communiqué</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Contenu</label>
+                <textarea id="edit-content" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Nouvelle image (optionnel)</label>
+                <input type="file" id="edit-image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>Nouveau flyer (optionnel)</label>
+                <input type="file" id="edit-flyer" accept="image/*,.pdf">
+            </div>
+            <button type="submit" class="btn-save">Enregistrer</button>
+        </form>
+    </div>
+</div>
+
+<!--Modale pour modifier les évenements publiés-->
+<div id="editEventModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEventModal()">&times;</span>
+        <h2>Modifier l'événement</h2>
+        <form id="editEventForm">
+            <input type="hidden" id="edit-event-id">
+            
+            <div class="form-group">
+                <label>Titre de l'événement</label>
+                <input type="text" id="edit-event-title" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Date et Heure</label>
+                <input type="datetime-local" id="edit-event-date" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Lieu / Plateforme</label>
+                <input type="text" id="edit-event-location" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description (Détails)</label>
+                <textarea id="edit-event-desc" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn-save">Mettre à jour l'événement</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

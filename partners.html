@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membres & Board - SPE Section 117</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"> <img src="images/WhatsApp Image 2026-02-14 at 15.38.44.jpeg" alt="SPE CONGO Section Logo" class="logo-img"></a>
+           
+        </div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-container-links" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Membres <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#partners">Partenaires</a>
+                        <a href="membres.html">Équipe Congo</a>
+                    </div>
+                </li>
+                <li><a href="calendrier.html">Calendrier</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="students.html">Étudiants</a></li>
+               
+            </ul>
+
+            <div class="auth-buttons">
+                <button onclick="openModal()" class="btn-login">Log In</button>
+                <button onclick="openSignupModal()" class="btn-signup">Sign-up</button>
+            </div>
+        </div>
+    </nav>
+</header>
+ <section class="hero hero-small">
+        <div class="hero-content">
+          
+            <h2><p>Découvrez les entreprises et les leaders qui font avancer l'industrie au Congo.</p></h2>
+        </div>
+    </section>
+
+    
+
+        <section class="partners-section-detailed">
+            <h2 class="sub-title">Partenaires Institutionnels</h2>
+            <div class="partners-grid-detailed">
+                <div class="partner-card">
+                    <img src="images/partners/total.jpg" alt="TotalEnergies">
+                    <a href="https://totalenergies.cg/" target="_blank" class="visit-link">Visiter le site officiel
+                        <i class="fas fa-external-link-alt"></i></a>
+                    <h3>TotalEnergies EP Congo</h3>
+                </div>
+                <div class="partner-card">
+                    <img src="images/partners/télécharger.jpg" alt="Perenco">
+                    <a href="https://totalenergies.cg/" target="_blank" class="visit-link">Visiter le site officiel
+                        <i class="fas fa-external-link-alt"></i></a>
+                    <h3>Halliburton</h3>
+                </div>
+                <div class="partner-card">
+                    <img src="images/partners/Screen-Shot-2019-12-12-at-23.32.02.png" alt="Perenco">
+                    <a href="https://www.google.com/search?q=https://www.perenco.com/fr/operations/congo" target="_blank" class="visit-link">Visiter le site officiel
+                        <i class="fas fa-external-link-alt"></i></a>
+                    <h3>Perenco</h3>
+                </div>
+                <div class="partner-card">
+                    <img src="images/partners/Eni Logo PNG Vector (AI) Free Download.jpg" alt="Eni">
+                    <a href="https://www.google.com/search?q=https://www.eni.com/fr-CG/accueil.html" target="_blank" class="visit-link">Visiter le site officiel
+                        <i class="fas fa-external-link-alt"></i></a>
+                    <h3>eni</h3>
+                </div>
+                <div class="partner-card">
+                    <img src="images/partners/Técnico de Laboratório.jpg" alt="Baker">
+                    <a href="https://www.bakerhughes.com/" target="_blank" class="visit-link">Visiter le site officiel
+                        <i class="fas fa-external-link-alt"></i></a>
+                    <h3>Baker Hughes</h3>
+                </div>
+            </div>
+        </section>
+
+       
+    
+
+       <footer>
+    <div class="footer-container">
+        <div class="footer-info">
+            <img src="images/spe_footer.jpg" alt="Logo SPE">
+            <p>La SPE Congo </p>
+            <p>Solutions. People. Energy.</p>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Liens Rapides</h3>
+            <ul id="list-style">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="calendrier.html">Événements</a></li>
+                <li><a href="membres.html">Étudiants</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact</h3>
+          
+            <p><i class="fas fa-map-marker-alt"></i> Pointe-Noire, République du Congo</p>
+            <p><i class="fas fa-envelope"></i> 
+                <a href="mailto:congosection@spemail.org" class="footet-email">congosection@spemail.org</a>
+            </p>
+
+            <div class="social-icons">
+                  <br>
+            <p>Nous suivre sur:</p>
+            <br>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 SPE Congo. Tous droits réservés.</p>
+    </div>
+</footer>
+
+            <!--Modal du log in-->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+            <input type="password" id="login-password" placeholder="Mot de passe" required>
+            <button type="submit" class="btn-submit">Entrer</button>
+        </form>
+        <p id="error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+<!--Modal du sign up-->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeSignupModal()">&times;</span>
+        <h2>Créer mon compte</h2>
+        <form id="signup-form">
+            <input type="text" id="signup-username" placeholder="Nom d'utilisateur" required>
+            <input type="email" id="signup-email" placeholder="Email (Professionnel ou Étudiant)" required>
+            <input type="password" id="signup-password" placeholder="Mot de passe" required>
+            <input type="password" id="signup-confirm" placeholder="Confirmer le mot de passe" required>
+            <button type="submit" class="btn-submit">Créer mon compte</button>
+            <a href="https://www.spe.org/en/join/" target="_blank" class="btn-primary">Rejoindre la SPE</a>
+        </form>
+        <p id="signup-error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

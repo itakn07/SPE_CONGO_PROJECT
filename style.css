@@ -1,0 +1,3142 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* Variables de couleurs */
+:root {
+    --spe-blue: #0054a6;
+    --spe-dark: #003366;
+    --accent: #f39c12;
+    --text-color: #333;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--spe-blue);
+}
+
+.logo-text span { color: var(--spe-dark); }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--spe-blue); }
+
+/* Boutons */
+.auth-buttons a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+.btn-signup, .btn-join {
+    background: var(--spe-blue);
+    color: white;
+}
+
+/* Style du bouton Log In */
+.auth-buttons button {
+    background-color: var(--spe-blue); /* Utilise ta variable de couleur */
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.auth-buttons button:hover {
+    filter: brightness(1.2); /* Éclaircit un peu au survol */
+}
+
+
+/*hero des autres pages  */
+.hero h2 { font-size: 2rem;  margin-bottom: 0; }
+
+.hero.hero-small {
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+     text-align: center;
+    color: white;
+    padding: 0 20px;
+    background: linear-gradient(135deg, #0054a6 0%, #003366 100%);
+}
+
+/*hero de la page accueil*/
+.hero-home{
+     height: 80vh;
+    background: linear-gradient(rgba(0,51,102,0.72),rgba(0,20,40,0.85)),
+    url('images/plateforme.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /*pour l'effet profondeur au scroll*/
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+}
+
+/* Footer */
+/* Footer */
+footer {
+    background: linear-gradient(180deg, #004a99 0%, #002d58 100%) !important;
+    color: white;
+    padding: 3rem 5% 1rem;
+    margin-top: 50px;
+}
+
+.footer-info img {
+    background-color: #003399; /* Ton bleu SPE */
+    padding: 10px;
+    border-radius: 5px;
+    width: 130px; /* Fixe la taille pour éviter les surprises */
+    margin-bottom: 15px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* On s'assure que les deux blocs prennent de la place */
+.footer-info, .footer-contact {
+    flex: 1;
+    min-width: 280px;
+}
+
+.footer-info p {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* --- RÉGLAGE DES LIENS ET LISTES --- */
+.footer-contact h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#list-style {
+    list-style: none;
+    padding: 0;
+    line-height: 2;
+}
+
+/* Force la couleur des liens pour qu'ils ne soient plus bleus */
+/* Footer */
+footer {
+    background: linear-gradient(180deg, #004a99 0%, #002d58 100%) !important;
+    color: white;
+    padding: 3rem 5% 1rem;
+    margin-top: 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-info, .footer-contact {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-info img {
+    background-color: #003399;
+    padding: 10px;
+    border-radius: 5px;
+    width: 130px;
+    margin-bottom: 15px;
+}
+
+.footer-info p {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.footer-contact h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#list-style {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-contact ul li {
+    margin-bottom: 10px;
+}
+
+.footer-contact ul li a {
+    color: white !important;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.footer-contact ul li a:hover {
+    opacity: 1;
+    padding-left: 8px;
+}
+
+/* Style pour les paragraphes de contact (adresse, etc.) */
+.footer-contact p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-contact i {
+    color: #ffffff;
+    width: 20px; /* Aligne verticalement les icônes */
+}
+
+.footet-email {
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: white !important;
+    font-size: 1.3rem;
+    transition: transform 0.3s;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+
+.events-section {
+    padding: 60px 5%;
+    background-color: #f9f9f9;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--spe-dark);
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.event-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 5px solid var(--spe-blue);
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.event-badge {
+    background: #e1f0ff;
+    color: var(--spe-blue);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.event-badge.done {
+    background: #d4edda;
+    color: #155724;
+}
+
+.btn-detail {
+    margin-top: 15px;
+    width: 100%;
+    background: none;
+    border: 1px solid var(--spe-blue);
+    color: var(--spe-blue);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-detail:hover {
+    background: var(--spe-blue);
+    color: white;
+}
+
+.about-section {
+    padding: 100px 10%;
+    background: #f9fbfd;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.about-content {
+    flex: 1;
+}
+
+.badge {
+    color: #004a99;;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.about-content h2 {
+    font-size: 2.5rem;
+    color: #222;
+    margin: 20px 0;
+}
+
+.about-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about-features {
+    margin-top: 30px;
+}
+
+.feature {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.about-visual {
+    flex: 1;
+    position: relative;
+}
+
+.about-photo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover; /* Important : cela cadre l'image sans la déformer */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.experience-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: #00c2ff;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Section des Statistiques */
+.stats-bar {
+    display: flex;
+    justify-content: space-around; /* Aligne les éléments avec un espacement égal */
+    align-items: center;
+    background: #0056b3; /* Le bleu SPE */
+    color: white;
+    padding: 60px 10%;
+    text-align: center;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur mobile */
+    gap: 20px;
+}
+
+.stat-item {
+    flex: 1; /* Chaque bloc prend la même largeur */
+    min-width: 150px;
+}
+
+.stat-item h3 {
+    font-size: 2.8rem; /* Gros chiffres pour l'impact */
+    margin-bottom: 5px;
+    font-weight: 800;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.stat-item p {
+    font-size: 0.85rem;
+    text-transform: uppercase; /* Donne un look plus pro/officiel */
+    letter-spacing: 1px;
+    opacity: 0.85; /* Un peu plus discret que le chiffre */
+}
+
+/* Petit effet décoratif : une bordure entre les éléments sur grand écran */
+@media (min-width: 768px) {
+    .stat-item:not(:last-child) {
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+.btn-detail {
+    display: inline-block;
+    margin: 10px 0 30px 0;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: #0056b3;
+    border: 2px solid #0056b3;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-detail:hover {
+    background-color: #0056b3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.2);
+}
+
+/* Empêcher les éléments de déborder sur mobile *//* Les rendre responsives */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 968px) {
+    .about-container {
+        flex-direction: column; /* L'image passe sous le texte */
+        padding: 20px;
+    }
+    
+    .about-content, .about-visual {
+        width: 100%; /* Ils prennent toute la largeur */
+    }
+    
+    .stats-bar {
+        grid-template-columns: repeat(2, 1fr); /* Les stats passent sur 2 colonnes */
+    }
+}
+
+ /* Page des membres */
+
+
+.members-page {
+    padding-top: 80px; /* Évite que le contenu soit sous la navbar fixe */
+    background-color: #f4f7f6;
+}
+
+.page-header {
+    background: #0056b3;
+    color: white;
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.sub-title {
+    text-align: center;
+    margin: 40px 0;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* --- Grille des Partenaires --- */
+.partners-grid-detailed {
+    display: grid;
+    /* On garde ta structure, mais on assure que les cartes font la même hauteur */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 30px;
+    padding: 0 10%;
+    margin-bottom: 60px;
+}
+
+.partner-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    
+    /* AJOUT : Force les éléments à s'organiser verticalement */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pousse le bouton vers le bas */
+    align-items: center;
+    min-height: 320px; /* Donne une hauteur uniforme à toutes les cartes */
+}
+
+.partner-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* AJOUT : Conteneur pour le logo pour éviter les décalages */
+.partner-card .logo-container {
+    height: 100px; /* Espace fixe pour le logo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.partner-card img {
+    max-width: 150px; /* Un peu plus large pour la visibilité */
+    max-height: 80px; /* On limite la hauteur pour ne pas casser la carte */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Garde les proportions du logo */
+}
+
+/* AJOUT : Style pour le texte et le bouton */
+.partner-card h3 {
+    font-size: 1.1rem;
+    color: #003366;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Permet au titre de prendre l'espace restant */
+}
+
+.visit-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #003366;
+    color: #003366;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.visit-link:hover {
+    background: #003366;
+    color: white;
+}
+
+/* --- Grille du Bureau (Board) --- */
+.board-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 0 10% 80px 10%;
+}
+
+.board-member {
+    background: white;
+    width: 280px;
+    padding: 40px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.member-photo-placeholder {
+    width: 120px;
+    height: 120px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    border: 4px solid #0056b3;
+}
+
+.board-member h3 {
+    margin-bottom: 5px;
+    color: #222;
+}
+
+.role {
+    color: #0056b3;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* 1. On s'assure que le header n'a pas de marge en bas */
+header {
+    margin-bottom: 0;
+}
+
+/* 2. On ajuste la section de la bannière */
+.page-header {
+    background: #0056b3;
+    color: white;
+    padding: 100px 10%; /* On augmente le padding (haut/bas) pour qu'elle soit plus grande */
+    text-align: center;
+    margin-top: 0; /* On force la marge à zéro pour coller au menu */
+}
+
+/* 3. Si ta navbar est en position "fixed", on ajuste le body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* --- Mise en page Media --- */
+.events-archive {
+    padding: 80px 10%;
+    background-color: #fff;
+}
+
+.event-entry {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 120px;
+}
+
+.event-entry.reverse {
+    flex-direction: row-reverse;
+}
+
+.event-visual {
+    flex: 1.2;
+}
+
+.event-desc {
+    flex: 0.8;
+}
+
+/* Vidéo Responsive */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+/* Mosaïque Photos */
+.photo-mosaic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.photo-mosaic img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.photo-mosaic img:hover {
+    transform: scale(1.03);
+}
+
+/* Bouton secondaire */
+.btn-read-more {
+    display: inline-block;
+    margin-top: 20px;
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid #0056b3;
+}
+
+/* Modal login */
+/* Le fond noir transparent */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+
+/* La boîte blanche au centre */
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute; right: 15px; top: 10px;
+    font-size: 24px; cursor: pointer;
+}
+
+.btn-submit {
+    background: #3498db; color: white; border: none;
+    padding: 10px; width: 100%; margin-top: 10px; cursor: pointer;
+}
+
+
+/* --- HARMONISATION AVEC LE RESTE DU SITE --- */
+
+/* On utilise tes variables déjà définies */
+:root {
+    --spe-blue: #003060; 
+    --spe-gold: #d4af37;
+}
+
+/* Hero Section Style "SPE" */
+.about-hero {
+    background: linear-gradient(rgba(0, 48, 96, 0.7), rgba(0, 48, 96, 0.7)), 
+                url('assets/bg-section117.jpg'); /* Remplace par ton image */
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    color: white;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 3rem;
+    color: white; /* Pour contrer le bleu si besoin */
+    text-transform: uppercase;
+}
+
+/* Sections de contenu */
+.section-details, .missions-section, .impact-section {
+    padding: 60px 10%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Grilles pour le contenu "en long et en large" */
+.grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+/* Style des cartes identique à tes services existants */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: 5px solid var(--spe-blue);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card i {
+    font-size: 2rem;
+    color: var(--spe-blue);
+    margin-bottom: 15px;
+}
+
+/* Style de la liste "Impact" (En long) */
+.impact-list {
+    margin-top: 30px;
+}
+
+.impact-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--spe-blue);
+    min-width: 40px;
+}
+
+/* Badge décoratif */
+.badge {
+    display: inline-block;
+    background-color: var(--spe-blue);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+/* Images responsives */
+.image-block img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* Adaptation Mobile */
+@media (max-width: 768px) {
+    .grid-2col {
+        grid-template-columns: 1fr;
+    }
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Style du parent du menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style du bouton "Membres" */
+.dropbtn {
+    cursor: pointer;
+}
+
+/* Le menu caché par défaut */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1001;
+    border-radius: 4px;
+    top: 100%; /* S'affiche juste en dessous */
+}
+
+/* Les liens à l'intérieur du menu déroulant */
+.dropdown-content a {
+    color: var(--spe-blue);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: background 0.3s;
+}
+
+/* Effet au survol des liens du menu */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: var(--spe-gold);
+}
+
+/* Affiche le menu quand on survole l'élément "Membres" */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*Responsivité
+
+/* Container principal pour limiter la largeur sur très grands écrans */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* La Grille des Membres (Magie du responsive) */
+.team-grid {
+    display: grid;
+    /* Crée autant de colonnes de 280px que possible, sinon remplit l'espace */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* Ajustements pour les mobiles (écrans de moins de 768px) */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem; /* Texte un peu plus petit sur mobile */
+    }
+    
+    nav ul {
+        display: none; /* Ici, il faudra plus tard un menu burger */
+    }
+
+    .officer-card {
+        margin: 0 10px; /* Un peu d'air sur les côtés */
+    }
+}
+/* --- LE STYLE DES CARTES --- */
+
+.officer-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden; /* Coupe l'image pour qu'elle suive l'arrondi de la carte */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* L'ombre qui crée l'effet de relief */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.officer-card:hover {
+    transform: translateY(-10px); /* Animation au survol */
+}
+
+/* On force toutes les images à avoir la même dimension */
+.officer-image {
+    width: 100%;
+    height: 300px; /* Hauteur fixe pour que tout soit aligné */
+    background-color: #f0f0f0;
+}
+
+.officer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recadre la photo sans la déformer */
+    display: block;
+}
+
+/* Espace pour le texte sous l'image */
+.officer-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.officer-info h3 {
+    font-size: 1.1rem;
+    color: #003366;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+.officer-info .role {
+    color: #d4af37; /* Couleur dorée pour le titre */
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+/* Style pour les petits logos email/linkedin */
+.officer-contact a {
+    color: #555;
+    margin: 0 8px;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.officer-contact a:hover {
+    color: #003366;
+}
+
+
+/* --- NAVBAR DE BASE --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-container-links {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end; /* Aligne tout à droite sur PC */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin-right: 30px;
+}
+
+.nav-links li { margin: 0 15px; }
+
+/* --- STYLE DES BOUTONS --- */
+.auth-buttons { display: flex; align-items: center; gap: 10px; }
+.btn-login { background: none; border: 1px solid #003366; color: #003366; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+.btn-signup { color: #003366; text-decoration: none; font-weight: 600; }
+.btn-join { background: #003366; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; }
+
+/* --- RESPONSIVE MOBILE (iPhone SE, etc.) --- */
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: #003366;
+        transition: 0.3s;
+    }
+
+    .nav-container-links {
+        position: fixed;
+        top: 70px;
+        right: -100%; /* Caché à droite */
+        flex-direction: column;
+        background: #fff;
+        width: 80%; /* Prend une partie de l'écran */
+        height: 100vh;
+        padding: 40px 20px;
+        transition: 0.4s;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        align-items: center;
+    }
+
+    .nav-container-links.active {
+        right: 0; /* Apparaît au clic */
+    }
+
+    .nav-links {
+        flex-direction: column;
+        text-align: center;
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .nav-links li { margin: 15px 0; }
+
+    .auth-buttons {
+        flex-direction: column; /* Boutons l'un sous l'autre */
+        width: 100%;
+        gap: 15px;
+    }
+
+    .auth-buttons button, .auth-buttons a {
+        width: 100%; /* Boutons pleine largeur sur mobile */
+        text-align: center;
+    }
+}
+
+/* Style pour la page Join */
+.join-hero {
+    background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), url('images/hero-bg.jpg');
+    background-size: cover;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.benefit-card {
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border-top: 5px solid #d4af37; /* Liseré doré */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.benefit-card i {
+    font-size: 3rem;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #003366;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn-primary.pro {
+    background: #d4af37;
+    color: #003366;
+    font-weight: bold;
+}
+
+.local-info {
+    background: #eef4f8;
+    padding: 20px;
+    border-left: 5px solid #003366;
+    margin-top: 40px;
+}
+
+/* Style du Logo */
+.logo-img {
+    height: 50px; /* Ajuste selon tes préférences */
+    width: auto;  /* Garde les proportions */
+    display: block;
+    transition: transform 0.3s;
+}
+
+.logo-img:hover {
+    transform: scale(1.05); /* Petit effet sympa au survol */
+}
+
+/* Ajustement pour Mobile (iPhone SE) */
+@media (max-width: 480px) {
+    .logo-img {
+        height: 40px; /* Un peu plus petit sur mobile pour laisser de la place au burger */
+    }
+}
+
+.visit-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: transparent;
+    color: #003366; /* Bleu SPE */
+    border: 1px solid #003366;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* --- HERO SECTION --- */
+.student-hero {
+    background: url('images/bg-students.jpg') center/cover no-repeat;
+    height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-overlay {
+    background: rgba(0, 51, 102, 0.7);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- UNIVERSITÉS --- */
+.uni-section { padding: 50px 0; }
+.section-title { text-align: center; color: #003366; margin-bottom: 30px; }
+
+.uni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.uni-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.uni-icon-box {
+    font-size: 3rem;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+/* --- PORTAIL COMMUNAUTAIRE --- */
+.community-portal {
+    position: relative;
+    margin-bottom: 50px;
+    min-height: 400px;
+}
+
+.portal-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    /* Flou par défaut      filter: blur(2px); */
+  
+}
+
+/* Overlay de verrouillage */
+.auth-blur-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.auth-modal {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.auth-modal i { font-size: 3rem; color: #d4af37; margin-bottom: 15px; }
+
+.btn-auth {
+    background: #003366;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- CHAT & MENTORAT --- */
+.chat-container, .mentor-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.portal-header {
+    background: #003366;
+    color: white;
+    padding: 15px;
+}
+
+.chat-box { height: 250px; padding: 20px; background: #f9f9f9; overflow-y: auto; }
+.msg-bubble { background: #e9ecef; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+
+.chat-input-bar { display: flex; padding: 15px; gap: 10px; border-top: 1px solid #eee; }
+.chat-input-bar input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+
+.mentor-body { padding: 30px; text-align: center; }
+.mentor-status { margin: 20px 0; padding: 10px; background: #eee; border-radius: 5px; }
+.btn-mentor-apply { background: #d4af37; color: #003366; border: none; padding: 12px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
+
+@media (max-width: 768px) {
+    .portal-content { grid-template-columns: 1fr; }
+}
+
+
+
+
+/* ==========================================================================
+   SYSTÈME DE MODALE (BULLE MENTORAT)
+   ========================================================================== */
+
+/* 1. L'arrière-plan sombre qui couvre tout l'écran */
+.modal-overlay {
+    display: none; /* Masqué par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* Noir transparent */
+    z-index: 9999; /* Toujours au-dessus de tout */
+    backdrop-filter: blur(4px); /* Effet de flou derrière la bulle */
+}
+
+/* 2. La bulle blanche (Le contenu) */
+.modal-content {
+    position: relative;
+    background: #ffffff;
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto; /* Centrage vertical/horizontal */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Bouton de fermeture (X) */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-modal:hover { color: #333; }
+
+/* 4. Les options de choix (Boutons Pro / Étudiant) */
+.modal-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.opt-btn {
+    flex: 1;
+    background: #f8f9fa;
+    border: 2px solid #004a99;
+    border-radius: 12px;
+    padding: 20px 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.opt-btn i { font-size: 24px; color: #004a99; }
+.opt-btn span { font-weight: bold; color: #004a99; display: block; }
+.opt-btn small { color: #666; font-size: 0.75rem; }
+
+/* Style spécifique pour le bouton Étudiant (Jaune) */
+.opt-btn.student { border-color: #ffb400; }
+.opt-btn.student i, .opt-btn.student span { color: #ffb400; }
+
+.opt-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: #ffffff;
+}
+
+/* 5. Le Formulaire à l'intérieur de la modale */
+.btn-back-modal {
+    background: none;
+    border: none;
+    color: #004a99;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mentorship-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.mentorship-form input, 
+.mentorship-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-sizing: border-box; /* Évite que ça dépasse */
+}
+
+.mentorship-form input:focus {
+    border-color: #004a99;
+    outline: none;
+}
+
+/* 6. Le bouton déclencheur (sur la page Students) */
+.btn-mentor-apply {
+    background-color: #004a99;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-mentor-apply:hover {
+    background-color: #003366;
+    transform: scale(1.02);
+}
+
+.mentor-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 20px;
+    max-height: 400px; /* Scroll interne si trop de mentors */
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.mentor-card-mini {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fff;
+    transition: 0.2s;
+}
+
+.mentor-card-mini:hover {
+    border-color: #004a99;
+    background: #f0f7ff;
+}
+
+.mentor-avatar {
+    width: 50px;
+    height: 50px;
+    background: #004a99;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.mentor-info {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.mentor-info h4 { margin: 0; font-size: 1rem; color: #333; }
+.mentor-info p { margin: 2px 0; font-size: 0.8rem; color: #666; }
+
+.btn-select-mentor {
+    background: #004a99;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.mentor-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-tag {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    background: #eee;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.filter-tag.active { background: #004a99; color: white; }
+
+
+/* --- Style du Formulaire d'Inscription Mentor --- */
+
+.mentor-form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-top: 6px solid #004a99;
+}
+
+.mentor-form-container h2 {
+    color: #004a99;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.mentor-form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.mentor-form-container input[type="text"],
+.mentor-form-container input[type="email"],
+.mentor-form-container textarea,
+.mentor-form-container input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box; /* Assure que le padding ne casse pas la largeur */
+    font-size: 1rem;
+}
+
+.mentor-form-container textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.mentor-form-container button {
+    width: 100%;
+    padding: 14px;
+    background-color: #004a99;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mentor-form-container button:hover {
+    background-color: #00366d;
+}
+
+/* Style pour les inputs de type fichier pour les rendre plus lisibles */
+.mentor-form-container input[type="file"] {
+    padding: 8px;
+    background: #f9f9f9;
+}
+
+/* Container de la page d'inscription */
+.registration-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box; /* Important pour ne pas dépasser la largeur */
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: #004a99;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background: #003670;
+}
+
+/* --- DESIGN ADMIN --- */
+.admin-layout { display: flex; min-height: 100vh; }
+.sidebar { width: 250px; background: #1e293b; color: white; padding: 20px; }
+.sidebar li { padding: 15px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; }
+.sidebar li:hover { background: #334155; }
+
+.content { flex: 1; padding: 40px; background: #f8fafc; }
+.data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.data-table th, .data-table td { padding: 15px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+
+.data-table img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; transition: 0.3s; }
+.data-table img:hover { transform: scale(1.5); }
+
+.badge { padding: 5px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; }
+.badge.actif { background: #dcfce7; color: #166534; }
+.badge.refuse { background: #fee2e2; color: #991b1b; }
+.hidden { display: none!important; }
+.btn-v{
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-r {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-v:hover, .btn-r:hover {
+    opacity: 0.8;
+}
+
+.logout-btn{
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#mentors-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+:root {
+    --spe-blue: #003399; /* Ton bleu SPE */
+    --success-green: #28a745;
+}
+
+.collaboration-dashboard {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.duo-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px fainted #eee;
+    padding-bottom: 30px;
+}
+
+.user-profile { text-align: center; }
+.avatar {
+    width: 70px; height: 70px;
+    background: var(--spe-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 10px;
+}
+
+.progress-bar-container {
+    height: 12px; background: #e9ecef;
+    border-radius: 10px; margin: 15px 0; overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--spe-blue), #0056b3);
+    transition: width 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+.goal-card {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex; align-items: center;
+    transition: transform 0.2s;
+}
+.goal-card:hover { transform: translateX(5px); }
+
+
+.dashboard-container { padding: 40px 5%; max-width: 1200px; margin: auto; }
+.requests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+
+.card-demande {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: 5px solid #007bff;
+    transition: transform 0.3s;
+}
+
+.card-demande h3 { color: #333; margin-bottom: 10px; }
+.card-demande p { font-size: 0.9rem; color: #666; margin-bottom: 20px; line-height: 1.4; }
+
+.actions-demande { display: flex; gap: 10px; }
+.btn-accepter { background: #28a745; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; flex: 1; font-weight: bold; }
+.btn-refuser { background: #dc3545; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; flex: 1; font-weight: bold; }
+.btn-logout { background: #333; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+
+#form-event input, #form-event textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+/* Style de base pour tous les badges */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+/* Couleurs selon le statut (en minuscule car on utilise .toLowerCase()) */
+
+/* Cas : ACTIF */
+.status-actif {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+/* Cas : EN ATTENTE (ou en_attente / en_a) */
+.status-en-attente, .status-en_attente, .status-en_a {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffe0b2;
+}
+
+/* Cas : REFUSE */
+.status-refuse, .status-refusé {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+/* Grille pour les binômes */
+.relationships-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Carte de binôme */
+.relationship-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-top: 4px solid #007bff; /* Petite barre bleue en haut */
+    transition: transform 0.3s ease;
+}
+
+.relationship-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Header de la carte (Noms) */
+.rel-names {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.rel-names strong {
+    color: #333;
+}
+
+/* Barre de progression */
+.progress-wrapper {
+    margin-bottom: 10px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.progress-container {
+    background: #f0f0f0;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #5ddc7a); /* Dégradé vert */
+    width: 0%; /* Sera mis à jour par le JS */
+    transition: width 0.8s ease-in-out;
+}
+
+/* Footer (Actions/Détails) */
+.rel-footer {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.btn-view-details {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.btn-view-details:hover {
+    background: #e2e6ea;
+}
+
+/* Container des photos */
+.rel-header-photos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Groupe Photo + Nom */
+.photo-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 40%;
+}
+
+/* L'avatar rond */
+.rel-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; /* Rend l'image ronde */
+    object-fit: cover; /* Recadre proprement */
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+/* Bordure verte pour le mentor, bleue pour le mentee */
+.mentor-group .rel-avatar {
+    border-color: #28a745;
+}
+
+.mentee-group .rel-avatar {
+    border-color: #007bff;
+}
+
+/* Le séparateur du milieu */
+.vs-divider {
+    font-size: 1.8rem;
+    color: #888;
+    margin-top: -20px;
+}
+
+/* Noms des membres */
+.photo-group strong {
+    font-size: 1rem;
+    color: #333;
+}
+
+.photo-group small {
+    color: #777;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.btn-delete-small {
+    background: none;
+    border: none;
+    color: #dc3545; /* Rouge alerte */
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.btn-delete-small:hover {
+    transform: scale(1.2); /* S'agrandit légèrement au survol */
+    color: #a71d2a;
+}
+
+/* Style pour la section Statistiques */
+#stats-section .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    border-top: 4px solid #004a99; /* Bleu SPE */
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card i {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.stat-card h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.stat-card .number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #004a99;
+}
+
+/* Une couleur différente par carte pour mieux distinguer */
+.stat-card:nth-child(1) { border-top: 5px solid #28a745;} /* Vert pour Mentors */
+.stat-card:nth-child(2) {  border-top: 5px solid #007bff;} /* Bleu pour le mentee*/
+.stat-card:nth-child(3) { border-top: 5px solid #ffc107; } /* Jaune pour Binômes */
+
+/* Conteneur pour aligner les boutons horizontalement */
+.actions-group {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* Style de base pour tous les petits boutons du tableau */
+.btn-approve, .btn-reject, .btn-delete-small, .btn-info {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 35px;
+}
+
+/* Bouton Accepter (Vert) */
+.btn-approve {
+    background-color: #e6f4ea;
+    color: #1e7e34;
+    border: 1px solid #c3e6cb;
+}
+.btn-approve:hover {
+    background-color: #1e7e34;
+    color: white;
+}
+
+/* Bouton Refuser (Rouge) */
+.btn-reject {
+    background-color: #fce8e6;
+    color: #d93025;
+    border: 1px solid #fad2cf;
+}
+.btn-reject:hover {
+    background-color: #d93025;
+    color: white;
+}
+
+/* Bouton Lire la Motivation (Bleu SPE) */
+.btn-info {
+    background-color: #e8f0fe;
+    color: #004a99;
+    border: 1px solid #d2e3fc;
+}
+.btn-info:hover {
+    background-color: #004a99;
+    color: white;
+}
+
+/* Bouton Supprimer/Archive (Gris) */
+.btn-delete-small {
+    background-color: #f1f3f4;
+    color: #5f6368;
+    border: 1px solid #dadce0;
+}
+.btn-delete-small:hover {
+    background-color: #5f6368;
+    color: white;
+}
+
+/* Amélioration de la boîte blanche */
+.modal-content {
+    background-color: #fcfcfc;
+    margin: 5% auto;
+    border-radius: 16px; /* Bords plus arrondis */
+    width: 45%;
+    overflow: hidden; /* Pour que le header épouse les bords arrondis */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2); /* Ombre plus profonde */
+    border: none;
+    animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* En-tête avec un léger dégradé bleu (Style SPE/BGFIBank) */
+.modal-header {
+    background: linear-gradient(135deg, #004a99 0%, #002a5a 100%);
+    padding: 30px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* La photo avec une bordure blanche pour la faire ressortir */
+#modalPhotoContainer img, 
+#modalPhotoContainer .photo-placeholder {
+    width: 90px;
+    height: 90px;
+    border: 4px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Style pour le texte dans l'en-tête */
+#modalNom {
+    font-size: 1.5rem;
+    margin: 5px 0;
+    font-weight: 700;
+}
+
+#modalExpertise {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Zone de texte de motivation */
+.modal-body {
+    padding: 30px;
+    background: white;
+}
+
+.modal-body h3 {
+    color: #004a99;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#motivationText {
+    background: #f8f9fa;
+    padding: 20px;
+    border-left: 5px solid #004a99;
+    border-radius: 8px;
+    font-style: italic;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.media-hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* --- 1. La Grille Principale (news-grid) --- */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+    gap: 30px; /* Espace généreux entre les cartes */
+    padding: 20px;
+}
+
+/* --- 2. La Carte (news-card) avec l'effet "Flottant" --- */
+.news-card {
+    background: #fff;
+    border-radius: 8px; /* Un petit arrondi pour la modernité */
+    overflow: hidden; /* Pour que l'image ne dépasse pas des arrondis */
+    
+    /* C'est ici qu'on gère l'effet flottant (l'ombre) */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Ombre douce par défaut */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+    
+    display: flex;
+    flex-direction: column; /* Image en haut, texte en bas */
+}
+
+/* Effet au survol (la carte "se lève") */
+.news-card:hover {
+    transform: translateY(-5px); /* La carte monte légèrement */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* L'ombre devient plus forte */
+}
+
+/* --- 3. L'Image dans la carte --- */
+.news-card img {
+    width: 100%;
+    height: 200px; /* Fixe une hauteur pour l'uniformité comme chez Baker Hughes */
+    object-fit: cover; /* L'image remplit le cadre sans être déformée */
+    border-bottom: 1px solid #eee; /* Petite séparation discrète */
+}
+
+/* --- 4. Le Contenu Texte (news-content) --- */
+.news-content {
+    padding: 20px; /* Espace généreux autour du texte */
+    flex-grow: 1; /* Le texte prend tout l'espace restant */
+}
+
+/* --- 5. La Typographie style Baker Hughes --- */
+
+/* Le Sur-titre (ex: SPE NEWS) */
+.news-content .category {
+    text-transform: uppercase;
+    color: #004a99; /* Vert SPE ou Baker Hughes */
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Le Titre de l'article */
+.news-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.4;
+    /* Pour limiter à 2 lignes de titre maximum */
+    display: -webkit-box;
+    
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* La Date */
+.news-content .date {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Le début du texte */
+.news-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    /* Pour limiter à 3 lignes de texte maximum */
+    display: -webkit-box;
+    
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Style des boutons de filtre */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    border: 1px solid #004a99; /* bLEU SPE */
+    background: transparent;
+    color:#004a99;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background:#004a99;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 103, 71, 0.3);
+}
+
+/* On s'assure que la grille est bien alignée */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    min-height: 400px; /* Évite que la page saute quand on filtre */
+}
+
+/*animation pour les filtres des news*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.news-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/*style de la table des médias dans le bord de l'admin*/
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+.admin-table th, .admin-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.admin-thumb {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.badge {
+    background: #e8f5e9;
+    color: #004a99;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.btn-edit { background: #ffa000; color: white; border: none; padding: 5px 10px; cursor: pointer; margin-right: 5px; }
+.btn-delete { background: #d32f2f; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+
+.admin-date {
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/*style pour la modale de modification des news*/
+.modal {
+    display: none; 
+    position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background: white; margin: 10% auto; padding: 20px;
+    width: 50%; border-radius: 8px;
+}
+.close { float: right; cursor: pointer; font-size: 24px; }
+.btn-save { background: #004a99; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; margin-top: 10px; }
+#editForm input, #editForm textarea, #editForm select { width: 100%; margin-bottom: 10px; padding: 8px; }
+
+
+
+
+
+
+/* ==========================================
+   RESPONSIVE - TOUS ÉCRANS
+   ========================================== */
+
+/* Tablette (768px - 1024px) */
+@media (max-width: 1024px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .filter-container {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}
+
+/* Mobile large (480px - 768px) */
+   @media (max-width: 768px) {
+
+    #nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: #0d1b4b;
+        padding: 1rem;
+        z-index: 999;
+    }
+
+    #nav-menu.active {
+        display: flex !important;
+    }
+
+    #nav-menu .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    #nav-menu .nav-links li a {
+        color: white;
+        display: block;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    #nav-menu .auth-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    #nav-menu .auth-buttons button {
+        width: 100%;
+        padding: 0.75rem;
+    }
+    
+
+    /* Dropdown Membres */
+    .dropdown-content {
+        position: static !important;
+        background: rgba(255,255,255,0.1) !important;
+        box-shadow: none !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 6px !important;
+        display: none;
+    }
+
+    .dropdown:hover .dropdown-content,
+    .dropdown.active .dropdown-content {
+        display: block !important;
+    }
+
+    .dropdown-content a {
+        color: rgba(255,255,255,0.85) !important;
+        padding: 0.4rem 0 !important;
+        display: block !important;
+    }
+
+    /* Bouton Sign-up visible */
+    .btn-signup, 
+    button[onclick="openSignupModal()"] {
+        display: block !important;
+        width: 100% !important;
+        margin-top: 0.5rem !important;
+        padding: 0.75rem !important;
+    }
+ }
+@media (max-width: 768px) {
+    #nav-menu {
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+    }
+}
+
+    /* HERO / TITRES */
+    h1 { font-size: 1.4rem !important; }
+    h2 { font-size: 1.2rem !important; }
+
+    /* NEWS GRID */
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .news-card img { height: 160px; }
+    .news-content { padding: 15px; }
+    .news-content h3 { font-size: 1rem; }
+    .news-content p { font-size: 0.85rem; }
+
+    /* FILTRES */
+    .filter-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 15px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .filter-container::-webkit-scrollbar { display: none; }
+    .filter-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 8px 16px;
+        font-size: 0.82rem;
+    }
+
+    /* ADMIN LAYOUT */
+    .admin-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    .content {
+        padding: 1rem;
+    }
+
+    /* DASHBOARD MENTOR/MENTEE */
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+    .requests-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* TABLES */
+    .admin-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* MODALES */
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 1.5rem;
+    }
+
+    /* FOOTER */
+    footer, .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+
+/* Mobile petit (max 480px) */
+@media (max-width: 480px) {
+    .news-grid { padding: 8px; gap: 12px; }
+    .news-card img { height: 140px; }
+    .filter-btn { padding: 6px 12px; font-size: 0.78rem; }
+
+    /* Cartes dashboard */
+    .card-demande, .card-mentee {
+        padding: 1rem;
+    }
+
+    /* Boutons */
+    .btn-save, .btn-send, .btn-gerer {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    /* Stats admin */
+    .stats-grid, .stat-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Grand écran (1440px+) */
+@media (min-width: 1440px) {
+    .news-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .container, .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+
+.news-detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.news-detail-card {
+    background: white;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.voir-plus {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: #0054a6;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.voir-plus:hover { text-decoration: underline; }
+
+#detail-contenu {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+.news-detail-card {
+    overflow: hidden;
+    max-width: 800px;
+}
+
+
+/* CONTAINER PRINCIPAL POUR LE CAROUSSEL DE LA GALERIE */
+.gallery-section {
+    width: 100%;
+    padding: 20px 0;
+    background: #f8fafc;
+}
+
+.gallery-container {
+    position: relative;
+    max-width: 1200px; /* Aligné avec ton menu */
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(13, 27, 75, 0.2);
+}
+
+/* LE SLIDER */
+.gallery-slider {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider-item {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slider-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7); /* Pour faire ressortir le texte */
+}
+
+/* LÉGENDE SUR L'IMAGE */
+.slider-caption {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    color: white;
+    z-index: 5;
+    animation: fadeInContent 0.8s ease;
+}
+
+.slider-caption h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+/* BOUTONS DE NAVIGATION */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.slider-nav:hover {
+    background: var(--blue); /* Ton bleu SPE */
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-nav.prev { left: 20px; }
+.slider-nav.next { right: 20px; }
+
+/* POINTS DE NAVIGATION (DOTS) */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: var(--gold); /* Ton jaune/or accent */
+    width: 30px;
+    border-radius: 10px;
+}
+
+@keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .gallery-container { height: 250px; margin: 0 15px; }
+    .slider-caption h2 { font-size: 1.2rem; }
+}
+
+
+/*photos publiées _ vu de l'admin*/
+.admin-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 15px 0;
+}
+
+.admin-photo-item {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+
+.admin-photo-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.admin-photo-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.btn-delete {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background: #cc0000;
+}
+
+#liste-photos-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-height: 100px;
+    background: #fdfdfd;
+    padding: 15px;
+}
+
+.admin-photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 0;
+    min-height: 50px;
+}
+
+/*bouton voir la galerie du site*/
+.btn-gallery {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: #2c3e50; /* Bleu foncé pro */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.btn-gallery:hover {
+    background-color: #34495e;
+    color: #ecf0f1;
+    text-decoration: underline;
+}
+
+.btn-gallery i {
+    font-size: 1.1rem;
+}
+
+/*Style de la page galerie du site*/
+/* Grille de la galerie */
+.galerie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Carte de chaque photo */
+.galerie-item {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.galerie-item:hover {
+    transform: translateY(-10px);
+}
+
+.galerie-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.galerie-info {
+    padding: 15px;
+    border-top: 3px solid #2c3e50; /* Couleur pro SPE */
+}
+
+.galerie-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.galerie-info p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+/*Syle de la modale Photo*/
+/* Style du Modal (Arrière-plan) */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 1000; /* Passe au-dessus de tout */
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9); /* Noir très transparent */
+    cursor: zoom-out; /* Indique qu'on peut cliquer pour fermer */
+}
+
+/* Image à l'intérieur du modal */
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh; /* 85% de la hauteur de l'écran maximum */
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+/* Animation d'apparition */
+.modal-content, #caption-modal {
+    animation-name: zoom;
+    animation-duration: 0.4s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* Bouton Fermer (X) */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #bbb;
+}
+
+/* Texte sous l'image */
+#caption-modal {
+    margin: auto;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: white;
+    padding: 15px 0;
+    font-size: 1.2rem;
+}
+
+
+
+/* =========================================
+   STYLE SPÉCIFIQUE À LA MESSAGERIE
+   ========================================= */
+
+/* Carte principale contenant le formulaire */
+.card-messagerie {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Ombre douce */
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- Zone des Destinataires --- */
+.destinataires-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fbfbfb;
+    margin-bottom: 25px;
+}
+
+.destinataires-container label strong {
+    color: #003366;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Barre "Tout sélectionner" */
+.select-all-bar {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.select-all-bar label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Grille défilante des membres */
+.membres-scroll-list {
+    max-height: 250px; /* Hauteur max avant de scroller */
+    overflow-y: auto;
+    padding-right: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Grille responsive */
+    gap: 15px;
+}
+
+/* Style de chaque item membre */
+.membre-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.membre-item:hover {
+    background-color: #f0f8ff; /* Bleu très pâle au survol */
+    border-color: #00a8e8;
+}
+
+.membre-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.membre-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.membre-email {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* Customisation des Checkboxes */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #003366; /* Couleur SPE */
+    cursor: pointer;
+}
+
+/* --- Zone de Rédaction --- */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #003366;
+}
+
+.input-group input[type="text"],
+.input-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #00a8e8;
+    box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.1);
+}
+
+/* --- Bouton d'action --- */
+.btn-envoyer {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s, transform 0.1s;
+    width: 100%; /* Bouton toute largeur */
+    justify-content: center;
+}
+
+.btn-envoyer:hover {
+    background-color: #0055a4;
+}
+
+.btn-envoyer:active {
+    transform: scale(0.98); /* Petit effet d'enfoncement */
+}
+
+/* Personnalisation de la barre de défilement (scrollbar) */
+.membres-scroll-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.membres-scroll-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.membres-scroll-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.membres-scroll-list::-webkit-scrollbar-thumb:hover {
+    background: #003366;
+}
+
+
+
+

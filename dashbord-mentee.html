@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Espace - SPE_mentee</title>
+    <link rel="stylesheet" href="mentees.css">
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo"> SPE Congo</div>
+    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="avatar" id="mentee-avatar">E</div>
+    <div>
+        <h1 id="mentee-nom">Chargement...</h1>
+        <p id="mentee-email">—</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- VUE LISTE DES RELATIONS -->
+    <div id="vue-relations">
+        <p class="section-title">Mes binômes</p>
+        <div id="liste-relations">
+            <p class="empty">Chargement...</p>
+        </div>
+    </div>
+
+    <!-- VUE DÉTAIL D'UNE RELATION -->
+    <div id="detail-panel" style="display:none;">
+        <button class="btn-back" onclick="retourListe()">  Retour à mes binômes</button>
+
+        <!-- MENTOR -->
+        <div class="card">
+            <h3> Mon Mentor</h3>
+            <div class="mentor-info">
+                <div class="rel-avatar" id="detail-mentor-avatar">M</div>
+                <div class="mentor-details">
+                    <strong id="detail-mentor-nom">—</strong>
+                    <span id="detail-mentor-poste">—</span><br>
+                    <a id="detail-mentor-email" href="#">—</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROGRESSION -->
+        <div class="card">
+            <h3> Progression</h3>
+            <div class="progress-header">
+                <span>Objectifs atteints</span>
+                <span><span id="detail-pct">0</span>%</span>
+            </div>
+            <div class="progress-bg">
+                <div class="progress-fill" id="detail-progress-fill"></div>
+            </div>
+            <div class="progress-stats">
+                <div class="stat">
+                    <div class="stat-num" id="stat-total">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="stat-termines">0</div>
+                    <div class="stat-label">Atteints</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="stat-restants">0</div>
+                    <div class="stat-label">Restants</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OBJECTIFS -->
+        <div class="card">
+            <h3>Mes Objectifs</h3>
+            <div id="felicitations-box"></div>
+            <div id="liste-objectifs">
+                <p class="empty">Chargement...</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="mentee.js"></script>
+</body>
+</html>

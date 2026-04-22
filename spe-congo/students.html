@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Étudiants - SPE Congo Section 117</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html"> <img src="images/WhatsApp Image 2026-02-14 at 15.38.44.jpeg" alt="SPE CONGO Section Logo" class="logo-img"></a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="nav-container-links" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Membres <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#partners">Partenaires</a>
+                            <a href="membres.html">Équipe Congo</a>
+                        </div>
+                    </li>
+                    <li><a href="calendrier.html">Calendrier</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="students.html">Étudiants</a></li>
+                    
+                </ul>
+
+                <div class="auth-buttons">
+                    <button onclick="openModal()" class="btn-login">Log In</button>
+                    <button onclick="openSignupModal()" class="btn-signup">Sign-up</button>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero hero-small">
+        <div class="hero-content">
+           
+            <h2><p>Espace communautaire</p></h2>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <section class="uni-section">
+    <h2 class="section-title">Universités Membres</h2>
+    <div class="uni-grid">
+        
+        <div class="uni-card">
+            <div class="uni-icon-box">
+                <img src="images/schools/2i.png" alt="Logo 2i" class="uni-logo">
+            </div>
+            <h3>2i</h3>
+            <p>Pointe-Noire, Congo</p>
+        </div>
+
+        <div class="uni-card">
+            <div class="uni-icon-box">
+                <img src="images/schools/A.png" alt="Logo A" class="uni-logo">
+            </div>
+            <h3>Academie de tchenologie et de management</h3>
+            <p>Pointe-Noire, Congo</p>
+        </div>
+
+        <div class="uni-card">
+            <div class="uni-icon-box">
+                <img src="images/schools/DGC.png" alt="Logo DGC" class="uni-logo">
+            </div>
+            <h3>DGC</h3>
+            <p>Pointe-Noire, Congo</p>
+        </div>
+
+        <div class="uni-card">
+            <div class="uni-icon-box">
+                <img src="images/schools/ecam.png" alt="Logo ecam" class="uni-logo">
+            </div>
+            <h3>ecam</h3>
+            <p>Pointe-Noire, Congo</p>
+        </div>
+
+         <div class="uni-card">
+            <div class="uni-icon-box">
+                <img src="images/schools/ucac_icam.jpg" alt="Logo ucac_icam" class="uni-logo">
+            </div>
+            <h3>UCAC-ICAM</h3>
+            <p>Pointe-Noire, Congo</p>
+        </div>
+
+    </div>
+</section>
+
+ <div class="mentor-header">
+        <h3>Programme de Mentorat de la SPE CONGO</h3>
+    </div>
+
+        <section class="community-portal">
+            <div class="mentor-container">
+   
+    <div class="mentor-body">
+        <p>Rejoignez notre réseau d'excellence pour partager ou acquérir de l'expertise au sein de la SPE Congo.</p>
+        
+        <button type="button" class="btn-mentor-apply" onclick="openMentorshipModal()">
+            <i class="fas fa-paper-plane"></i> Demander un Mentor / Devenir Mentor
+        </button>
+
+        <a href="liste_mentors.html" class="btn-primary">Consulter la liste des mentors</a>
+        
+    </div>
+</div>
+
+<div id="auth-overlay" class="auth-blur-overlay">
+    <div class="auth-modal"> <i class="fas fa-lock"></i> <h3>Veuillez vous connecter pour acceder au programme </h3>
+     <button onclick="openModal()" class="btn-auth">Log In</button></div>
+
+</div>
+
+<div id="mentorshipModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeMentorshipModal()">&times;</span>
+        
+        <div id="modal-selection">
+            <h3>Bienvenue dans le programme</h3>
+            <p style="color: #666; margin-bottom: 20px;">Veuillez sélectionner votre profil pour continuer :</p>
+
+         <div class="modal-options" style="display: flex; gap: 15px; margin-top: 20px;">
+             <a href="insc_mentors.html" class="opt-btn" style="flex: 1; text-decoration: none; padding: 20px; border: 1px solid #004a99; border-radius: 8px; text-align: center; color: #004a99;">
+                <i class="fas fa-user-tie" style="font-size: 1.5rem; display: block; margin-bottom: 10px;"></i>
+                <strong>Professionnel</strong>
+                <p style="font-size: 0.8rem; margin: 5px 0 0;">Devenir Mentor</p>
+             </a>
+
+             <a href="insc_mentee.html" class="opt-btn" style="flex: 1; text-decoration: none; padding: 20px; border: 1px solid #004a99; border-radius: 8px; text-align: center; color: #004a99;">
+                <i class="fas fa-user-graduate" style="font-size: 1.5rem; display: block; margin-bottom: 10px;"></i>
+                <strong>Étudiant</strong>
+                <p style="font-size: 0.8rem; margin: 5px 0 0;">Trouver un Mentor</p>
+             </a> 
+           </div>
+            
+            
+        </div>
+
+    </div>
+</div>
+        </section>
+    </main>
+
+        <footer>
+    <div class="footer-container">
+        <div class="footer-info">
+            <img src="images/spe_footer.jpg" alt="Logo SPE">
+            <p>La SPE Congo </p>
+            <p>Solutions. People. Energy.</p>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Liens Rapides</h3>
+            <ul id="list-style">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="calendrier.html">Événements</a></li>
+                <li><a href="membres.html">Étudiants</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact</h3>
+          
+            <p><i class="fas fa-map-marker-alt"></i> Pointe-Noire, République du Congo</p>
+            <p><i class="fas fa-envelope"></i> 
+                <a href="mailto:congosection@spemail.org" class="footet-email">congosection@spemail.org</a>
+            </p>
+
+            <div class="social-icons">
+                  <br>
+            <p>Nous suivre sur:</p>
+            <br>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 SPE Congo. Tous droits réservés.</p>
+    </div>
+</footer>
+
+          <!--Modal du log in-->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+            <input type="password" id="login-password" placeholder="Mot de passe" required>
+            <button type="submit" class="btn-submit">Entrer</button>
+        </form>
+        <p id="error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+<!--Modal du sign up-->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeSignupModal()">&times;</span>
+        <h2>Créer mon compte</h2>
+        <form id="signup-form">
+            <input type="text" id="signup-username" placeholder="Nom d'utilisateur" required>
+            <input type="email" id="signup-email" placeholder="Email (Professionnel ou Étudiant)" required>
+            <input type="password" id="signup-password" placeholder="Mot de passe" required>
+            <input type="password" id="signup-confirm" placeholder="Confirmer le mot de passe" required>
+            <button type="submit" class="btn-submit">Créer mon compte</button>
+            <a href="https://www.spe.org/en/join/" target="_blank" class="btn-primary">Rejoindre la SPE</a>
+        </form>
+        <p id="signup-error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

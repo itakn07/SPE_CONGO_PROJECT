@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Mentor - SPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="mentors.css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo"> SPE Congo</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><button onclick="logout()" class="btn-logout">Déconnexion</button></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="welcome-section">
+    <h1>Bienvenue sur votre espace, <span id="mentor-display-name">Cher Mentor</span> </h1>
+    <p>Gérez vos demandes de mentorat et suivez vos étudiants.</p>
+</div>
+
+<main class="dashboard-container">
+
+    <section class="requests-section">
+        <div class="section-header">
+            <i class="fas fa-user-plus"></i>
+            Demandes en attente
+        </div>
+        <div id="liste-demandes" class="requests-grid">
+            <p class="loading">Chargement des demandes...</p>
+        </div>
+    </section>
+
+    <section class="active-mentees-section">
+        <div class="section-header">
+            <i class="fas fa-users"></i>
+            Mes Étudiants (Binômes actifs)
+        </div>
+        <div id="liste-mentees-actifs" class="requests-grid">
+            <p class="loading">Chargement de vos mentees...</p>
+        </div>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

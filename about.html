@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SPE Congo Section 117</title>
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+     <header>
+     <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"> <img src="images/WhatsApp Image 2026-02-14 at 15.38.44.jpeg" alt="SPE CONGO Section Logo" class="logo-img"></a>
+           
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-container-links" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Membres <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="partners.html">Partenaires</a>
+                        <a href="membres.html">Équipe Congo</a>
+                    </div>
+                </li>
+                <li><a href="calendrier.html">Calendrier</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="students.html">Étudiants</a></li>
+              
+            </ul>
+
+            <div class="auth-buttons">
+                <button onclick="openModal()" class="btn-login">Log In</button>
+                <button onclick="openSignupModal()" class="btn-signup">Sign-up</button>
+              
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <section class="hero hero-small">
+        <div class="hero-content">
+            
+            
+            <h2>Promouvoir l'excellence technique et le partage des connaissances au sein de l'indusrtie énergétique congolaise</h2>
+        </div>
+    </section>
+
+    <main class="container" style="padding: 80px 20px;">
+        <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+            
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="color: var(--spe-blue); margin-bottom: 20px; font-size: 2.5rem;">Notre identité</h2>
+                <p>La <strong>Section Congo</strong> de la  <strong>Society of Petroleum Engineers (SPE)</strong> est l'antenne officielle représenatnt le bassin du Congo au sein de cette organisation mondiale de premier plan.</p>
+                <p>Notre mission fondamentale est de collecter, diffuser et échanger des connaissances techniques concernant l'exploration, le développement et la production de ressorces pétrolières et gazières.</p>
+                <br>
+                <p>En tant que plateforme d'échange, nous oeuvrons pour le renforcement des capacités professionnelles et des étudiants congolais, garantissant uen intégration des meilleures pratiques mondiales et des innovations technologiques pour un développemnet énergetique durable et responsable.</p>
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <img src="images/SPE_congo.jpg" alt="Equipe SPE" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+
+        <div class="services-grid" style="margin-top: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div class="service-card" style="background: #fff; padding: 30px; border-radius: 8px; border-top: 5px solid var(--spe-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <h3>Développment technique</h3>
+                <br>
+                <p>Soutenir l'optimisation des infrastructures énergétiques à travers le partage des standards internationaux et de solutions d'ingénierie innovantes adaptées aux réalités locales.</p>
+            </div>
+            <div class="service-card" style="background: #fff; padding: 30px; border-radius: 8px; border-top: 5px solid var(--spe-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <h3>Engagement HSE & Durabilité</h3>
+                <br>
+                <p>Promouvoir une culture de sécurité rigoureuse(Hygiène, Sécurité, Environnement) visant à minimiser les risques opérationnels et à protéger les écosystèmes du bassin du Congo .</p>
+            </div>
+            <div class="service-card" style="background: #fff; padding: 30px; border-radius: 8px; border-top: 5px solid var(--spe-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <h3>Transfert  de compétences</h3>
+                <br>
+                <p>Faciliter l'accès à des ressorces techniques de pointe, des webinaires et des certifications pour soutenir l'ascension professionnelle des ingénieurs et cadres du secteur.</p>
+            </div>
+        </div>
+    </main>
+
+        <footer>
+    <div class="footer-container">
+        <div class="footer-info">
+            <img src="images/spe_footer.jpg" alt="Logo SPE">
+            <p>La SPE Congo </p>
+            <p>Solutions. People. Energy.</p>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Liens Rapides</h3>
+            <ul id="list-style">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="calendrier.html">Calendrier</a></li>
+                <li><a href="membres.html">Étudiants</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact</h3>
+          
+            <p><i class="fas fa-map-marker-alt"></i> Pointe-Noire, République du Congo</p>
+            <p><i class="fas fa-envelope"></i> 
+                <a href="mailto:congosection@spemail.org" class="footet-email">congosection@spemail.org</a>
+            </p>
+
+            <div class="social-icons">
+                  <br>
+            <p>Nous suivre sur:</p>
+            <br>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 SPE Congo. Tous droits réservés.</p>
+    </div>
+</footer>
+
+
+    <!--Modal du log in-->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+            <input type="password" id="login-password" placeholder="Mot de passe" required>
+            <button type="submit" class="btn-submit">Entrer</button>
+        </form>
+        <p id="error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+<!--Modal du sign up-->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeSignupModal()">&times;</span>
+        <h2>Créer mon compte</h2>
+        <form id="signup-form">
+            <input type="text" id="signup-username" placeholder="Nom d'utilisateur" required>
+            <input type="email" id="signup-email" placeholder="Email (Professionnel ou Étudiant)" required>
+            <input type="password" id="signup-password" placeholder="Mot de passe" required>
+            <input type="password" id="signup-confirm" placeholder="Confirmer le mot de passe" required>
+            <button type="submit" class="btn-submit">Créer mon compte</button>
+            <a href="https://www.spe.org/en/join/" target="_blank" class="btn-primary">Rejoindre la SPE</a>
+        </form>
+        <p id="signup-error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+   
+</body>
+</html>

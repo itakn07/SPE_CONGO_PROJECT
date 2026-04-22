@@ -1,0 +1,65 @@
+:root {
+    --navy: #0d1b4b;
+    --accent: #3b82f6;
+    --light: #f1f5f9;
+}
+
+body { font-family: 'Segoe UI', sans-serif; background: var(--light); margin: 0; }
+nav { background: var(--navy); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; }
+.container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+.hero { background: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+.card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.mentor-box { background: var(--navy); color: white; }
+
+/* Barre de progression */
+#progress-container { background: #e2e8f0; border-radius: 10px; height: 10px; margin: 1rem 0; overflow: hidden; }
+#progress-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: 0.5s; }
+
+.goal-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+.goal-item.done { text-decoration: line-through; color: gray; }
+
+/* Avatars de la liste des relations */
+.rel-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+}
+
+.rel-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Avatar mentor dans le détail */
+#detail-mentor-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+}
+
+#detail-mentor-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Avatar mentee dans le hero */
+#mentee-avatar {
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+}
+
+#mentee-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
