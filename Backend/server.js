@@ -14,7 +14,9 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // --- MIDDLEWARES ---
-app.use(cors());
+app.use(cors({
+    origin:'https://spe-congo-project-static.onrender.com'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -921,7 +923,7 @@ function envoyerMailDecisionMentor(email_contact, nom_complet, nouveauStatut) {
                     </p>
                 </div>
                 <div style="text-align:center; margin-top:25px;">
-                    <a href="http://localhost:5500/index.html"
+                    <a href="https://spe-congo-project.onrender.com/index.html"
                        style="display:inline-block; background:#0054a6; color:white;
                               padding:12px 30px; text-decoration:none; border-radius:8px;
                               font-weight:600; font-size:0.9rem;">
