@@ -10,7 +10,7 @@ document.getElementById('form-event').addEventListener('submit', async (e) => {
         description: document.getElementById('event-desc').value
     };
 
-    const response = await fetch('http://localhost:3000/api/add-event', {
+    const response = await fetch('https://spe-congo-project.onrender.com/api/add-event', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(eventData)
@@ -35,7 +35,7 @@ document.getElementById('form-galerie-upload')?.addEventListener('submit', async
     const formData = new FormData(e.target);
 
     try {
-        const response = await fetch('http://localhost:3000/api/upload-galerie', {
+        const response = await fetch('https://spe-congo-project.onrender.com/api/upload-galerie', {
             method: 'POST',
              headers: { 'Content-Type': 'application/json' },
             body: formData

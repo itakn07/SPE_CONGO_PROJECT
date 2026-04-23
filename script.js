@@ -39,9 +39,9 @@ checkLoginStatus();
 if (window.location.pathname.includes('admin')) {
     console.log("Page admin détectée!");
     Promise.all([
-        fetch('http://localhost:3000/api/admin/mentors').then(res => res.json()),
-        fetch('http://localhost:3000/api/admin/mentees').then(res => res.json()),
-        fetch('http://localhost:3000/api/admin/relationships').then(res => res.json())
+        fetch('https://spe-congo-project.onrender.com/api/admin/mentors').then(res => res.json()),
+        fetch('https://spe-congo-project.onrender.com/api/admin/mentees').then(res => res.json()),
+        fetch('https://spe-congo-project.onrender.com/api/admin/relationships').then(res => res.json())
     ]).then(([mentors, mentees, rels]) => {
         const el1 = document.getElementById('total-mentor-count');
         const el2 = document.getElementById('total-mentees-count');
@@ -100,7 +100,7 @@ if (loginForm) {
         if (!usernameInput || !passwordInput) return;
 
         try {
-            const res = await fetch('http://localhost:3000/api/login', {
+            const res = await fetch('https://spe-congo-project.onrender.com/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -163,7 +163,7 @@ if (signupForm){
         };
 
         try{
-            const res = await fetch(`http://localhost:3000/api/signup`, {
+            const res = await fetch(`https://spe-congo-project.onrender.com/api/signup`, {
                 method:'POST',
                 headers:{'Content-Type': 'application/json'},
                 body:JSON.stringify(body)
@@ -199,7 +199,7 @@ if (btnEnregistrer && mentorForm) {
             formData.append('user_id', userId);
         }
         try {
-            const response = await fetch('http://localhost:3000/api/register-mentor', { method: 'POST', body: formData });
+            const response = await fetch('https://spe-congo-project.onrender.com/api/register-mentor', { method: 'POST', body: formData });
             const result = await response.json();
             if (result.success) {
                 alert("Demande envoyée avec succès !");
@@ -225,7 +225,7 @@ if (btnEnregistrerMentee && menteeForm) {
             formData.append('user_id', userId);
         }
         try {
-            const response = await fetch('http://localhost:3000/api/register-mentee', { method: 'POST', body: formData });
+            const response = await fetch('https://spe-congo-project.onrender.com/api/register-mentee', { method: 'POST', body: formData });
             const result = await response.json();
             if (result.success) {
                 alert("Demande envoyée avec succès !");
@@ -261,7 +261,7 @@ if (newsForm) {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/news', { method: 'POST', body: formData });
+            const response = await fetch('https://spe-congo-project.onrender.com/api/news', { method: 'POST', body: formData });
             if (response.ok) {
                 alert("News publiée avec succès !");
                 newsForm.reset();
@@ -286,7 +286,7 @@ if (formEvent) {
             lieu: document.getElementById('event-location').value,
             description: document.getElementById('event-desc').value
         };
-        fetch('http://localhost:3000/api/add-event', {
+        fetch('https://spe-congo-project.onrender.com/api/add-event', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(eventData)
@@ -316,7 +316,7 @@ if (editEventForm) {
             lieu: document.getElementById('edit-event-location').value,
             description: document.getElementById('edit-event-desc').value
         };
-        const res = await fetch(`http://localhost:3000/api/events/${id}`, {
+        const res = await fetch(`https://spe-congo-project.onrender.com/api/events/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedEvent)
@@ -351,7 +351,7 @@ if (editForm) {
         }
 
         try {
-            const res = await fetch(`http://localhost:3000/api/news/${id}`, {
+            const res = await fetch(`https://spe-congo-project.onrender.com/api/news/${id}`, {
                 method: 'PUT',
                 body: formData
             });
@@ -479,7 +479,7 @@ if (sectionId === 'messagerie-section') chargerMembresMessagerie();
 // ==========================================
 async function chargerInfosBinome() {
 try {
-const response = await fetch(`http://localhost:3000/api/details-binome/${relId}`);
+const response = await fetch(`https://spe-congo-project.onrender.com/api/details-binome/${relId}`);
 if (!response.ok) throw new Error("Erreur serveur");
 const data = await response.json();
 
@@ -488,10 +488,10 @@ const data = await response.json();
     if (document.getElementById('mentee-name')) document.getElementById('mentee-name').innerText = data.mentee_nom;
 
     if (data.mentor_photo && document.querySelector('#mentor-avatar')) {
-        document.querySelector('#mentor-avatar').innerHTML = `<img src="http://localhost:3000/${data.mentor_photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+        document.querySelector('#mentor-avatar').innerHTML = `<img src="https://spe-congo-project.onrender.com/${data.mentor_photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
     }
     if (data.mentee_photo && document.querySelector('#mentee-avatar')) {
-        document.querySelector('#mentee-avatar').innerHTML = `<img src="http://localhost:3000/${data.mentee_photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+        document.querySelector('#mentee-avatar').innerHTML = `<img src="https://spe-congo-project.onrender.com/${data.mentee_photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
     }
 } catch (err) { console.error("Erreur binôme :", err.message); }
 
@@ -500,7 +500,7 @@ const data = await response.json();
 
 async function chargerObjectifs(idRelation) {
 try {
-const response = await fetch(`http://localhost:3000/get-objectifs?relId=${idRelation}`);
+const response = await fetch(`https://spe-congo-project.onrender.com/get-objectifs?relId=${idRelation}`);
 const objectifs = await response.json();
 const listeContainer = document.getElementById('liste-objectifs');
 if (!listeContainer) return;
@@ -554,7 +554,7 @@ if (pourcentage === 100 && total > 0) {
 
 async function toggleObjectif(objId, isChecked, titre) {
 try {
-const res = await fetch(`http://localhost:3000/update-objectif`, {
+const res = await fetch(`https://spe-congo-project.onrender.com/update-objectif`, {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ objId, statut: isChecked ? 'termine' : 'a_faire' })
@@ -569,7 +569,7 @@ if (isChecked) declencherEmail(relId, 50, titre);
 async function ajouterNouvelObjectif() {
 const titre = prompt("Entrez le nom de l'objectif :");
 if (!titre || !relId) return;
-await fetch(`http://localhost:3000/ajouter-objectif`, {
+await fetch(`https://spe-congo-project.onrender.com/ajouter-objectif`, {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ relId, titre })
@@ -586,7 +586,7 @@ container.insertAdjacentHTML('beforeend', ` <div id="msg-felicitations" style="t
 
 async function declencherEmail(idRel, progression, titre = '') {
 try {
-const response = await fetch(`http://localhost:3000/envoyer-felicitations`, {
+const response = await fetch(`https://spe-congo-project.onrender.com/envoyer-felicitations`, {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({
@@ -611,7 +611,7 @@ if (!container) return;
 
 
 try {
-    const response = await fetch(`http://localhost:3000/mes-demandes/${mentorId}`);
+    const response = await fetch(`https://spe-congo-project.onrender.com/mes-demandes/${mentorId}`);
     if (!response.ok) throw new Error(`Erreur serveur : ${response.status}`);
     const demandes = await response.json();
     console.log("Demandes reçues :", demandes);
@@ -648,7 +648,7 @@ if (!container) return;
 
 
 try {
-    const response = await fetch(`http://localhost:3000/api/liste-etudiants-suivis/${userId}`);
+    const response = await fetch(`https://spe-congo-project.onrender.com/api/liste-etudiants-suivis/${userId}`);
     const mentees = await response.json();
     container.innerHTML = "";
 
@@ -682,7 +682,7 @@ if (!confirm(`Voulez-vous vraiment ${decision === 'acceptee' ? 'accepter' : 'ref
 
 
 try {
-    const response = await fetch(`http://localhost:3000/repondre-demande`, {
+    const response = await fetch(`https://spe-congo-project.onrender.com/repondre-demande`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ demandeId, decision })
@@ -705,7 +705,7 @@ try {
 // ==========================================
 async function loadEvents() {
 try {
-const response = await fetch(`http://localhost:3000/api/events`);
+const response = await fetch(`https://spe-congo-project.onrender.com/api/events`);
 const events = await response.json();
 const container = document.getElementById('events-container');
 if (!container) return;
@@ -715,7 +715,7 @@ container.innerHTML = events.map(e => ` <div class="event-card"> <div class="eve
 
 async function loadNews() {
 try {
-const response = await fetch(`http://localhost:3000/api/news`);
+const response = await fetch(`https://spe-congo-project.onrender.com/api/news`);
 allNews = await response.json();
 renderNews(allNews);
 } catch (error) { console.error("Erreur chargement news:", error); }
@@ -735,7 +735,7 @@ if (newsArray.length === 0) {
 
 container.innerHTML = newsArray.map(art => `
     <div class="news-card">
-        <img src="http://localhost:3000/images/news/${art.image_path}" alt="">
+        <img src="https://spe-congo-project.onrender.com/images/news/${art.image_path}" alt="">
         <div class="news-content">
             <span class="news-category">${art.categorie || 'NEWS'}</span>
             <h3>${art.titre}</h3>
@@ -765,9 +765,9 @@ async function loadMembers() {
 const grid = document.getElementById('members-grid');
 if (!grid) return;
 try {
-const response = await fetch(`http://localhost:3000/api/members`);
+const response = await fetch(`https://spe-congo-project.onrender.com/api/members`);
 const members = await response.json();
-grid.innerHTML = members.map(m => ` <div class="officer-card"> <div class="officer-image"> <img src="http://localhost:3000/images/members/${m.photo_name}" alt="${m.nom}"> </div> <div class="officer-info"> <h3>${m.nom}</h3><p class="role">${m.poste}</p> <div class="officer-contact"> <a href="mailto:${m.email}"><i class="fas fa-envelope"></i></a> <a href="${m.linkedin_url || '#'}" target="_blank"><i class="fab fa-linkedin"></i></a> </div> </div> </div>`).join('');
+grid.innerHTML = members.map(m => ` <div class="officer-card"> <div class="officer-image"> <img src="https://spe-congo-project.onrender.com/images/members/${m.photo_name}" alt="${m.nom}"> </div> <div class="officer-info"> <h3>${m.nom}</h3><p class="role">${m.poste}</p> <div class="officer-contact"> <a href="mailto:${m.email}"><i class="fas fa-envelope"></i></a> <a href="${m.linkedin_url || '#'}" target="_blank"><i class="fab fa-linkedin"></i></a> </div> </div> </div>`).join('');
 } catch (err) { console.error("Erreur membres :", err); }
 }
 
@@ -778,9 +778,9 @@ async function fetchMentors() {
 const container = document.getElementById('mentors-container');
 if (!container) return;
 try {
-const response = await fetch(`http://localhost:3000/get-mentors`);
+const response = await fetch(`https://spe-congo-project.onrender.com/get-mentors`);
 const mentors = await response.json();
-container.innerHTML = mentors.map(m => ` <div class="mentor-card"> <img src="http://localhost:3000/${m.photo_path}" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"> <h3>${m.nom_complet}</h3> <p><strong>Domaine :</strong> ${m.domaine_expertise || 'Expertise'}</p> <button class="btn-contact" onclick="ouvrirContactModal(${m.id}, '${m.nom_complet.replace(/'/g, "\\'")}')"> Contacter ce mentor </button> </div>`).join('');
+container.innerHTML = mentors.map(m => ` <div class="mentor-card"> <img src="https://spe-congo-project.onrender.com/${m.photo_path}" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"> <h3>${m.nom_complet}</h3> <p><strong>Domaine :</strong> ${m.domaine_expertise || 'Expertise'}</p> <button class="btn-contact" onclick="ouvrirContactModal(${m.id}, '${m.nom_complet.replace(/'/g, "\\'")}')"> Contacter ce mentor </button> </div>`).join('');
 } catch (err) { console.error("Erreur chargement mentors publique :", err); }
 }
 
@@ -803,7 +803,7 @@ if (btn) {
         const message = document.getElementById('modalMessage').value;
         if (!message.trim()) { alert("Écris un message avant d'envoyer !"); return; }
         try {
-            const res = await fetch(`http://localhost:3000/api/nouvelle-demande`, {
+            const res = await fetch(`https://spe-congo-project.onrender.com/api/nouvelle-demande`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ mentorId, menteeId: user.id, message })
@@ -831,7 +831,7 @@ if (btn) {
 // 9. ADMIN - MENTORS
 // ==========================================
 function loadMentors() {
-fetch(`http://localhost:3000/api/admin/mentors`)
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors`)
 .then(res => res.json())
 .then(mentors => {
 mentorsData = mentors;
@@ -841,7 +841,7 @@ let rows = '';
 
 
         mentors.forEach(m => {
-            const photoUrl = m.photo_path ? `http://localhost:3000/${m.photo_path.replace(/\\/g, '/')}` : null;
+            const photoUrl = m.photo_path ? `https://spe-congo-project.onrender.com/${m.photo_path.replace(/\\/g, '/')}` : null;
             const photoHtml = photoUrl
                 ? `<img src="${photoUrl}" class="admin-photo-thumbnail">`
                 : `<div class="photo-placeholder">${m.nom_complet.charAt(0)}</div>`;
@@ -880,7 +880,7 @@ let rows = '';
 }
 
 window.updateMentorStatus = function(id, nouveauStatut) {
-fetch(`http://localhost:3000/api/admin/mentors/${id}/status`, {
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors/${id}/status`, {
 method: 'PUT',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ statut: nouveauStatut })
@@ -896,7 +896,7 @@ loadMentors();
 
 function deleteMentor(id) {
 if (!confirm("Supprimer ce mentor ?")) return;
-fetch(`http://localhost:3000/api/admin/mentors/${id}`, { method: 'DELETE' })
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors/${id}`, { method: 'DELETE' })
 .then(res => res.json())
 .then(data => {
 if (data.error) { alert(data.error); }
@@ -914,7 +914,7 @@ document.getElementById('modalExpertise').innerText = m.domaine_expertise;
 
 
 const photoContainer = document.getElementById('modalPhotoContainer');
-const photoUrl = m.photo_path ? `http://localhost:3000/${m.photo_path.replace(/\\/g, '/')}` : null;
+const photoUrl = m.photo_path ? `https://spe-congo-project.onrender.com/${m.photo_path.replace(/\\/g, '/')}` : null;
 photoContainer.innerHTML = photoUrl
     ? `<img src="${photoUrl}" class="admin-photo-thumbnail">`
     : `<div class="photo-placeholder">${m.nom_complet.charAt(0)}</div>`;
@@ -933,7 +933,7 @@ if (modal) modal.style.display = 'none';
 // 10. ADMIN - MENTEES
 // ==========================================
 function loadMentees() {
-fetch(`http://localhost:3000/api/admin/mentees`)
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentees`)
 .then(res => res.json())
 .then(mentees => {
 const tbody = document.getElementById('mentees-list-body');
@@ -945,11 +945,11 @@ tbody.innerHTML = '';
             let photoHtml;
             if (m.photo_path) {
                 const cleanPath = m.photo_path.replace(/\\/g, '/');
-                photoHtml = `<img src="http://localhost:3000/${cleanPath}" style="width:45px; height:45px; border-radius:50%; object-fit:cover;">`;
+                photoHtml = `<img src="https://spe-congo-project.onrender.com/${cleanPath}" style="width:45px; height:45px; border-radius:50%; object-fit:cover;">`;
             } else {
                 photoHtml = `<div style="width:45px; height:45px; border-radius:50%; background:#ccc; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${m.nom_complet.charAt(0)}</div>`;
             }
-            const cvUrl = m.cv_path ? `http://localhost:3000/${m.cv_path.replace(/\\/g, '/')}` : null;
+            const cvUrl = m.cv_path ? `https://spe-congo-project.onrender.com/${m.cv_path.replace(/\\/g, '/')}` : null;
 
             tbody.innerHTML += `
                 <tr>
@@ -978,7 +978,7 @@ tbody.innerHTML = '';
 
 window.deleteMentee = function(id) {
 if (confirm("Supprimer ce mentee ?")) {
-fetch(`http://localhost:3000/api/admin/mentees/${id}`, { method: 'DELETE'})
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentees/${id}`, { method: 'DELETE'})
 .then(res => res.json())
 .then(data => { if (data.success) loadMentees(); });
 }
@@ -987,7 +987,7 @@ fetch(`http://localhost:3000/api/admin/mentees/${id}`, { method: 'DELETE'})
 //fonction pour clore le parcous de mentorat d'un mentee
 async function terminerMentee(id) {
     if (!confirm("Marquer ce mentee comme terminé ?")) return;
-    await fetch(`http://localhost:3000/api/admin/mentees/${id}/statut`, {
+    await fetch(`https://spe-congo-project.onrender.com/api/admin/mentees/${id}/statut`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ statut: 'TERMINE' })
@@ -999,7 +999,7 @@ async function terminerMentee(id) {
 // 11. ADMIN - EVENTS
 // ==========================================
 function loadAdminEvents() {
-fetch(`http://localhost:3000/api/events`)
+fetch(`https://spe-congo-project.onrender.com/api/events`)
 .then(res => res.json())
 .then(events => {
 allEvents = events;
@@ -1015,7 +1015,7 @@ list.innerHTML += ` <tr> <td>${event.titre}</td> <td>${dateFmt}</td> <td>${event
 
 window.deleteEvent = function(id) {
 if (confirm("Supprimer cet événement ?")) {
-fetch(`http://localhost:3000/api/events/${id}`, { method: 'DELETE' })
+fetch(`https://spe-congo-project.onrender.com/api/events/${id}`, { method: 'DELETE' })
 .then(res => res.json())
 .then(data => { if (data.success) loadAdminEvents(); });
 }
@@ -1041,7 +1041,7 @@ document.getElementById('editEventModal').style.display = "block";
 // ==========================================
 async function loadAdminNews() {
 try {
-const response = await fetch(`http://localhost:3000/api/news`);
+const response = await fetch(`https://spe-congo-project.onrender.com/api/news`);
 const news = await response.json();
 allNews = news
 const listContainer = document.getElementById('admin-news-list');
@@ -1054,7 +1054,7 @@ if (!listContainer) return;
             : "Date inconnue";
         return `
             <tr>
-                <td><img src="http://localhost:3000/images/news/${art.image_path}" class="admin-thumb"></td>
+                <td><img src="https://spe-congo-project.onrender.com/images/news/${art.image_path}" class="admin-thumb"></td>
                 <td><strong>${art.titre}</strong></td>
                 <td><span class="badge">${art.categorie || 'News'}</span></td>
                 <td>${dateAffiche}</td>
@@ -1072,7 +1072,7 @@ if (!listContainer) return;
 async function deleteNews(id) {
 if (confirm("Supprimer cette actualité ?")) {
 try {
-const response = await fetch(`http://localhost:3000/api/news/${id}`, { method: 'DELETE' });
+const response = await fetch(`https://spe-congo-project.onrender.com/api/news/${id}`, { method: 'DELETE' });
 if (response.ok) { alert("News supprimée !"); loadAdminNews(); }
 } catch (error) { console.error("Erreur:", error); }
 }
@@ -1094,7 +1094,7 @@ function editNews(id) {
 // 13. ADMIN - BINÔMES
 // ==========================================
 function loadRelationships() {
-fetch(`http://localhost:3000/api/admin/relationships`)
+fetch(`https://spe-congo-project.onrender.com/api/admin/relationships`)
 .then(res => res.json())
 .then(data => {
 const container = document.getElementById('relationships-container');
@@ -1109,8 +1109,8 @@ container.innerHTML = '';
 
         data.forEach(rel => {
             const percent = rel.total_obj > 0 ? Math.round((rel.obj_faits / rel.total_obj) * 100) : 0;
-            const mentorPhotoUrl = rel.mentor_photo ? `http://localhost:3000/${rel.mentor_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
-            const menteePhotoUrl = rel.mentee_photo ? `http://localhost:3000/${rel.mentee_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
+            const mentorPhotoUrl = rel.mentor_photo ? `https://spe-congo-project.onrender.com/${rel.mentor_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
+            const menteePhotoUrl = rel.mentee_photo ? `https://spe-congo-project.onrender.com/${rel.mentee_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
 
             container.innerHTML += `
                 <div class="relationship-card">
@@ -1147,7 +1147,7 @@ container.innerHTML = '';
 
 window.deleteRelationship = function(id) {
 if (confirm("Rompre ce binôme ? Action irréversible.")) {
-fetch(`http://localhost:3000/api/admin/relationships/${id}`, { method: 'DELETE' })
+fetch(`https://spe-congo-project.onrender.com/api/admin/relationships/${id}`, { method: 'DELETE' })
 .then(res => res.json())
 .then(data => {
 if (data.success) loadRelationships();
@@ -1162,9 +1162,9 @@ else alert("Erreur : " + data.error);
 // ==========================================
 function loadrefreshGlobalStats() {
 Promise.all([
-fetch(`http://localhost:3000/api/admin/mentors`).then(res => res.json()),
-fetch(`http://localhost:3000/api/admin/mentees`).then(res => res.json()),
-fetch(`http://localhost:3000/api/admin/relationships`).then(res => res.json())
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors`).then(res => res.json()),
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentees`).then(res => res.json()),
+fetch(`https://spe-congo-project.onrender.com/api/admin/relationships`).then(res => res.json())
 ])
 .then(([mentors, mentees, rels]) => {
     console.log("Stats - Mentors:", mentors.length, "Mentees:", mentees.length, "Rels:", rels.length);
@@ -1188,7 +1188,7 @@ renderGrowthChart();
 
 function renderSectorChart() {
 if (myChart !== null) myChart.destroy();
-fetch(`http://localhost:3000/api/admin/mentors`)
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors`)
 .then(res => res.json())
 .then(mentors => {
 const counts = {};
@@ -1212,7 +1212,7 @@ options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { po
 
 function renderGaugeChart() {
 if (myGauge !== null) myGauge.destroy();
-fetch(`http://localhost:3000/api/admin/relationships`)
+fetch(`https://spe-congo-project.onrender.com/api/admin/relationships`)
 .then(res => res.json())
 .then(rels => {
 let totalFaits = 0, totalObjectifs = 0;
@@ -1234,8 +1234,8 @@ options: { responsive: true, maintainAspectRatio: false }
 function renderOfferDemandChart() {
 if (myOfferChart !== null) myOfferChart.destroy();
 Promise.all([
-fetch(`http://localhost:3000/api/admin/mentors`).then(res => res.json()),
-fetch(`http://localhost:3000/api/admin/mentees`).then(res => res.json())
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors`).then(res => res.json()),
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentees`).then(res => res.json())
 ])
 .then(([mentors, mentees]) => {
 const stats = {};
@@ -1261,8 +1261,8 @@ options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZ
 function renderGrowthChart() {
 if (myGrowthChart !== null) myGrowthChart.destroy();
 Promise.all([
-fetch(`http://localhost:3000/api/admin/mentors`).then(res => res.json()),
-fetch(`http://localhost:3000/api/admin/mentees`).then(res => res.json())
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentors`).then(res => res.json()),
+fetch(`https://spe-congo-project.onrender.com/api/admin/mentees`).then(res => res.json())
 ])
 .then(([mentors, mentees]) => {
 const growthMentors = {}, growthMentees = {};
@@ -1311,7 +1311,7 @@ const allMonths = new Set();
 // 15. FLYER
 // ==========================================
 function ouvrirFlyer(flyerPath) {
-const BASE_URL = `http://localhost:3000`;
+const BASE_URL = `https://spe-congo-project.onrender.com/`;
 const url = `${BASE_URL}/images/news/flyers/${flyerPath}`;
 const contenu = document.getElementById('flyer-contenu');
 const download = document.getElementById('flyer-download');
@@ -1342,13 +1342,13 @@ document.getElementById('flyer-contenu').innerHTML = '';
 if (window.location.pathname.includes('news-detail')) {
     const newsId = new URLSearchParams(window.location.search).get('id');
     if (newsId) {
-        fetch(`http://localhost:3000/api/news/${newsId}`)
+        fetch(`https://spe-congo-project.onrender.com/api/news/${newsId}`)
             .then(res => res.json())
             .then(art => {
                 document.getElementById('detail-categorie').textContent = art.categorie || 'NEWS';
                 document.getElementById('detail-titre').textContent = art.titre;
                 document.getElementById('detail-contenu').textContent = art.contenu;
-                document.getElementById('detail-image').src = `http://localhost:3000/images/news/${art.image_path}`;
+                document.getElementById('detail-image').src = `https://spe-congo-project.onrender.com/images/news/${art.image_path}`;
                 document.getElementById('detail-date').textContent = art.date_publication
                     ? new Date(art.date_publication).toLocaleDateString('fr-FR')
                     : '';
@@ -1395,7 +1395,7 @@ async function chargerGalerie() {
     if (!container) return;
 
     try {
-        const response = await fetch('http://localhost:3000/api/galerie');
+        const response = await fetch('https://spe-congo-project.onrender.com/api/galerie');
         slidesData = await response.json();
 
         if (slidesData.length === 0) {
@@ -1406,7 +1406,7 @@ async function chargerGalerie() {
         // 1. Générer les images
         container.innerHTML = slidesData.map(img => `
             <div class="slider-item">
-                <img src="http://localhost:3000/Images/galerie/${img.image_path}" alt="${img.titre}">
+                <img src="https://spe-congo-project.onrender.com/Images/galerie/${img.image_path}" alt="${img.titre}">
                 <div class="slider-caption">
                     <h2>${img.titre}</h2>
                     <p>${img.description || ''}</p>
@@ -1464,7 +1464,7 @@ document.getElementById('form-galerie-upload')?.addEventListener('submit', async
     btn.textContent = "Chargement...";
 
     try {
-        const response = await fetch('http://localhost:3000/api/upload-galerie', {
+        const response = await fetch('https://spe-congo-project.onrender.com/api/upload-galerie', {
             method: 'POST',
             body: formData
         });
@@ -1502,7 +1502,7 @@ async function chargerPhotosAdmin() {
 
     try {
         // 2. On appelle le serveur
-        const response = await fetch('http://localhost:3000/api/admin/galerie');
+        const response = await fetch('https://spe-congo-project.onrender.com/api/admin/galerie');
         const photos = await response.json();
 
         // 3. Si la base est vide
@@ -1514,7 +1514,7 @@ async function chargerPhotosAdmin() {
         // 4. On crée le HTML pour chaque image
         grille.innerHTML = photos.map(p => `
             <div class="photo-item"  id= "photo-${p.id}" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 150px; text-align: center;">
-                <img src="http://localhost:3000/images/galerie/${p.image_path}" 
+                <img src="https://spe-congo-project.onrender.com/images/galerie/${p.image_path}" 
                      style="width: 100%; height: 100px; object-fit: cover; border-radius: 4px;">
                 <p style="font-size: 12px; margin: 5px 0;">${p.titre}</p>
                 <button onclick="supprimerPhoto(${p.id})" style="background: red; color: white; border: none; cursor: pointer; padding: 4px 8px; border-radius: 4px;">
@@ -1533,7 +1533,7 @@ async function supprimerPhoto(id) {
     if (!confirm("Voulez-vous vraiment supprimer cette photo de la galerie ?")) return;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/galerie/${id}`, {
+        const response = await fetch(`https://spe-congo-project.onrender.com/api/galerie/${id}`, {
             method: 'DELETE'
         });
 
@@ -1589,7 +1589,7 @@ async function chargerPhotos() {
     const container = document.getElementById('affichage-galerie');
 
     try {
-        const response = await fetch('http://localhost:3000/api/galerie');
+        const response = await fetch('https://spe-congo-project.onrender.com/api/galerie');
         const photos = await response.json();
 
         if (photos.length === 0) {
@@ -1600,7 +1600,7 @@ async function chargerPhotos() {
         
         //  onclick="ouvrirModal(...)" sur chaque image générée
         container.innerHTML = photos.map(p => {
-            const fullImgPath = `http://localhost:3000/images/galerie/${p.image_path}`;
+            const fullImgPath = `https://spe-congo-project.onrender.com/images/galerie/${p.image_path}`;
             return `
                 <div class="galerie-item">
                     <img src="${fullImgPath}" 
@@ -1643,7 +1643,7 @@ async function chargerMembresMessagerie() {
     const listeContainer = document.getElementById('liste-membres-envoi');
     
     try {
-        const response = await fetch('http://localhost:3000/api/utilisateurs');
+        const response = await fetch('https://spe-congo-project.onrender.com/api/utilisateurs');
         const membres = await response.json();
 
         if (membres.length === 0) {
@@ -1696,7 +1696,7 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
 
     // 3. On envoie au serveur
     try {
-        const response = await fetch('http://localhost:3000/api/broadcast', {
+        const response = await fetch('https://spe-congo-project.onrender.com/api/broadcast', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
