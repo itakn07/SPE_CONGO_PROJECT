@@ -1240,7 +1240,7 @@ app.get('/api/news/:id', (req, res) => {
     const { id } = req.params;
     db.query("SELECT * FROM news WHERE id = ?", [id], (err, results) => {
         if (err || results.length === 0) return res.status(404).json(null);
-        res.json(results);
+        res.json(results[0]);
     });
 });
 
