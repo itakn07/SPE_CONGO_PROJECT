@@ -1,64 +1,60 @@
  require('dotenv').config();
- 
- const fs = require('fs'); // Assure-toi d'avoir cette ligne en haut du fichier
- const express = require('express');
+
+const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const multer = require('multer');
 
+// --- AJOUT CLOUDINARY ---
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
 const app = express();
 const port = 3000;
+
+// Configuration de Cloudinary (Assure-toi d'ajouter les clés sur Render !)
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // --- MIDDLEWARES ---
 app.use(cors({
-    origin:'https://spe-congo-project-static.onrender.com'
+    origin: 'https://spe-congo-project-static.onrender.com'
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// --- CONFIGURATION EMAIL ---
+// --- CONFIGURATION EMAIL (Inchangée) ---
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'ritakngot3@gmail.com',
-        pass: 'pewo beuk golk wiwn' // Ton mot de passe d'application
+        pass: 'pewo beuk golk wiwn' 
     }
 });
 
 // --- FICHIERS STATIQUES ---
+// Note : Les dossiers images/news et galerie ne seront plus utilisés pour les nouveaux uploads
 app.use('/videos', express.static(path.join(__dirname, '..', 'videos')));
 app.use('/images', express.static(path.join(__dirname, '..', 'images')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/Mentee_docs', express.static(path.join(__dirname, 'Mentee_docs')));
 
-// --- CONFIGURATION MULTER (UPLOADS) ---
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/'),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
-});
-const upload = multer({ storage: storage });
+// --- CONFIGURATION CLOUDINARY STORAGE (UPLOADS STABLES) ---
 
-const storageMentee = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'Mentee_docs/'),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
-});
-const uploadMentee = multer({ storage: storageMentee });
-
-const storageNews = multer.diskStorage({
-    destination: (req, file, cb) => {
-        if (file.fieldname === 'flyer_file') {
-            cb(null, '../images/news/flyers/'); // ✅ dossier séparé pour les flyers
-        } else {
-            cb(null, '../images/news/');
-        }
+// 1. Stockage pour les News et Flyers
+const storageNews = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: async (req, file) => {
+        return {
+            folder: 'spe_congo/news',
+            resource_type: 'auto', // Accepte images et PDF (flyers)
+            public_id: Date.now() + '-' + file.originalname.split('.'),
+        };
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
 });
 
 const uploadNews = multer({ storage: storageNews }).fields([
@@ -66,22 +62,28 @@ const uploadNews = multer({ storage: storageNews }).fields([
     { name: 'flyer_file', maxCount: 1 }
 ]);
 
-// Configuration pour les photos de la galerie
-
-const storageGalerie = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // On remonte d'un niveau (..) pour atteindre la racine depuis le dossier Backend
-        const rootImagesPath = path.join(__dirname, '..', 'images', 'galerie');
-        cb(null, rootImagesPath);
+// 2. Stockage pour la Galerie
+const storageGalerie = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'spe_congo/galerie',
+        allowed_formats: ['jpg', 'png', 'jpeg'],
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
 });
 
 const uploadGalerie = multer({ storage: storageGalerie });
 
-//Constante pour les mails du site
+// 3. Stockage pour les Mentees (Documents PDF)
+const storageMentee = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'spe_congo/mentee_docs',
+        resource_type: 'auto',
+    },
+});
+
+const uploadMentee = multer({ storage: storageMentee });
+//Constante pour les mails du site  const fs = require('fs');
 function templateMail({ emoji, titre, sousTitre, contenu }) {
     return `
     <!DOCTYPE html>
@@ -777,9 +779,9 @@ app.get('/api/mentors', (req, res) => {
 
 
 
-// Route pour recupérer les news et  les afficher 
 app.get('/api/news', (req, res) => {
-    const sql = "SELECT * FROM news ORDER BY date_publication DESC"; // Adapte selon ta table
+    // On récupère tout, les URLs Cloudinary seront déjà dans image_path et flyer_path
+    const sql = "SELECT * FROM news ORDER BY date_publication DESC";
     db.query(sql, (err, results) => {
         if (err) return res.status(500).send(err);
         res.json(results);
@@ -1047,52 +1049,68 @@ app.delete('/api/admin/relationships/:id', (req, res) => {
 });
 
 // Route POST pour les News
+// --- 1. PUBLIER UNE NEWS (POST) ---
 app.post('/api/news', uploadNews, (req, res) => {
     const { titre, contenu, categorie } = req.body;
-    const image_name = req.files['image_file'] ? req.files['image_file'][0].filename : 'default_news.jpg';
-    const flyer_path = req.files['flyer_file'] ? req.files['flyer_file'][0].filename : null;
+    
+    // Avec Cloudinary, on utilise .path pour avoir l'URL complète
+    const image_url = req.files['image_file'] ? req.files['image_file'].path : 'https://res.cloudinary.com/votre_cloud/image/upload/v12345/default_news.jpg';
+    const flyer_url = req.files['flyer_file'] ? req.files['flyer_file'].path : null;
 
     const sql = "INSERT INTO news (titre, contenu, image_path, categorie, flyer_path) VALUES (?, ?, ?, ?, ?)";
-    db.query(sql, [titre, contenu, image_name, categorie || 'News', flyer_path], (err, result) => {
+    db.query(sql, [titre, contenu, image_url, categorie || 'News', flyer_url], (err, result) => {
         if (err) return res.status(500).json({ error: err });
         res.status(200).json({ message: "News publiée !", id: result.insertId });
     });
 });
 
-// Route pour supprimer une news 
+// --- 2. SUPPRIMER UNE NEWS (DELETE) ---
 app.delete('/api/news/:id', (req, res) => {
     const id = req.params.id;
-    const sql = "DELETE FROM news WHERE id = ?";
 
-    db.query(sql, [id], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send("Erreur serveur");
-        }
-        res.send("News supprimée !");
+    // On récupère les URLs pour pouvoir supprimer les fichiers sur Cloudinary aussi
+    db.query("SELECT image_path, flyer_path FROM news WHERE id = ?", [id], (err, results) => {
+        if (err || results.length === 0) return res.status(404).send("News introuvable");
+
+        const { image_path, flyer_path } = results;
+
+        db.query("DELETE FROM news WHERE id = ?", [id], (err) => {
+            if (err) return res.status(500).send("Erreur serveur");
+
+            // Nettoyage Cloudinary
+            if (image_path && image_path.includes('cloudinary')) {
+                cloudinary.uploader.destroy(getPublicId(image_path));
+            }
+            if (flyer_path && flyer_path.includes('cloudinary')) {
+                cloudinary.uploader.destroy(getPublicId(flyer_path), { resource_type: 'auto' });
+            }
+
+            res.send("News supprimée de la BDD et de Cloudinary !");
+        });
     });
 });
 
-//route pour modifier les news
+// --- 3. MODIFIER UNE NEWS (PUT) ---
 app.put('/api/news/:id', uploadNews, (req, res) => {
     const id = req.params.id;
     const { titre, contenu, categorie } = req.body;
 
-    const image_name = req.files['image_file'] ? req.files['image_file'][0].filename : null;
-    const flyer_path = req.files['flyer_file'] ? req.files['flyer_file'][0].filename : null;
+    // On récupère les nouvelles URLs si des fichiers ont été envoyés
+    const image_url = req.files['image_file'] ? req.files['image_file'].path : null;
+    const flyer_url = req.files['flyer_file'] ? req.files['flyer_file'].path : null;
 
     let setClauses = ['titre = ?', 'contenu = ?', 'categorie = ?'];
     let params = [titre, contenu, categorie];
 
-    if (image_name) { setClauses.push('image_path = ?'); params.push(image_name); }
-    if (flyer_path) { setClauses.push('flyer_path = ?'); params.push(flyer_path); }
+    if (image_url) { setClauses.push('image_path = ?'); params.push(image_url); }
+    if (flyer_url) { setClauses.push('flyer_path = ?'); params.push(flyer_url); }
 
     params.push(id);
     const sql = `UPDATE news SET ${setClauses.join(', ')} WHERE id = ?`;
 
     db.query(sql, params, (err) => {
         if (err) return res.status(500).json(err);
-        res.json({ message: "Mise à jour réussie" });
+        res.json({ message: "Mise à jour réussie sur Cloudinary et BDD" });
     });
 });
 
@@ -1238,8 +1256,18 @@ results = results.map(r => ({
 //recuperer les détails des news publiées
  app.get('/api/news/:id', (req, res) => {
     const { id } = req.params;
-    db.query("SELECT * FROM news WHERE id = ?", [id], (err, results) => {
-        if (err || results.length === 0) return res.status(404).json(null);
+    const sql = "SELECT * FROM news WHERE id = ?";
+    
+    db.query(sql, [id], (err, results) => {
+        if (err) {
+            console.error("Erreur lors de la récupération de la news:", err);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: "News introuvable" });
+        }
+        
+        // Renvoie la news avec les URLs Cloudinary prêtes à l'emploi
         res.json(results[0]);
     });
 });
@@ -1266,6 +1294,10 @@ app.post('/api/upload-galerie', uploadGalerie.single('photo'), (req, res) => {
 
 //route pour afficher les images sur le site public
 // Route publique (page galerie visiteurs)
+// --- ROUTES GALERIE (GET) ---
+// Les routes GET ne changent presque pas, mais c'est plus simple car results[i].image_path 
+// contiendra directement "https://res.cloudinary.com/..."
+
 app.get('/api/galerie', (req, res) => {
     const sql = "SELECT * FROM galerie ORDER BY date_ajout DESC LIMIT 10";
     db.query(sql, (err, results) => {
@@ -1274,7 +1306,6 @@ app.get('/api/galerie', (req, res) => {
     });
 });
 
-// Route admin (toutes les photos sans limite)
 app.get('/api/admin/galerie', (req, res) => {
     const sql = "SELECT * FROM galerie ORDER BY date_ajout DESC";
     db.query(sql, (err, results) => {
@@ -1282,46 +1313,44 @@ app.get('/api/admin/galerie', (req, res) => {
             console.error("Erreur SQL galerie:", err);
             return res.status(500).json({ error: "Erreur récupération galerie" });
         }
-        console.log("Photos galerie admin:", results.length);
         res.json(results);
     });
 });
 
-// Route pour SUPPRIMER une photo
+// --- ROUTE DELETE (SUPPRESSION) ---
+// C'est ici que la magie Cloudinary opère !
+
 app.delete('/api/galerie/:id', (req, res) => {
     const photoId = req.params.id;
-    console.log("--- TENTATIVE DE SUPPRESSION ---");
-    console.log("ID cible :", photoId);
 
-    // 1. On récupère d'abord les infos
-    db.query("SELECT * FROM galerie WHERE id = ?", [photoId], (err, results) => {
+    // 1. On récupère l'URL de l'image pour extraire son "Public ID" Cloudinary
+    db.query("SELECT image_path FROM galerie WHERE id = ?", [photoId], (err, results) => {
         if (err || results.length === 0) {
-            console.log("❌ Photo introuvable dans la base.");
-            return res.status(404).json({ success: false });
+            return res.status(404).json({ success: false, message: "Photo introuvable" });
         }
 
-        // On récupère le nom exact
-        const fileName = results.image_path;
-        console.log("Nom du fichier à supprimer :", fileName);
+        const fullUrl = results.image_path;
 
-        // 2. On supprime d'abord de la base de données
+        // Étape cruciale : Pour supprimer sur Cloudinary, il faut le "Public ID"
+        // On l'extrait de l'URL (ex: spe_congo/galerie/nom_image)
+        const parts = fullUrl.split('/');
+        const fileNameWithExtension = parts.pop(); // ex: 123456.jpg
+        const folderName = parts.slice(parts.indexOf('spe_congo')).join('/'); // ex: spe_congo/galerie
+        const publicId = `${folderName}/${fileNameWithExtension.split('.')}`;
+
+        // 2. On supprime de la base de données MySQL
         db.query("DELETE FROM galerie WHERE id = ?", [photoId], (err) => {
             if (err) return res.status(500).json({ success: false });
 
-            // 3. On tente la suppression du fichier si le nom existe
-            if (fileName) {
-                const filePath = path.join(__dirname, '..', 'images', 'galerie', fileName);
-                
-                if (fs.existsSync(filePath)) {
-                    try {
-                        fs.unlinkSync(filePath);
-                        console.log("✅ Fichier supprimé du dossier avec succès !");
-                    } catch (e) {
-                        console.log("❌ Erreur lors de l'effacement physique :", e.message);
+            // 3. On supprime l'image sur Cloudinary
+            if (fullUrl && fullUrl.includes('cloudinary')) {
+                cloudinary.uploader.destroy(publicId, (error, result) => {
+                    if (error) {
+                        console.log("❌ Erreur suppression Cloudinary :", error);
+                    } else {
+                        console.log("✅ Image supprimée de Cloudinary :", result);
                     }
-                } else {
-                    console.log("⚠️ Le fichier n'existe pas dans le dossier galerie.");
-                }
+                });
             }
 
             res.json({ success: true });
