@@ -782,7 +782,7 @@ app.get('/api/news', (req, res) => {
     const sql = "SELECT * FROM news ORDER BY date_publication DESC"; // Adapte selon ta table
     db.query(sql, (err, results) => {
         if (err) return res.status(500).send(err);
-        res.json(results[0]);
+        res.json(results);
     });
 });
 
