@@ -1313,7 +1313,7 @@ const allMonths = new Set();
 // 15. FLYER
 // ==========================================
 function ouvrirFlyer(flyerPath) {
-const BASE_URL = `https://spe-congo-project.onrender.com/`;
+const BASE_URL = `https://spe-congo-project.onrender.com`;
 const url = `${BASE_URL}/images/news/flyers/${flyerPath}`;
 const contenu = document.getElementById('flyer-contenu');
 const download = document.getElementById('flyer-download');
