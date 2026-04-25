@@ -1244,7 +1244,7 @@ results = results.map(r => ({
     });
 });
 
-//route pour poster une image de la galere depuis le board de l'admin
+//route pour poster une image de  la galere depuis le board de l'admin
 app.post('/api/upload-galerie', uploadGalerie.single('photo'), (req, res) => {
     // Vérifie si le fichier est bien arrivé
     if (!req.file) {
