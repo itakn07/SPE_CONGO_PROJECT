@@ -742,12 +742,12 @@ container.innerHTML = newsArray.map(art => `
             <span class="news-category">${art.categorie || 'NEWS'}</span>
             <h3>${art.titre}</h3>
             <p>${art.contenu.substring(0,10)}
-            ${art.flyer_path ? `
+           
 
                 <a href="news-detail.html?id=${art.id}" class="Voir-plus" style="color:#0054a6; text-decoration:none; font-weight:bold; cursor:pointer;"> Voir plus...</a>
 
                   </p>
-
+ ${art.flyer_path ? `
                 
 
                 <button onclick="ouvrirFlyer('${art.flyer_path}')"
