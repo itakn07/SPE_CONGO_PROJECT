@@ -714,13 +714,15 @@ container.innerHTML = events.map(e => ` <div class="event-card"> <div class="eve
 }
 
 async function loadNews() {
-try {
-const response = await fetch(`https://spe-congo-project.onrender.com/api/news`);
-allNews = await response.json();
-renderNews(allNews);
-} catch (error) { console.error("Erreur chargement news:", error); }
+    try {
+        const response = await fetch(`https://spe-congo-project.onrender.com/api/news`);
+        const data = await response.json();
+        allNews = Array.isArray(data) ? data : [];
+        renderNews(allNews);
+    } catch (error) {
+        console.error("Erreur chargement news:", error);
+    }
 }
-
 function renderNews(newsArray) {
 
   //  const resume= art.contenu.length>100? art.contenu.substring(0,100)+"...": art.contenu;
