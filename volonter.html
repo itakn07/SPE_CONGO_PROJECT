@@ -1,166 +1,240 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Officers - SPE Congo Section 117</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volontariat – SPE Congo Section 117</title>
+  <link rel="stylesheet" href="volontariat.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-   <header>
-    <nav class="navbar">
-        <div class="logo">
-            <a href="index.html"> <img src="images/WhatsApp Image 2026-02-14 at 15.38.44.jpeg" alt="SPE CONGO Section Logo" class="logo-img"></a>
-           
+  <!-- ── HERO ── -->
+
+  <section class="hero">
+    <div class="hero__bg-grid"></div>
+    <div class="hero__orb hero__orb--1"></div>
+    <div class="hero__orb hero__orb--2"></div>
+    <div class="hero__content">
+      <span class="hero__badge">Rejoignez-nous</span>
+      <h1 class="hero__title">Devenez<br/><em>Volontaire</em> SPE</h1>
+      <p class="hero__sub">Participez activement au développement de l'industrie énergétique au Congo et façonnez l'avenir du secteur.</p>
+      <div class="hero__stats">
+        <div class="stat"><span class="stat__num">117</span><span class="stat__label">Section</span></div>
+        <div class="stat__divider"></div>
+        <div class="stat"><span class="stat__num">50+</span><span class="stat__label">Membres actifs</span></div>
+        <div class="stat__divider"></div>
+        <div class="stat"><span class="stat__num">10+</span><span class="stat__label">Domaines</span></div>
+      </div>
+    </div>
+    <div class="hero__scroll-hint">
+      <span>Postuler</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ── BENEFITS ── -->
+
+  <section class="benefits">
+    <div class="container">
+      <h2 class="section-title">Pourquoi s'engager ?</h2>
+      <div class="benefits__grid">
+        <div class="benefit-card">
+          <div class="benefit-card__icon">🤝</div>
+          <h3>Réseau professionnel</h3>
+          <p>Connectez-vous avec des experts de l'industrie énergétique en Afrique et à l'international.</p>
         </div>
-
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="benefit-card">
+          <div class="benefit-card__icon">🎓</div>
+          <h3>Formation continue</h3>
+          <p>Accédez à des ateliers, conférences et ressources techniques exclusives aux membres SPE.</p>
         </div>
-
-        <div class="nav-container-links" id="nav-menu">
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Membres <i class="fas fa-caret-down"></i></a>
-                    <div class="dropdown-content">
-                        <a href="partners.html">Partenaires</a>
-                        <a href="#membres">Équipe Congo</a>
-                    </div>
-                </li>
-                <li><a href="calendrier.html">Calendrier</a></li>
-                <li><a href="media.html">Média</a></li>
-                <li><a href="students.html">Étudiants</a></li>
-                 <li><a href="volonter.html">Volontariat</a></li>
-                
-            </ul>
-
-            <div class="auth-buttons">
-                <button onclick="openModal()" class="btn-login">Log In</button>
-                 <button onclick="openSignupModal()" class="btn-signup">Sign-up</button>
-                
-            </div>
+        <div class="benefit-card">
+          <div class="benefit-card__icon">🚀</div>
+          <h3>Impact réel</h3>
+          <p>Contribuez à des projets concrets qui font avancer le secteur énergétique congolais.</p>
         </div>
-    </nav>
-</header>
-
-    <section class="hero hero-small">
-        <div class="hero-content">
-            
-           
-           <h2><br><br><br><p> Volontariat</p></h2> 
+        <div class="benefit-card">
+          <div class="benefit-card__icon">🌍</div>
+          <h3>Visibilité internationale</h3>
+          <p>Représentez la Section 117 lors d'événements SPE regionaux et mondiaux.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="volunteering-hero">
-    <h1>Devenez Volontaire SPE</h1>
-    <p>Participez activement au développement de l'industrie énergétique au Congo.</p>
-</section>
+  <!-- ── FORM ── -->
 
-<section class="volunteering-form-container">
-    <form id="form-volontaire">
-        <div class="input-group">
-            <label>Domaine d'intérêt</label>
-            <select id="domaine" required>
-                <option value="">-- Choisir un domaine --</option>
-                <option value="technique">Support Technique / Conférences</option>
-                <option value="com">Communication & Design</option>
-                <option value="event">Organisation d'Événements</option>
-                <option value="logistique">Logistique & Accueil</option>
-            </select>
+  <section class="form-section" id="candidature">
+    <div class="container">
+      <div class="form-wrapper">
+
+```
+    <!-- Left panel -->
+    <div class="form-info">
+      <p class="form-info__tag">Candidature</p>
+      <h2 class="form-info__title">Prêt à faire partie de l'aventure ?</h2>
+      <p class="form-info__desc">Remplissez le formulaire et notre équipe vous contactera sous 72h pour discuter de votre engagement.</p>
+      <ul class="form-info__steps">
+        <li><span class="step-dot">01</span>Soumettez votre candidature</li>
+        <li><span class="step-dot">02</span>Entretien avec le comité</li>
+        <li><span class="step-dot">03</span>Bienvenue dans l'équipe !</li>
+      </ul>
+      <div class="form-info__contact">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        congosection@spemail.org
+      </div>
+    </div>
+
+    <!-- Right panel – Form -->
+    <form class="form" id="volontariatForm">
+
+      <!-- Row 1 -->
+      <div class="form__row form__row--2">
+        <div class="form__group">
+          <label for="prenom">Prénom <span class="required">*</span></label>
+          <input type="text" id="prenom" name="prenom" placeholder="Jean-Claude" required />
         </div>
-
-        <div class="input-group">
-            <label>Vos motivations</label>
-            <textarea id="motivation" rows="5" placeholder="Pourquoi souhaitez-vous nous rejoindre ?"></textarea>
+        <div class="form__group">
+          <label for="nom">Nom <span class="required">*</span></label>
+          <input type="text" id="nom" name="nom" placeholder="Moukala" required />
         </div>
+      </div>
 
-        <div class="input-group">
-            <label>Disponibilité</label>
-            <input type="text" id="disponibilite" placeholder="Ex: Week-ends, Soirs, 2h/semaine">
+      <!-- Row 2 -->
+      <div class="form__row form__row--2">
+        <div class="form__group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="jean@example.com" required />
         </div>
+        <div class="form__group">
+          <label for="tel">Téléphone</label>
+          <input type="tel" id="tel" name="tel" placeholder="+242 06 000 0000" />
+        </div>
+      </div>
 
-        <button type="submit" class="btn-submit-volontaire">Envoyer ma candidature</button>
+      <!-- Domaine -->
+      <div class="form__group">
+        <label for="domaine">Domaine d'intérêt <span class="required">*</span></label>
+        <div class="form__select-wrapper">
+          <select id="domaine" name="domaine" required>
+            <option value="" disabled selected>Choisir un domaine</option>
+            <option value="reservoir">Ingénierie de réservoir</option>
+            <option value="forage">Forage & complétion</option>
+            <option value="production">Ingénierie de production</option>
+            <option value="geosciences">Géosciences</option>
+            <option value="hse">HSE & Environnement</option>
+            <option value="digital">Digital & Data</option>
+            <option value="gestion">Gestion de projet</option>
+            <option value="finance">Finance & Économie pétrolière</option>
+            <option value="autre">Autre</option>
+          </select>
+          <svg class="form__select-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Expérience -->
+      <div class="form__group">
+        <label>Niveau d'expérience <span class="required">*</span></label>
+        <div class="form__radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="experience" value="etudiant" required />
+            <span>Étudiant</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="experience" value="junior" />
+            <span>Junior (0–3 ans)</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="experience" value="senior" />
+            <span>Senior (3+ ans)</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="experience" value="expert" />
+            <span>Expert</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Disponibilité -->
+      <div class="form__group">
+        <label for="dispo">Disponibilité <span class="required">*</span></label>
+        <input type="text" id="dispo" name="dispo" placeholder="Ex : Week-ends, 2h/semaine, soirs…" required />
+      </div>
+
+      <!-- Motivations -->
+      <div class="form__group">
+        <label for="motivation">Vos motivations <span class="required">*</span></label>
+        <textarea id="motivation" name="motivation" rows="4" placeholder="Pourquoi souhaitez-vous nous rejoindre ? Quels sont vos objectifs ?" required></textarea>
+        <span class="char-count" id="charCount">0 / 500</span>
+      </div>
+
+      <!-- Comment -->
+      <div class="form__group">
+        <label for="source">Comment nous avez-vous découverts ?</label>
+        <div class="form__select-wrapper">
+          <select id="source" name="source">
+            <option value="" disabled selected>Sélectionner</option>
+            <option value="reseaux">Réseaux sociaux</option>
+            <option value="collegue">Un collègue / ami</option>
+            <option value="evenement">Un événement SPE</option>
+            <option value="universite">Mon université</option>
+            <option value="autre">Autre</option>
+          </select>
+          <svg class="form__select-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-submit">
+        <span class="btn-submit__text">Envoyer ma candidature</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+
     </form>
-</section>
-
- <footer>
-    <div class="footer-container">
-        <div class="footer-info">
-            <img src="images/spe_footer.jpg" alt="Logo SPE">
-            <p>La SPE Congo (Section 117)</p>
-            <p>Solutions. People. Energy.</p>
-        </div>
-
-        <div class="footer-contact">
-            <h3>Liens Rapides</h3>
-            <ul id="list-style">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="calendrier.html">Calendrier</a></li>
-                <li><a href="membres.html">Étudiants</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-contact">
-            <h3>Contact</h3>
-          
-            <p><i class="fas fa-map-marker-alt"></i> Pointe-Noire, République du Congo</p>
-            <p><i class="fas fa-envelope"></i> 
-                <a href="mailto:congosection@spemail.org" class="footet-email">congosection@spemail.org</a>
-            </p>
-
-            <div class="social-icons">
-                  <br>
-            <p>Nous suivre sur:</p>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-               <a href="#"><i class="fab fa-twitter"></i></a>   
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <p>&copy; 2026 SPE Congo. Tous droits réservés.</p>
-    </div>
-</footer>
-<!--Modal du log in-->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Connexion</h2>
-        <form id="login-form">
-            <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
-            <input type="password" id="login-password" placeholder="Mot de passe" required>
-            <button type="submit" class="btn-submit">Entrer</button>
-        </form>
-        <p id="error-msg" style="color: red;"></p>
-    </div>
+  </div>
 </div>
+```
 
-<!--Modal du sign up-->
-<div id="signupModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeSignupModal()">&times;</span>
-        <h2>Créer mon compte</h2>
-        <form id="signup-form">
-            <input type="text" id="signup-username" placeholder="Nom d'utilisateur" required>
-            <input type="email" id="signup-email" placeholder="Email (Professionnel ou Étudiant)" required>
-            <input type="password" id="signup-password" placeholder="Mot de passe" required>
-            <input type="password" id="signup-confirm" placeholder="Confirmer le mot de passe" required>
-            <button type="submit" class="btn-submit">Créer mon compte</button>
-            <a href="https://www.spe.org/en/join/" target="_blank" class="btn-primary">Rejoindre la SPE</a>
-        </form>
-        <p id="signup-error-msg" style="color: red;"></p>
-    </div>
-</div>
+  </section>
 
-<script src="script.js"></script>
+  <!-- ── SUCCESS TOAST ── -->
 
-    </body>
+  <div class="toast" id="toast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    Candidature envoyée avec succès !
+  </div>
+
+  <script>
+    // Char counter
+    const textarea = document.getElementById('motivation');
+    const counter  = document.getElementById('charCount');
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      counter.textContent = `${len} / 500`;
+      if (len > 500) textarea.value = textarea.value.slice(0, 500);
+    });
+
+    // Radio pills highlight
+    document.querySelectorAll('.radio-pill input').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
+        radio.closest('.radio-pill').classList.add('active');
+      });
+    });
+
+    // Form submit (remplacer par votre appel API)
+    document.getElementById('volontariatForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+      e.target.reset();
+      document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
+      counter.textContent = '0 / 500';
+    });
+  </script>
+
+</body>
 </html>
