@@ -1,11 +1,11 @@
 /* =====================================================
-   VOLONTARIAT – SPE Congo Section 117
+   VOLONTARIAT – SPE Congo Section 117 #0054a6;
    ===================================================== */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --blue:       #0054a6;
+  --blue:      #003399;
   --blue-dark:  #003d7a;
   --blue-light: #1a6fc4;
   --accent:     #00b4d8;
