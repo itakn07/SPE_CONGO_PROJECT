@@ -356,7 +356,8 @@ body {
   padding: 13px 16px;
   outline: none;
   transition: border-color .2s, box-shadow .2s, background .2s;
- /* -webkit-appearance: none;*/
+ -webkit-appearance: none;
+ appearance: none ;
 }
 .form__group input:focus,
 .form__group select:focus,
