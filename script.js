@@ -1716,3 +1716,31 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
         alert("Impossible de contacter le serveur.");
     }
 });
+
+ // Formulaire de vonlontariat
+    const textarea = document.getElementById('motivation');
+    const counter  = document.getElementById('charCount');
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      counter.textContent = `${len} / 500`;
+      if (len > 500) textarea.value = textarea.value.slice(0, 500);
+    });
+
+    // Radio pills highlight
+    document.querySelectorAll('.radio-pill input').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
+        radio.closest('.radio-pill').classList.add('active');
+      });
+    });
+
+    // Form submit (remplacer par votre appel API)
+    document.getElementById('volontariatForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+      e.target.reset();
+      document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
+      counter.textContent = '0 / 500';
+    });
