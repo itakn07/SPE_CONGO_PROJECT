@@ -500,3 +500,9 @@ body {
   .form__radio-group { gap: 8px; }
   .hero__stats { padding: 18px 24px; }
 }
+
+.form__hint {
+  font-size: .78rem;
+  color: var(--gray-400);
+  margin-top: 2px;
+}

@@ -157,7 +157,16 @@
           <label for="tel">Téléphone</label>
           <input type="tel" id="tel" name="tel" placeholder="+242 06 000 0000" />
         </div>
-      </div>
+        </div>
+        <!-- Row 3 - Matricule -->
+<div class="form__row form__row--2">
+  <div class="form__group">
+    <label for="matricule">Matricule SPE <span class="required">*</span></label>
+    <input type="text" id="matricule" name="matricule" placeholder="Ex : 12345678" required />
+    <span class="form__hint">Votre numéro de membre SPE International</span>
+  </div>
+</div>
+      
 
       <!-- Domaine -->
       <div class="form__group">
@@ -291,6 +300,38 @@
         <p>&copy; 2026 SPE Congo. Tous droits réservés.</p>
     </div>
 </footer>
+
+<!--Modal du log in-->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+            <input type="password" id="login-password" placeholder="Mot de passe" required>
+            <button type="submit" class="btn-submit">Entrer</button>
+        </form>
+        <p id="error-msg" style="color: red;"></p>
+    </div>
+</div>
+
+<!--Modal du sign up-->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeSignupModal()">&times;</span>
+        <h2>Créer mon compte</h2>
+        <form id="signup-form">
+            <input type="text" id="signup-username" placeholder="Nom d'utilisateur" required>
+            <input type="email" id="signup-email" placeholder="Email (Professionnel ou Étudiant)" required>
+            <input type="password" id="signup-password" placeholder="Mot de passe" required>
+            <input type="password" id="signup-confirm" placeholder="Confirmer le mot de passe" required>
+            <button type="submit" class="btn-submit">Créer mon compte</button>
+            <a href="https://www.spe.org/en/join/" target="_blank" class="btn-primary">Rejoindre la SPE</a>
+        </form>
+        <p id="signup-error-msg" style="color: red;"></p>
+    </div>
+</div>
+
 
    <script src="script.js"></script>
     
