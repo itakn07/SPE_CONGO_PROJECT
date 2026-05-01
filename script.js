@@ -1744,3 +1744,8 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
       document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
       counter.textContent = '0 / 500';
     });
+
+    document.getElementById('photo').addEventListener('change', function() {
+  const label = document.getElementById('fileLabel');
+  label.textContent = this.files[0] ? this.files[0].name : 'Choisir une photo';
+});

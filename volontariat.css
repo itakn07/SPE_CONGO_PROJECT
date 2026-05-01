@@ -506,3 +506,23 @@ body {
   color: var(--gray-400);
   margin-top: 2px;
 }
+
+.form__file-wrapper input[type="file"] { display: none; }
+
+.form__file-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  background: var(--gray-50);
+  border: 1.5px dashed var(--gray-200);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: .95rem;
+  color: var(--gray-400);
+  transition: border-color .2s, color .2s;
+}
+.form__file-label:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
