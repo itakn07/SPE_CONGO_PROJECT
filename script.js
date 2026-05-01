@@ -110,6 +110,9 @@ if (loginForm) {
             });
             const data = await res.json();
 
+            console.log("DEBUG - Utilisateur complet:", data.user);
+console.log("DEBUG - Statut reçu:", data.user.statut);
+
            if (data.success) {
             // 1. Stockage des infos de session
             localStorage.setItem('user', JSON.stringify(data.user));
