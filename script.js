@@ -1408,7 +1408,7 @@ async function chargerGalerie() {
         // 1. Générer les images
         container.innerHTML = slidesData.map(img => `
             <div class="slider-item">
-                <img src="https://spe-congo-project.onrender.com/Images/galerie/${img.image_path}" alt="${img.titre}">
+             <img src="${img.image_path.startsWith('http') ? img.image_path : `https://spe-congo-project.onrender.com/images/galerie/${img.image_path}`}" alt="${img.titre}">
                 <div class="slider-caption">
                     <h2>${img.titre}</h2>
                     <p>${img.description || ''}</p>
@@ -1516,8 +1516,8 @@ async function chargerPhotosAdmin() {
         // 4. On crée le HTML pour chaque image
         grille.innerHTML = photos.map(p => `
             <div class="photo-item"  id= "photo-${p.id}" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 150px; text-align: center;">
-                <img src="https://spe-congo-project.onrender.com/images/galerie/${p.image_path}" 
-                     style="width: 100%; height: 100px; object-fit: cover; border-radius: 4px;">
+                  <img src="${p.image_path.startsWith('http') ? p.image_path : `https://spe-congo-project.onrender.com/images/galerie/${p.image_path}`}" 
+                           style="width: 100%; height: 100px; object-fit: cover; border-radius: 4px;">
                 <p style="font-size: 12px; margin: 5px 0;">${p.titre}</p>
                 <button onclick="supprimerPhoto(${p.id})" style="background: red; color: white; border: none; cursor: pointer; padding: 4px 8px; border-radius: 4px;">
                     Supprimer
@@ -1602,7 +1602,10 @@ async function chargerPhotos() {
         
         //  onclick="ouvrirModal(...)" sur chaque image générée
         container.innerHTML = photos.map(p => {
-            const fullImgPath = `https://spe-congo-project.onrender.com/images/galerie/${p.image_path}`;
+          // Remplacez la ligne const fullImgPath = ... par :
+const fullImgPath = p.image_path.startsWith('http') 
+    ? p.image_path 
+    : `https://spe-congo-project.onrender.com/images/galerie/${p.image_path}`;
             return `
                 <div class="galerie-item">
                     <img src="${fullImgPath}" 
