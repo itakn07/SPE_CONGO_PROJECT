@@ -129,7 +129,7 @@ if (loginForm) {
                 // L'admin va directement sur sa page
                 window.location.href = 'admin.html';
             } 
-            else if (data.user.statut !== 'accepté') { 
+            else if (data.user.statut !== 'Actif') { 
                 // Si le compte (Mentor ou Mentee) n'est pas validé
                 alert("Votre compte est en attente de validation par l'administration.");
                 window.location.reload(); // On recharge simplement la page d'accueil
