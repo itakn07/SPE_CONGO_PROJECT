@@ -478,24 +478,37 @@ if (sectionId === 'messagerie-section') chargerMembresMessagerie();
 // 5. SUIVI BINÔME ET OBJECTIFS
 // ==========================================
 async function chargerInfosBinome() {
-try {
-const response = await fetch(`https://spe-congo-project.onrender.com/api/details-binome/${relId}`);
-if (!response.ok) throw new Error("Erreur serveur");
-const data = await response.json();
+    try {
+        const response = await fetch(`https://spe-congo-project.onrender.com/api/details-binome/${relId}`);
+        if (!response.ok) throw new Error("Erreur serveur");
+        const data = await response.json();
 
+        if (document.getElementById('mentor-name')) document.getElementById('mentor-name').innerText = data.mentor_nom;
+        if (document.getElementById('mentee-name')) document.getElementById('mentee-name').innerText = data.mentee_nom;
 
-    if (document.getElementById('mentor-name')) document.getElementById('mentor-name').innerText = data.mentor_nom;
-    if (document.getElementById('mentee-name')) document.getElementById('mentee-name').innerText = data.mentee_nom;
+        // Correction pour le Mentor
+        if (data.mentor_photo && document.querySelector('#mentor-avatar')) {
+            // Si l'image commence par http, on prend l'URL directe, sinon on ajoute le préfixe Render
+            const mentorSrc = data.mentor_photo.startsWith('http') 
+                ? data.mentor_photo 
+                : `https://spe-congo-project.onrender.com/${data.mentor_photo}`;
+            
+            document.querySelector('#mentor-avatar').innerHTML = `<img src="${mentorSrc}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+        }
 
-    if (data.mentor_photo && document.querySelector('#mentor-avatar')) {
-        document.querySelector('#mentor-avatar').innerHTML = `<img src="https://spe-congo-project.onrender.com/${data.mentor_photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+        // Correction pour le Mentee
+        if (data.mentee_photo && document.querySelector('#mentee-avatar')) {
+            // Même logique ici
+            const menteeSrc = data.mentee_photo.startsWith('http') 
+                ? data.mentee_photo 
+                : `https://spe-congo-project.onrender.com/${data.mentee_photo}`;
+            
+            document.querySelector('#mentee-avatar').innerHTML = `<img src="${menteeSrc}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+        }
+        
+    } catch (err) { 
+        console.error("Erreur binôme :", err.message); 
     }
-    if (data.mentee_photo && document.querySelector('#mentee-avatar')) {
-        document.querySelector('#mentee-avatar').innerHTML = `<img src="https://spe-congo-project.onrender.com/${data.mentee_photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-    }
-} catch (err) { console.error("Erreur binôme :", err.message); }
-
-
 }
 
 async function chargerObjectifs(idRelation) {
