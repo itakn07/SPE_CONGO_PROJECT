@@ -274,17 +274,47 @@ app.post('/api/login', (req, res) => {
     if (result && result.length > 0) {
       const user = result[0];
 
+      // Vérifier si c'est un mentor
       db.query("SELECT id FROM mentors WHERE user_id = ?", [user.id], (errM, resMentor) => {
         if (!errM && resMentor.length > 0) {
-          return res.json({ success: true, user: { id: resMentor[0].id, userId: user.id, username: user.username, role: 'mentor' } });
+          return res.json({ 
+            success: true, 
+            user: { 
+              id: resMentor[0].id, 
+              userId: user.id, 
+              username: user.username, 
+              role: 'mentor',
+              statut: user.statut // Ajout du statut ici
+            } 
+          });
         }
 
+        // Vérifier si c'est un mentee
         db.query("SELECT id FROM mentees WHERE user_id = ?", [user.id], (errMe, resMentee) => {
           if (!errMe && resMentee.length > 0) {
-            return res.json({ success: true, user: { id: resMentee[0].id, userId: user.id, username: user.username, role: 'mentee' } });
+            return res.json({ 
+              success: true, 
+              user: { 
+                id: resMentee[0].id, 
+                userId: user.id, 
+                username: user.username, 
+                role: 'mentee',
+                statut: user.statut // Ajout du statut ici
+              } 
+            });
           }
 
-          return res.json({ success: true, user: { id: user.id, userId: user.id, username: user.username, role: user.role } });
+          // Réponse par défaut (Admin ou utilisateur sans profil spécifique)
+          return res.json({ 
+            success: true, 
+            user: { 
+              id: user.id, 
+              userId: user.id, 
+              username: user.username, 
+              role: user.role,
+              statut: user.statut // Ajout du statut ici
+            } 
+          });
         });
       });
 
