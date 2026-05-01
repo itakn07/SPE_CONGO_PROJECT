@@ -110,41 +110,56 @@ if (loginForm) {
             });
             const data = await res.json();
 
-            if (data.success) {
-                localStorage.setItem('user', JSON.stringify(data.user));
-                localStorage.setItem('userId', data.user.userId);
-                localStorage.setItem('isLoggedIn', 'true');
+           if (data.success) {
+            // 1. Stockage des infos de session
+            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('userId', data.user.userId);
+            localStorage.setItem('isLoggedIn', 'true');
 
-               
+            // 2. Fermeture du modal de login
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
 
-                const loginModal = document.getElementById('loginModal');
-                if (loginModal) loginModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+            alert(`Bienvenue ${data.user.username} !`);
+            checkLoginStatus();
 
-                alert(`Bienvenue ${data.user.username} !`);
-
-                 checkLoginStatus();
-
-                if (data.user.role === 'admin') {
-                    window.location.href = 'admin.html';
-                } else if (data.user.role === 'mentor') {
+            // 3. Logique de redirection selon le rôle et le statut
+            if (data.user.role === 'admin') {
+                // L'admin va directement sur sa page
+                window.location.href = 'admin.html';
+            } 
+            else if (data.user.statut !== 'accepté') { 
+                // Si le compte (Mentor ou Mentee) n'est pas validé
+                alert("Votre compte est en attente de validation par l'administration.");
+                window.location.reload(); // On recharge simplement la page d'accueil
+            } 
+            else {
+                // Si le compte est validé ('accepté'), on redirige vers le bon dashboard
+                if (data.user.role === 'mentor') {
                     window.location.href = 'dashbord-mentor.html';
-                } else if (data.user.role === 'mentee') {
+                } 
+                else if (data.user.role === 'mentee') {
                     window.location.href = 'dashbord-mentee.html';
-                } else {
+                } 
+                else {
+                    // Cas de secours si le rôle est différent
                     window.location.reload();
                 }
-            } else {
-                const errorEl = document.getElementById('error-msg');
-                if (errorEl) {
-                    errorEl.innerText = data.message || "Identifiants incorrects";
-                    errorEl.style.color = "red";
-                }
             }
-        } catch (err) {
-            console.error("Erreur serveur login :", err);
-            alert("Erreur de connexion au serveur.");
+
+        } else {
+            // Gestion des erreurs d'identifiants
+            const errorEl = document.getElementById('error-msg');
+            if (errorEl) {
+                errorEl.innerText = data.message || "Identifiants incorrects";
+                errorEl.style.color = "red";
+            }
         }
+    } catch (err) {
+        console.error("Erreur serveur login :", err);
+        alert("Erreur de connexion au serveur.");
+    }
     });
 }
 
