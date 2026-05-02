@@ -887,6 +887,7 @@ let rows = '';
                     <td><strong>${m.nom_complet}</strong><br><small>${m.poste_entreprise}</small></td>
                     <td><span class="expertise-tag">${m.domaine_expertise}</span></td>
                     <td><a href="mailto:${m.email_contact}">${m.email_contact}</a></td>
+                    <td><span class="expertise-tag">${m.cv_path}</span></td>
                     <td><button onclick="openMentorModal(${m.id})" class="btn-info">Lire</button></td>
                     <td><span class="status-badge status-${statusClean.replace(' ', '-')}">${m.statut}</span></td>
                     <td>${actionsHtml}</td>
