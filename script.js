@@ -134,7 +134,7 @@ if (data.success) {
     return;
   }
 
-  if (data.user.role === 'mentee' && data.user.statut === 'EN_FORMATION') {
+  if (data.user.role === 'mentee' && data.user.statut === 'EN FORMATION') {
     window.location.href = 'dashbord-mentee.html';
     return;
   }
