@@ -829,7 +829,7 @@ if (btn) {
             const res = await fetch(`https://spe-congo-project.onrender.com/api/nouvelle-demande`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mentorId, menteeId: user.id, message })
+                body: JSON.stringify({ mentorId, menteeId: user.userId, message })
             });
             const data = await res.json();
             if (data.success) {
