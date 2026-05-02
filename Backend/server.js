@@ -302,7 +302,7 @@ if (user.password !== password) {
       }
 
       // Vérifier si c'est un mentor
-      db.query("SELECT id FROM mentors WHERE user_id = ?", [user.id], (errM, resMentor) => {
+      db.query("SELECT id, statut FROM mentors WHERE user_id = ?", [user.id], (errM, resMentor) => {
         if (errM) return res.status(500).json({ success: false, message: "Erreur vérification mentor" });
 
         if (resMentor.length > 0) {
@@ -313,13 +313,13 @@ if (user.password !== password) {
               userId: user.id,
               username: user.username,
               role: 'mentor',
-              statut: user.statut
+              statut: resMentor[0].statut
             }
           });
         }
 
         // Vérifier si c'est un mentee
-        db.query("SELECT id FROM mentees WHERE user_id = ?", [user.id], (errMe, resMentee) => {
+        db.query("SELECT id, statut FROM mentees WHERE user_id = ?", [user.id], (errMe, resMentee) => {
           if (errMe) return res.status(500).json({ success: false, message: "Erreur vérification mentee" });
 
           if (resMentee.length > 0) {
@@ -330,7 +330,7 @@ if (user.password !== password) {
                 userId: user.id,
                 username: user.username,
                 role: 'mentee',
-                statut: user.statut
+                statut: resMentee[0].statut
               }
             });
           }
