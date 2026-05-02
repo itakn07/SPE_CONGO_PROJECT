@@ -1,4 +1,4 @@
-const BASE_URL = 'https://spe-congo-project.onrender.com/';
+const BASE_URL = 'https://spe-congo-project.onrender.com';
 let currentRelId = null;
 let emailFelicEnvoye = false;
 
