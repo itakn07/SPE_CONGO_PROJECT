@@ -296,7 +296,7 @@ if (user.password !== password) {
             userId: user.id,
             username: user.username,
             role: 'admin',
-            statut: user.statut
+            statut: result[0].statut
           }
         });
       }
