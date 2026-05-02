@@ -112,53 +112,49 @@ if (loginForm) {
 
             console.log("DEBUG - Utilisateur complet:", data.user);
 console.log("DEBUG - Statut reçu:", data.user.statut);
+if (data.success) {
+  // 1. Stockage des infos de session
+  localStorage.setItem('user', JSON.stringify(data.user));
+  localStorage.setItem('userId', data.user.userId);
+  localStorage.setItem('isLoggedIn', 'true');
 
-           if (data.success) {
-            // 1. Stockage des infos de session
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('userId', data.user.userId);
-            localStorage.setItem('isLoggedIn', 'true');
+  // 2. Fermeture du modal de login
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) loginModal.style.display = 'none';
+  document.body.style.overflow = 'auto';
 
-            // 2. Fermeture du modal de login
-            const loginModal = document.getElementById('loginModal');
-            if (loginModal) loginModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+  // 3. Redirection selon le rôle et le statut
+  if (data.user.role === 'admin') {
+    window.location.href = 'admin.html';
+    return;
+  }
 
-            alert(`Bienvenue ${data.user.username} !`);
-            checkLoginStatus();
+  if (data.user.statut !== 'accepté') {
+    // Affichage dans l'UI plutôt qu'un double alert
+    const errorEl = document.getElementById('error-msg');
+    if (errorEl) {
+      errorEl.innerText = "Votre compte est en attente de validation par l'administration.";
+      errorEl.style.color = "orange";
+    }
+    return;
+  }
 
-            // 3. Logique de redirection selon le rôle et le statut
-            if (data.user.role === 'admin') {
-                // L'admin va directement sur sa page
-                window.location.href = 'admin.html';
-            } 
-            else if (data.user.statut !== 'ACTIF') { 
-                // Si le compte (Mentor ou Mentee) n'est pas validé
-                alert("Votre compte est en attente de validation par l'administration.");
-                window.location.reload(); // On recharge simplement la page d'accueil
-            } 
-            else {
-                // Si le compte est validé ('accepté'), on redirige vers le bon dashboard
-                if (data.user.role === 'mentor') {
-                    window.location.href = 'dashbord-mentor.html';
-                } 
-                else if (data.user.role === 'mentee') {
-                    window.location.href = 'dashbord-mentee.html';
-                } 
-                else {
-                    // Cas de secours si le rôle est différent
-                    window.location.reload();
-                }
-            }
+  // Compte validé — redirection vers le bon dashboard
+  if (data.user.role === 'mentor') {
+    window.location.href = 'dashbord-mentor.html';
+  } else if (data.user.role === 'mentee') {
+    window.location.href = 'dashbord-mentee.html';
+  } else {
+    window.location.reload();
+  }
 
-        } else {
-            // Gestion des erreurs d'identifiants
-            const errorEl = document.getElementById('error-msg');
-            if (errorEl) {
-                errorEl.innerText = data.message || "Identifiants incorrects";
-                errorEl.style.color = "red";
-            }
-        }
+} else {
+  const errorEl = document.getElementById('error-msg');
+  if (errorEl) {
+    errorEl.innerText = data.message || "Identifiants incorrects";
+    errorEl.style.color = "red";
+  }
+}
     } catch (err) {
         console.error("Erreur serveur login :", err);
         alert("Erreur de connexion au serveur.");

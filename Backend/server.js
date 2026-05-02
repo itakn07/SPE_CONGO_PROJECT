@@ -263,64 +263,84 @@ app.post('/repondre-demande', (req, res) => {
 // 2. ROUTES INSCRIPTIONS ET AUTHENTIFICATION
 // ==========================================
 
+
 app.post('/api/login', (req, res) => {
   const identifiant = req.body.username || req.body.email;
   const password = req.body.password;
 
-  const sql = "SELECT * FROM users WHERE (username = ? OR email = ?) AND password = ?";
-  db.query(sql, [identifiant, identifiant, password], (err, result) => {
-    if (err) return res.status(500).json({ error: err });
+  if (!identifiant || !password) {
+    return res.json({ success: false, message: "Identifiants manquants" });
+  }
 
-    if (result && result.length > 0) {
-      const user = result[0];
+  const sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+  db.query(sql, [identifiant, identifiant], (err, result) => {
+    if (err) return res.status(500).json({ success: false, message: "Erreur serveur" });
+
+    if (!result || result.length === 0) {
+      return res.json({ success: false, message: "Identifiants incorrects" });
+    }
+
+    const user = result[0];
+
+    // Vérification du mot de passe avec bcrypt
+    bcrypt.compare(password, user.password, (errBcrypt, isMatch) => {
+      if (errBcrypt || !isMatch) {
+        return res.json({ success: false, message: "Identifiants incorrects" });
+      }
+
+      // Admin détecté directement via son rôle
+      if (user.role === 'admin') {
+        return res.json({
+          success: true,
+          user: {
+            id: user.id,
+            userId: user.id,
+            username: user.username,
+            role: 'admin',
+            statut: user.statut
+          }
+        });
+      }
 
       // Vérifier si c'est un mentor
       db.query("SELECT id FROM mentors WHERE user_id = ?", [user.id], (errM, resMentor) => {
-        if (!errM && resMentor.length > 0) {
-          return res.json({ 
-            success: true, 
-            user: { 
-              id: resMentor[0].id, 
-              userId: user.id, 
-              username: user.username, 
+        if (errM) return res.status(500).json({ success: false, message: "Erreur vérification mentor" });
+
+        if (resMentor.length > 0) {
+          return res.json({
+            success: true,
+            user: {
+              id: resMentor[0].id,
+              userId: user.id,
+              username: user.username,
               role: 'mentor',
-              statut: user.statut // Ajout du statut ici
-            } 
+              statut: user.statut
+            }
           });
         }
 
         // Vérifier si c'est un mentee
         db.query("SELECT id FROM mentees WHERE user_id = ?", [user.id], (errMe, resMentee) => {
-          if (!errMe && resMentee.length > 0) {
-            return res.json({ 
-              success: true, 
-              user: { 
-                id: resMentee[0].id, 
-                userId: user.id, 
-                username: user.username, 
+          if (errMe) return res.status(500).json({ success: false, message: "Erreur vérification mentee" });
+
+          if (resMentee.length > 0) {
+            return res.json({
+              success: true,
+              user: {
+                id: resMentee[0].id,
+                userId: user.id,
+                username: user.username,
                 role: 'mentee',
-                statut: user.statut // Ajout du statut ici
-              } 
+                statut: user.statut
+              }
             });
           }
 
-          // Réponse par défaut (Admin ou utilisateur sans profil spécifique)
-          return res.json({ 
-            success: true, 
-            user: { 
-              id: user.id, 
-              userId: user.id, 
-              username: user.username, 
-              role: user.role,
-              statut: user.statut // Ajout du statut ici
-            } 
-          });
+          // Aucun profil trouvé
+          return res.json({ success: false, message: "Aucun profil associé à ce compte." });
         });
       });
-
-    } else {
-      res.json({ success: false, message: "Identifiants incorrects" });
-    }
+    });
   });
 });
 
