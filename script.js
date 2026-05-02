@@ -973,7 +973,7 @@ tbody.innerHTML = '';
             } else {
                 photoHtml = `<div style="width:45px; height:45px; border-radius:50%; background:#ccc; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${m.nom_complet.charAt(0)}</div>`;
             }
-            const cvUrl = m.cv_path ? `https://spe-congo-project.onrender.com/${m.cv_path.replace(/\\/g, '/')}` : null;
+            const cvUrl = m.cv_path ? `${m.cv_path.replace(/\\/g, '/')}` : null;
 
             tbody.innerHTML += `
                 <tr>
