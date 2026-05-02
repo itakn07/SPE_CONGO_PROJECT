@@ -22,7 +22,7 @@ async function chargerProfil(userId) {
 
         const av = document.getElementById('mentee-avatar');
         if (data.photo_path) {
-            av.innerHTML = `<img src="${BASE_URL}/${data.photo_path}" alt="photo">`;
+            av.innerHTML = `<img src="${data.photo_path}" alt="photo">`;
         } else {
             av.textContent = data.nom_complet[0].toUpperCase();
         }
@@ -44,7 +44,7 @@ async function chargerRelations(userId) {
         container.innerHTML = relations.map(r => {
             const poste = r.mentor_poste || r.mentor_expertise || '';
             const photoHtml = r.mentor_photo
-                ? `<img src="${BASE_URL}/${r.mentor_photo}" alt="">`
+                ? `<img src="${r.mentor_photo}" alt="">`
                 : r.mentor_nom[0].toUpperCase();
 
             return `
@@ -83,7 +83,7 @@ function ouvrirRelation(relId, mentorNom, mentorPoste, mentorEmail, mentorPhoto)
 
     const av = document.getElementById('detail-mentor-avatar');
     av.innerHTML = mentorPhoto
-        ? `<img src="${BASE_URL}/${mentorPhoto}" alt="">`
+        ? `<img src="${mentorPhoto}" alt="">`
         : mentorNom[0].toUpperCase();
 
     chargerObjectifs(relId);
