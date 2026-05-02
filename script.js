@@ -887,7 +887,7 @@ let rows = '';
                     <td><strong>${m.nom_complet}</strong><br><small>${m.poste_entreprise}</small></td>
                     <td><span class="expertise-tag">${m.domaine_expertise}</span></td>
                     <td><a href="mailto:${m.email_contact}">${m.email_contact}</a></td>
-                    <td>${m.cv_path ? `<a href="${m.cv_path}" target="_blank" class="btn-cv">Voir CV</a>` : '<span style="color:#aaa">—</span>'}</td>
+                    <td>${m.cv_path ? `<a href="${m.cv_path.replace('/image/upload/', '/raw/upload/')}" target="_blank" class="btn-cv">Voir CV</a>` : '<span style="color:#aaa">—</span>'}</td>
                     <td><button onclick="openMentorModal(${m.id})" class="btn-info">Lire</button></td>
                     <td><span class="status-badge status-${statusClean.replace(' ', '-')}">${m.statut}</span></td>
                     <td>${actionsHtml}</td>
@@ -982,7 +982,7 @@ tbody.innerHTML = '';
                     <td>${m.ecole || 'N/A'}</td>
                     <td>${m.domaine_interet}</td>
                     <td><span class="status-badge">${m.statut}</span></td>
-                    <td>${cvUrl ? `<a href="${cvUrl}" target="_blank">Voir CV</a>` : '---'}</td>
+                    <td>${cvUrl ? `<a href="${m.cv_path.replace('/image/upload/', '/raw/upload/')}" target="_blank" class="btn-cv">Voir CV</a>` : '---'}</td>
                     <td><button onclick="deleteMentee(${m.id})" style="color:red; cursor:pointer; border:none; background:none;">Supprimer</button></td>
                     <td>
                            ${m.statut !== 'TERMINE' ? `<button onclick="terminerMentee(${m.id})" 
