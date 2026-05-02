@@ -129,26 +129,18 @@ if (data.success) {
     return;
   }
 
-  if (data.user.statut !== 'ACTIF') {
-    // Affichage dans l'UI plutôt qu'un double alert
-    const errorEl = document.getElementById('error-msg');
-    if (errorEl) {
-      errorEl.innerText = "Votre compte est en attente de validation par l'administration.";
-      errorEl.style.color = "orange";
-    }
+  if (data.user.role === 'mentor' && data.user.statut === 'ACTIF') {
+    window.location.href = 'dashbord-mentor.html';
     return;
   }
 
-  // Compte validé — redirection vers le bon dashboard
-  if (data.user.role === 'mentor') {
-    window.location.href = 'dashbord-mentor.html';
-  } else if (data.user.role === 'mentee') {
+  if (data.user.role === 'mentee' && data.user.statut === 'EN_FORMATION') {
     window.location.href = 'dashbord-mentee.html';
-  } else if (data.user.role === 'user') {
-  window.location.reload(); 
-  } else {
-    window.location.reload();
+    return;
   }
+
+  // Tous les autres cas (en_attente, user simple) → reload
+  window.location.reload();
 
 } else {
   const errorEl = document.getElementById('error-msg');
