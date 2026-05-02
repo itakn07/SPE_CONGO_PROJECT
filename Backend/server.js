@@ -85,7 +85,7 @@ const storageMentee = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'spe_congo/mentee_docs',
-    resource_type: 'auto',
+    resource_type: 'raw',
   },
 });
 
@@ -96,7 +96,7 @@ const storageMentor = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'spe_congo/mentor_docs',
-    resource_type: 'auto',
+    resource_type: 'raw',
   },
 });
 
