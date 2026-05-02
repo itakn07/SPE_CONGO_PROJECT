@@ -335,8 +335,17 @@ if (user.password !== password) {
             });
           }
 
-          // Aucun profil trouvé
-          return res.json({ success: false, message: "Aucun profil associé à ce compte." });
+          // Utilisateur simple (ni mentor, ni mentee, ni admin)
+return res.json({
+  success: true,
+  user: {
+    id: user.id,
+    userId: user.id,
+    username: user.username,
+    role: 'user',
+    statut: null
+  }
+});
         });
       });
     });

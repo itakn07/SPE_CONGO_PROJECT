@@ -144,6 +144,8 @@ if (data.success) {
     window.location.href = 'dashbord-mentor.html';
   } else if (data.user.role === 'mentee') {
     window.location.href = 'dashbord-mentee.html';
+  } else if (data.user.role === 'user') {
+  window.location.reload(); 
   } else {
     window.location.reload();
   }
