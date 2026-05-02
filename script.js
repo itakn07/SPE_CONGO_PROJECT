@@ -937,7 +937,7 @@ document.getElementById('modalExpertise').innerText = m.domaine_expertise;
 
 
 const photoContainer = document.getElementById('modalPhotoContainer');
-const photoUrl = m.photo_path ? `https://spe-congo-project.onrender.com/${m.photo_path.replace(/\\/g, '/')}` : null;
+const photoUrl = m.photo_path ? `${m.photo_path.replace(/\\/g, '/')}` : null;
 photoContainer.innerHTML = photoUrl
     ? `<img src="${photoUrl}" class="admin-photo-thumbnail">`
     : `<div class="photo-placeholder">${m.nom_complet.charAt(0)}</div>`;
@@ -968,7 +968,7 @@ tbody.innerHTML = '';
             let photoHtml;
             if (m.photo_path) {
                 const cleanPath = m.photo_path.replace(/\\/g, '/');
-                photoHtml = `<img src="https://spe-congo-project.onrender.com/${cleanPath}" style="width:45px; height:45px; border-radius:50%; object-fit:cover;">`;
+                photoHtml = `<img src="${cleanPath}" style="width:45px; height:45px; border-radius:50%; object-fit:cover;">`;
             } else {
                 photoHtml = `<div style="width:45px; height:45px; border-radius:50%; background:#ccc; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${m.nom_complet.charAt(0)}</div>`;
             }
@@ -1077,7 +1077,7 @@ if (!listContainer) return;
             : "Date inconnue";
         return `
             <tr>
-                <td><img src="https://spe-congo-project.onrender.com/images/news/${art.image_path}" class="admin-thumb"></td>
+                <td><img src="${art.image_path}" class="admin-thumb"></td>
                 <td><strong>${art.titre}</strong></td>
                 <td><span class="badge">${art.categorie || 'News'}</span></td>
                 <td>${dateAffiche}</td>
@@ -1132,8 +1132,8 @@ container.innerHTML = '';
 
         data.forEach(rel => {
             const percent = rel.total_obj > 0 ? Math.round((rel.obj_faits / rel.total_obj) * 100) : 0;
-            const mentorPhotoUrl = rel.mentor_photo ? `https://spe-congo-project.onrender.com/${rel.mentor_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
-            const menteePhotoUrl = rel.mentee_photo ? `https://spe-congo-project.onrender.com/${rel.mentee_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
+            const mentorPhotoUrl = rel.mentor_photo ? `${rel.mentor_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
+            const menteePhotoUrl = rel.mentee_photo ? `${rel.mentee_photo.replace(/\\/g, '/')}` : 'images/default-avatar.png';
 
             container.innerHTML += `
                 <div class="relationship-card">
@@ -1335,7 +1335,7 @@ const allMonths = new Set();
 // ==========================================
 function ouvrirFlyer(flyerPath) {
 const BASE_URL = `https://spe-congo-project.onrender.com`;
-const url = `${BASE_URL}/images/news/flyers/${flyerPath}`;
+const url = `${flyerPath}`;
 const contenu = document.getElementById('flyer-contenu');
 const download = document.getElementById('flyer-download');
 if (!contenu || !download) return;
@@ -1371,7 +1371,7 @@ if (window.location.pathname.includes('news-detail')) {
                 document.getElementById('detail-categorie').textContent = art.categorie || 'NEWS';
                 document.getElementById('detail-titre').textContent = art.titre;
                 document.getElementById('detail-contenu').textContent = art.contenu;
-                document.getElementById('detail-image').src = `https://spe-congo-project.onrender.com/images/news/${art.image_path}`;
+                document.getElementById('detail-image').src = `${art.image_path}`;
                 document.getElementById('detail-date').textContent = art.date_publication
                     ? new Date(art.date_publication).toLocaleDateString('fr-FR')
                     : '';
