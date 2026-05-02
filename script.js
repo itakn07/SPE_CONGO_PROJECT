@@ -758,7 +758,7 @@ if (newsArray.length === 0) {
 
 container.innerHTML = newsArray.map(art => `
     <div class="news-card">
-        <img src="https://spe-congo-project.onrender.com/images/news/${art.image_path}" alt="">
+        <img src="${art.image_path}" alt="">
         <div class="news-content">
             <span class="news-category">${art.categorie || 'NEWS'}</span>
             <h3>${art.titre}</h3>
@@ -790,7 +790,7 @@ if (!grid) return;
 try {
 const response = await fetch(`https://spe-congo-project.onrender.com/api/members`);
 const members = await response.json();
-grid.innerHTML = members.map(m => ` <div class="officer-card"> <div class="officer-image"> <img src="https://spe-congo-project.onrender.com/images/members/${m.photo_name}" alt="${m.nom}"> </div> <div class="officer-info"> <h3>${m.nom}</h3><p class="role">${m.poste}</p> <div class="officer-contact"> <a href="mailto:${m.email}"><i class="fas fa-envelope"></i></a> <a href="${m.linkedin_url || '#'}" target="_blank"><i class="fab fa-linkedin"></i></a> </div> </div> </div>`).join('');
+grid.innerHTML = members.map(m => ` <div class="officer-card"> <div class="officer-image"> <img src="${m.photo_name}" alt="${m.nom}"> </div> <div class="officer-info"> <h3>${m.nom}</h3><p class="role">${m.poste}</p> <div class="officer-contact"> <a href="mailto:${m.email}"><i class="fas fa-envelope"></i></a> <a href="${m.linkedin_url || '#'}" target="_blank"><i class="fab fa-linkedin"></i></a> </div> </div> </div>`).join('');
 } catch (err) { console.error("Erreur membres :", err); }
 }
 
@@ -803,7 +803,7 @@ if (!container) return;
 try {
 const response = await fetch(`https://spe-congo-project.onrender.com/get-mentors`);
 const mentors = await response.json();
-container.innerHTML = mentors.map(m => ` <div class="mentor-card"> <img src="https://spe-congo-project.onrender.com/${m.photo_path}" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"> <h3>${m.nom_complet}</h3> <p><strong>Domaine :</strong> ${m.domaine_expertise || 'Expertise'}</p> <button class="btn-contact" onclick="ouvrirContactModal(${m.id}, '${m.nom_complet.replace(/'/g, "\\'")}')"> Contacter ce mentor </button> </div>`).join('');
+container.innerHTML = mentors.map(m => ` <div class="mentor-card"> <img src="${m.photo_path}" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"> <h3>${m.nom_complet}</h3> <p><strong>Domaine :</strong> ${m.domaine_expertise || 'Expertise'}</p> <button class="btn-contact" onclick="ouvrirContactModal(${m.id}, '${m.nom_complet.replace(/'/g, "\\'")}')"> Contacter ce mentor </button> </div>`).join('');
 } catch (err) { console.error("Erreur chargement mentors publique :", err); }
 }
 
@@ -864,7 +864,7 @@ let rows = '';
 
 
         mentors.forEach(m => {
-            const photoUrl = m.photo_path ? `https://spe-congo-project.onrender.com/${m.photo_path.replace(/\\/g, '/')}` : null;
+            const photoUrl = m.photo_path ? `${m.photo_path.replace(/\\/g, '/')}` : null;
             const photoHtml = photoUrl
                 ? `<img src="${photoUrl}" class="admin-photo-thumbnail">`
                 : `<div class="photo-placeholder">${m.nom_complet.charAt(0)}</div>`;
