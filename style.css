@@ -3137,6 +3137,12 @@ input[type="checkbox"] {
     background: #003366;
 }
 
+.footer-contact {
+    text-align: left;
+}
 
+.footer-contact h3 {
+    text-align: left;
+}
 
 
