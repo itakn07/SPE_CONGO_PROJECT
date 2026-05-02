@@ -129,7 +129,7 @@ if (data.success) {
     return;
   }
 
-  if (data.user.statut !== 'accepté') {
+  if (data.user.statut !== 'ACTIF') {
     // Affichage dans l'UI plutôt qu'un double alert
     const errorEl = document.getElementById('error-msg');
     if (errorEl) {

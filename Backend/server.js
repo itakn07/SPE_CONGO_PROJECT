@@ -282,11 +282,10 @@ app.post('/api/login', (req, res) => {
 
     const user = result[0];
 
-    // Vérification du mot de passe avec bcrypt
-    bcrypt.compare(password, user.password, (errBcrypt, isMatch) => {
-      if (errBcrypt || !isMatch) {
-        return res.json({ success: false, message: "Identifiants incorrects" });
-      }
+    // Vérification du mot de passe 
+if (user.password !== password) {
+  return res.json({ success: false, message: "Identifiants incorrects" });
+}
 
       // Admin détecté directement via son rôle
       if (user.role === 'admin') {
@@ -342,7 +341,7 @@ app.post('/api/login', (req, res) => {
       });
     });
   });
-});
+
 
 app.post('/api/signup', (req, res) => {
   const { username, email, password, confirm } = req.body;
