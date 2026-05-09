@@ -30,7 +30,9 @@ app.use(cors({
 
 // — CONFIGURATION EMAIL —
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
   auth: {
     user: 'ritakngot3@gmail.com',
     pass: process.env.MAIL_PASS
