@@ -380,31 +380,32 @@ app.post('/api/signup', (req, res) => {
       }
 
       const htmlBienvenue = templateMail({
-        emoji: "",
-        titre: `Bienvenue à la SPE Congo, ${username} !`,
-        sousTitre: "Votre aventure commence ici",
-        contenu: `
-          <p>Nous sommes ravis de vous compter parmi nous.</p>
-          <p>Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter pour accéder à tous nos contenus exclusifs.</p>
-        `
-      });
+  emoji: "",
+  titre: `Bienvenue à la SPE Congo, ${username} !`,
+  sousTitre: "Votre aventure commence ici",
+  contenu: `
+    <p>Nous sommes ravis de vous compter parmi nous.</p>
+    <p>Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter pour accéder à tous nos contenus exclusifs.</p>
+  `
+});
 
-      transporter.sendMail({
-        from: '"SPE Congo" <ritakngot3@gmail.com>',
-        to: email,
-        subject: 'Bienvenue à la SPE Congo !',
-        html: htmlBienvenue
-      }).catch(e => console.error("Erreur mail bienvenue:", e));
+resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: email,
+  subject: 'Bienvenue à la SPE Congo !',
+  html: htmlBienvenue
+}).catch(e => console.error("Erreur mail bienvenue:", e));
 
-      res.json({ success: true, message: "Compte créé avec succès !" });
+res.json({ success: true, message: "Compte créé avec succès !" });
+
     });
   });
 });
 
 // Fonction mail bienvenue mentor
 function envoyerMailBienvenueMentor(emailDestinataire, nomMentor) {
-  return transporter.sendMail({
-    from: '"SPE Congo" <ritakngot3@gmail.com>',
+  return resend.emails.send({
+    from: 'SPE Congo <onboarding@resend.dev>',
     to: emailDestinataire,
     subject: ' Merci pour votre candidature Mentor - SPE Congo',
     html: templateMail({
@@ -447,8 +448,8 @@ app.post('/api/register-mentor', uploadMentor.fields([{ name: 'photo' }, { name:
 
 // Fonction mail bienvenue mentee
 function envoyerMailBienvenueMentee(emailDestinataire, nomMentee) {
-  return transporter.sendMail({
-    from: '" SPE Congo" <ritakngot3@gmail.com>',
+  return resend.emails.send({
+    from: 'SPE Congo <onboarding@resend.dev>',
     to: emailDestinataire,
     subject: ' Bienvenue au Programme de Mentorat - SPE Congo',
     html: templateMail({
@@ -565,38 +566,35 @@ app.post('/api/nouvelle-demande', (req, res) => {
 
         const { email_mentor, nom_mentor, nom_mentee } = infos;
 
-        const mailOptions = {
-          from: '" SPE Congo" <ritakngot3@gmail.com>',
-          to: email_mentor,
-          subject: ` Nouvelle demande de mentorat de ${nom_mentee}`,
-          html: templateMail({
-            emoji: '',
-            titre: 'Nouvelle demande de mentorat',
-            sousTitre: 'Programme de Mentorat SPE Congo',
-            contenu: `
-              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${nom_mentor}</strong>,</p>
-              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
-                Vous avez reçu une nouvelle demande de mentorat de la part de <strong>${nom_mentee}</strong>.
-              </p>
-              <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:15px 20px; border-radius:8px; margin-top:20px;">
-                <p style="margin:0 0 5px; color:#64748b; font-size:0.82rem;">Message :</p>
-                <p style="margin:0; color:#1e293b; font-size:0.9rem; font-style:italic; line-height:1.6;">"${message}"</p>
-              </div>
-              <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
-                <p style="margin:0; color:#0054a6; font-size:0.9rem;"> Connectez-vous sur la plateforme pour accepter ou refuser la demande.</p>
-              </div>
-              <p style="color:#64748b; font-size:0.85rem; margin-top:25px;">Cordialement,<br><strong>L'équipe SPE Congo</strong></p>
-            `
-          })
-        };
-
-        transporter.sendMail(mailOptions, (errMail) => {
-          if (errMail) {
-            console.error("Erreur Mail:", errMail);
-            return res.json({ success: true, message: "Demande enregistrée (mail échoué)" });
-          }
-          return res.json({ success: true, message: "Demande envoyée avec succès !" });
-        });
+        resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: email_mentor,
+  subject: ` Nouvelle demande de mentorat de ${nom_mentee}`,
+  html: templateMail({
+    emoji: '',
+    titre: 'Nouvelle demande de mentorat',
+    sousTitre: 'Programme de Mentorat SPE Congo',
+    contenu: `
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${nom_mentor}</strong>,</p>
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+        Vous avez reçu une nouvelle demande de mentorat de la part de <strong>${nom_mentee}</strong>.
+      </p>
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:15px 20px; border-radius:8px; margin-top:20px;">
+        <p style="margin:0 0 5px; color:#64748b; font-size:0.82rem;">Message :</p>
+        <p style="margin:0; color:#1e293b; font-size:0.9rem; font-style:italic; line-height:1.6;">"${message}"</p>
+      </div>
+      <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
+        <p style="margin:0; color:#0054a6; font-size:0.9rem;"> Connectez-vous sur la plateforme pour accepter ou refuser la demande.</p>
+      </div>
+      <p style="color:#64748b; font-size:0.85rem; margin-top:25px;">Cordialement,<br><strong>L'équipe SPE Congo</strong></p>
+    `
+  })
+}).then(() => {
+  return res.json({ success: true, message: "Demande envoyée avec succès !" });
+}).catch(errMail => {
+  console.error("Erreur Mail:", errMail);
+  return res.json({ success: true, message: "Demande enregistrée (mail échoué)" });
+});
       });
     });
   });
@@ -751,8 +749,8 @@ app.delete('/api/admin/mentors/:id', (req, res) => {
 function envoyerMailDecisionMentor(email_contact, nom_complet, nouveauStatut) {
   const estValide = nouveauStatut === 'ACTIF' || nouveauStatut === 'VALIDER' || nouveauStatut === 'APPROUVER';
 
-  return transporter.sendMail({
-    from: '"SPE Congo" <ritakngot3@gmail.com>',
+  return resend.emails.send({
+    from: 'SPE Congo <onboarding@resend.dev>',
     to: email_contact,
     subject: estValide
       ? ' Votre candidature de Mentor a été approuvée - SPE Congo'
@@ -1058,20 +1056,17 @@ app.post('/api/broadcast', (req, res) => {
     contenu: `<div style="color:#334155; line-height:1.6; font-size:1rem;">${messageHtml}</div>`
   });
 
-  const mailOptions = {
-    from: '"SPE Congo Section" <ritakngot3@gmail.com>',
-    to: emails.join(', '),
-    subject: sujet,
-    html: finalHtml
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Erreur envoi:", error);
-      return res.status(500).json({ success: false });
-    }
-    res.json({ success: true });
-  });
+  resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: emails,
+  subject: sujet,
+  html: finalHtml
+}).then(() => {
+  res.json({ success: true });
+}).catch(error => {
+  console.error("Erreur envoi:", error);
+  res.status(500).json({ success: false });
+});
 });
 
 // ==========================================
@@ -1125,21 +1120,18 @@ app.post('/envoyer-felicitations', (req, res) => {
           `
         });
 
-        const mailOptions = {
-          from: '"SPE Congo" <ritakngot3@gmail.com>',
-          to: infoMentee.email,
-          cc: infoMentor.email_contact,
-          subject: estTous ? 'Tous vos objectifs sont atteints !' : `Objectif atteint : ${titre}`,
-          html: htmlMail
-        };
-
-        transporter.sendMail(mailOptions, (error) => {
-          if (error) {
-            console.error("Erreur Nodemailer:", error);
-            return res.status(500).json({ success: false });
-          }
-          res.json({ success: true, message: "Email envoyé avec succès !" });
-        });
+       resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: infoMentee.email,
+  cc: infoMentor.email_contact,
+  subject: estTous ? 'Tous vos objectifs sont atteints !' : `Objectif atteint : ${titre}`,
+  html: htmlMail
+}).then(() => {
+  res.json({ success: true, message: "Email envoyé avec succès !" });
+}).catch(error => {
+  console.error("Erreur Resend:", error);
+  res.status(500).json({ success: false });
+});
       });
     });
   });
@@ -1167,65 +1159,65 @@ app.post('/api/volontaires', uploadVolontaire.single('photo'), (req, res) => {
     }
 
     // ── EMAIL ADMIN ──
-    transporter.sendMail({
-      from: '"SPE Congo Section" <ritakngot3@gmail.com>',
-      to: 'ritakngot3@gmail.com',
-      subject: `Nouvelle candidature volontaire — ${prenom} ${nom}`,
-      html: templateMail({
-        emoji: '📋',
-        titre: 'Nouvelle candidature volontaire',
-        sousTitre: 'SPE Congo Section 117 — Volontariat',
-        contenu: `
-          <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Une nouvelle candidature vient d'être soumise.</p>
-          <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;">
-            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569; width:40%;">Nom complet</td><td style="padding:10px 14px; color:#1e293b;">${prenom} ${nom}</td></tr>
-            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Email</td><td style="padding:10px 14px; color:#1e293b;">${email}</td></tr>
-            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Téléphone</td><td style="padding:10px 14px; color:#1e293b;">${telephone || '—'}</td></tr>
-            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Matricule SPE</td><td style="padding:10px 14px; color:#1e293b;">${matricule_spe}</td></tr>
-            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Domaine</td><td style="padding:10px 14px; color:#1e293b;">${domaine}</td></tr>
-            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Expérience</td><td style="padding:10px 14px; color:#1e293b;">${experience}</td></tr>
-            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Disponibilité</td><td style="padding:10px 14px; color:#1e293b;">${disponibilite}</td></tr>
-            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Motivations</td><td style="padding:10px 14px; color:#1e293b;">${motivation}</td></tr>
-          </table>
-          <div style="background:#fff7ed; border-left:4px solid #f59e0b; padding:14px 18px; border-radius:8px; margin-top:20px;">
-            <p style="margin:0; color:#92400e; font-size:0.88rem;">⚠️ Pensez à vérifier le matricule SPE <strong>${matricule_spe}</strong> sur le portail SPE International avant de valider.</p>
-          </div>
-        `
-      })
-    }).catch(e => console.error("Erreur mail admin volontaire:", e));
+   resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: 'ritakngot3@gmail.com',
+  subject: `Nouvelle candidature volontaire — ${prenom} ${nom}`,
+  html: templateMail({
+    emoji: '📋',
+    titre: 'Nouvelle candidature volontaire',
+    sousTitre: 'SPE Congo Section 117 — Volontariat',
+    contenu: `
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Une nouvelle candidature vient d'être soumise.</p>
+      <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;">
+        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569; width:40%;">Nom complet</td><td style="padding:10px 14px; color:#1e293b;">${prenom} ${nom}</td></tr>
+        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Email</td><td style="padding:10px 14px; color:#1e293b;">${email}</td></tr>
+        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Téléphone</td><td style="padding:10px 14px; color:#1e293b;">${telephone || '—'}</td></tr>
+        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Matricule SPE</td><td style="padding:10px 14px; color:#1e293b;">${matricule_spe}</td></tr>
+        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Domaine</td><td style="padding:10px 14px; color:#1e293b;">${domaine}</td></tr>
+        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Expérience</td><td style="padding:10px 14px; color:#1e293b;">${experience}</td></tr>
+        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Disponibilité</td><td style="padding:10px 14px; color:#1e293b;">${disponibilite}</td></tr>
+        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Motivations</td><td style="padding:10px 14px; color:#1e293b;">${motivation}</td></tr>
+      </table>
+      <div style="background:#fff7ed; border-left:4px solid #f59e0b; padding:14px 18px; border-radius:8px; margin-top:20px;">
+        <p style="margin:0; color:#92400e; font-size:0.88rem;">⚠️ Pensez à vérifier le matricule SPE <strong>${matricule_spe}</strong> sur le portail SPE International avant de valider.</p>
+      </div>
+    `
+  })
+}).catch(e => console.error("Erreur mail admin volontaire:", e));
 
     // ── EMAIL CANDIDAT ──
-    transporter.sendMail({
-      from: '"SPE Congo Section" <ritakngot3@gmail.com>',
-      to: email,
-      subject: 'Candidature volontaire reçue — SPE Congo Section 117',
-      html: templateMail({
-        emoji: '🎉',
-        titre: 'Candidature reçue !',
-        sousTitre: 'SPE Congo Section 117 — Volontariat',
-        contenu: `
-          <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${prenom}</strong>,</p>
-          <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
-            Nous avons bien reçu votre candidature pour rejoindre l'équipe de volontaires de la <strong>SPE Congo Section 117</strong>. Merci pour votre intérêt et votre engagement !
-          </p>
-          <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
-            <p style="margin:0 0 6px; color:#0054a6; font-weight:600; font-size:0.9rem;">Récapitulatif de votre candidature</p>
-            <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
-              📌 Domaine : <strong>${domaine}</strong><br>
-              🎓 Niveau : <strong>${experience}</strong><br>
-              🪪 Matricule SPE : <strong>${matricule_spe}</strong>
-            </p>
-          </div>
-          <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
-            Notre comité examinera votre dossier et vous contactera <strong>dans les 72 heures</strong> pour la suite du processus.
-          </p>
-          <p style="color:#475569; font-size:0.9rem; line-height:1.7;">
-            Pour toute question : <a href="mailto:congosection@spemail.org" style="color:#0054a6;">congosection@spemail.org</a>
-          </p>
-          <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
-        `
-      })
-    }).catch(e => console.error("Erreur mail candidat volontaire:", e));
+   resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: email,
+  subject: 'Candidature volontaire reçue — SPE Congo Section 117',
+  html: templateMail({
+    emoji: '🎉',
+    titre: 'Candidature reçue !',
+    sousTitre: 'SPE Congo Section 117 — Volontariat',
+    contenu: `
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${prenom}</strong>,</p>
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+        Nous avons bien reçu votre candidature pour rejoindre l'équipe de volontaires de la <strong>SPE Congo Section 117</strong>. Merci pour votre intérêt et votre engagement !
+      </p>
+      <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
+        <p style="margin:0 0 6px; color:#0054a6; font-weight:600; font-size:0.9rem;">Récapitulatif de votre candidature</p>
+        <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
+          📌 Domaine : <strong>${domaine}</strong><br>
+          🎓 Niveau : <strong>${experience}</strong><br>
+          🪪 Matricule SPE : <strong>${matricule_spe}</strong>
+        </p>
+      </div>
+      <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
+        Notre comité examinera votre dossier et vous contactera <strong>dans les 72 heures</strong> pour la suite du processus.
+      </p>
+      <p style="color:#475569; font-size:0.9rem; line-height:1.7;">
+        Pour toute question : <a href="mailto:congosection@spemail.org" style="color:#0054a6;">congosection@spemail.org</a>
+      </p>
+      <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
+    `
+  })
+}).catch(e => console.error("Erreur mail candidat volontaire:", e));
 
     res.json({ success: true, message: "Candidature soumise avec succès !" });
   });
