@@ -1774,3 +1774,10 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
   const label = document.getElementById('fileLabel');
   label.textContent = this.files[0] ? this.files[0].name : 'Choisir une photo';
 });
+
+//script pour récupérer le nom du fichier certificat_spe_internationnale
+
+document.getElementById('certificat_spe').addEventListener('change', function () {
+  const fileName = this.files[0] ? this.files[0].name : 'Aucun fichier sélectionné';
+  document.getElementById('certificat_spe_name').textContent = fileName;
+});

@@ -113,6 +113,18 @@ const storageVolontaire = new CloudinaryStorage({
 
 const uploadVolontaire = multer({ storage: storageVolontaire });
 
+//6. Stockage des certificats spe_internationnale des mentes
+const storageCertificatSpe = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'spe-congo/certificats-spe',
+    allowed_formats: ['pdf'],
+    resource_type: 'raw'
+  }
+});
+
+const uploadCertificatSpe = multer({ storage: storageCertificatSpe });
+
 // ==========================================
 // TEMPLATE EMAIL
 // ==========================================
@@ -469,13 +481,14 @@ function envoyerMailBienvenueMentee(emailDestinataire, nomMentee) {
 }
 
 // Route inscription mentee
-app.post('/api/register-mentee', uploadMentee.fields([{ name: 'photo' }, { name: 'cv' }]), (req, res) => {
+app.post('/api/register-mentee', uploadMentee.fields([{ name: 'photo' }, { name: 'cv' }, {name: 'certificat_spe'}]), (req, res) => {
   const { nom_complet, email, domaine_interet, motivations, ecole, user_id } = req.body;
   const photoPath = req.files['photo'] ? req.files['photo'][0].path : null;
   const cvPath = req.files['cv'] ? req.files['cv'][0].path : null;
+  const certificatSpeUrl = req.files['certificat_spe']?.[0]?.path || '' ; 
 
-  const sql = "INSERT INTO mentees (nom_complet, email, domaine_interet, motivations, photo_path, cv_path, statut, ecole, user_id) VALUES (?, ?, ?, ?, ?, ?, 'EN ATTENTE', ?, ?)";
-  db.query(sql, [nom_complet, email, domaine_interet, motivations, photoPath, cvPath, ecole, user_id], (err, result) => {
+  const sql = "INSERT INTO mentees (nom_complet, email, domaine_interet, motivations, photo_path, cv_path, statut, ecole, user_id, certificat_spe_url) VALUES (?, ?, ?, ?, ?, ?, 'EN ATTENTE', ?, ?, ?)";
+  db.query(sql, [nom_complet, email, domaine_interet, motivations, photoPath, cvPath, ecole, user_id, certificatSpeUrl], (err, result) => {
     if (err) {
       console.error("Erreur SQL :", err);
       return res.status(500).json({ success: false, error: err });
