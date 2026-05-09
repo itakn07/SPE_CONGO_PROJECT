@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
-const nodemailer = require('nodemailer');
 const path = require('path');
 const multer = require('multer');
 
@@ -29,15 +28,8 @@ app.use(cors({
 }));
 
 // — CONFIGURATION EMAIL —
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 2525,
-  secure: false,
-  auth: {
-    user: 'ritakngot3@gmail.com',
-    pass: process.env.MAIL_PASS
-  }
-});
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // — FICHIERS STATIQUES —
 app.use('/videos', express.static(path.join(__dirname, '..', 'videos')));
@@ -223,49 +215,48 @@ app.post('/repondre-demande', (req, res) => {
             else console.log("✅ Statut mentee mis à jour : EN FORMATION");
           });
 
-          const mailOptions = {
-            from: '"SPE Congo" <ritakngot3@gmail.com>',
-            to: data.mentee_email,
-            subject: 'Votre demande de mentorat a été acceptée !',
-            html: templateMail({
-              emoji: '',
-              titre: 'Demande acceptée !',
-              sousTitre: 'Programme de Mentorat SPE Congo',
-              contenu: `
-                <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${data.mentee_nom}</strong>,</p>
-                <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
-                  Excellente nouvelle ! <strong>${data.mentor_nom}</strong> a accepté votre demande de mentorat. Votre parcours commence maintenant !
-                </p>
-                <div style="background:#f0fdf4; border-left:4px solid #10b981; padding:15px 20px; border-radius:8px; margin-top:20px;">
-                  <p style="margin:0; color:#065f46; font-size:0.9rem;"> Connectez-vous pour voir vos objectifs.</p>
-                </div>
-              `
-            })
-          };
-          transporter.sendMail(mailOptions).catch(e => console.error("Erreur Mail:", e));
+          resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: data.mentee_email,
+  subject: 'Votre demande de mentorat a été acceptée !',
+  html: templateMail({
+    emoji: '',
+    titre: 'Demande acceptée !',
+    sousTitre: 'Programme de Mentorat SPE Congo',
+    contenu: `
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${data.mentee_nom}</strong>,</p>
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+        Excellente nouvelle ! <strong>${data.mentor_nom}</strong> a accepté votre demande de mentorat. Votre parcours commence maintenant !
+      </p>
+      <div style="background:#f0fdf4; border-left:4px solid #10b981; padding:15px 20px; border-radius:8px; margin-top:20px;">
+        <p style="margin:0; color:#065f46; font-size:0.9rem;"> Connectez-vous pour voir vos objectifs.</p>
+      </div>
+    `
+  })
+}).catch(e => console.error("Erreur Mail:", e));
         });
 
       } else if (decision === 'refusee') {
-        const mailOptions = {
-          from: '"SPE Congo" <ritakngot3@gmail.com>',
-          to: data.mentee_email,
-          subject: 'Mise à jour concernant votre demande de mentorat',
-          html: templateMail({
-            emoji: '',
-            titre: 'Concernant votre demande',
-            sousTitre: 'Programme de Mentorat SPE Congo',
-            contenu: `
-              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${data.mentee_nom}</strong>,</p>
-              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
-                Nous vous informons que <strong>${data.mentor_nom}</strong> ne peut malheureusement pas donner suite à votre demande de mentorat pour le moment.
-              </p>
-              <div style="background:#fef2f2; border-left:4px solid #ef4444; padding:15px 20px; border-radius:8px; margin-top:20px;">
-                <p style="margin:0; color:#991b1b; font-size:0.9rem;"> Ne vous découragez pas, d'autres mentors sont disponibles sur la plateforme !</p>
-              </div>
-            `
-          })
-        };
-        transporter.sendMail(mailOptions).catch(e => console.error("Erreur Mail Refus:", e));
+
+        resend.emails.send({
+  from: 'SPE Congo <onboarding@resend.dev>',
+  to: data.mentee_email,
+  subject: 'Mise à jour concernant votre demande de mentorat',
+  html: templateMail({
+    emoji: '',
+    titre: 'Concernant votre demande',
+    sousTitre: 'Programme de Mentorat SPE Congo',
+    contenu: `
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${data.mentee_nom}</strong>,</p>
+      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+        Nous vous informons que <strong>${data.mentor_nom}</strong> ne peut malheureusement pas donner suite à votre demande de mentorat pour le moment.
+      </p>
+      <div style="background:#fef2f2; border-left:4px solid #ef4444; padding:15px 20px; border-radius:8px; margin-top:20px;">
+        <p style="margin:0; color:#991b1b; font-size:0.9rem;"> Ne vous découragez pas, d'autres mentors sont disponibles sur la plateforme !</p>
+      </div>
+    `
+  })
+}).catch(e => console.error("Erreur Mail Refus:", e));
       }
 
       res.json({ success: true });
