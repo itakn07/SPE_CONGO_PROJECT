@@ -1743,41 +1743,110 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
 });
 
  // Formulaire de vonlontariat
-    const textarea = document.getElementById('motivation');
-    const counter  = document.getElementById('charCount');
-    textarea.addEventListener('input', () => {
-      const len = textarea.value.length;
-      counter.textContent = `${len} / 500`;
-      if (len > 500) textarea.value = textarea.value.slice(0, 500);
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+    const volontariatForm = document.getElementById('volontariatForm');
+    const toast = document.getElementById('toast');
 
-    // Radio pills highlight
-    document.querySelectorAll('.radio-pill input').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
-        radio.closest('.radio-pill').classList.add('active');
-      });
-    });
+    // ── 1. GESTION DYNAMIC DES LABELS DE FICHIERS ──
+    // Pour afficher le nom du fichier sélectionné à la place du texte par défaut
+    const setupFileLabel = (inputId, labelId, defaultText) => {
+        const input = document.getElementById(inputId);
+        const label = document.getElementById(labelId);
+        
+        if (input && label) {
+            input.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    label.textContent = this.files.name;
+                } else {
+                    label.textContent = defaultText;
+                }
+            });
+        }
+    };
 
-    // Form submit (remplacer par votre appel API)
-    document.getElementById('volontariatForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3500);
-      e.target.reset();
-      document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
-      counter.textContent = '0 / 500';
-    });
+    // Configuration pour le certificat et la photo
+    setupFileLabel('certificat', 'certificatLabel', 'Choisir le certificat (PDF ou Image)');
+    setupFileLabel('photo', 'fileLabel', 'Choisir une photo');
 
-    document.getElementById('photo').addEventListener('change', function() {
-  const label = document.getElementById('fileLabel');
-  label.textContent = this.files[0] ? this.files[0].name : 'Choisir une photo';
-});
 
-//script pour récupérer le nom du fichier certificat_spe_internationnale
+    // ── 2. COMPTEUR DE CARACTÈRES POUR LES MOTIVATIONS ──
+    const motivationTxt = document.getElementById('motivation');
+    const charCount = document.getElementById('charCount');
 
-document.getElementById('certificat_spe').addEventListener('change', function () {
-  const fileName = this.files[0] ? this.files[0].name : 'Aucun fichier sélectionné';
-  document.getElementById('certificat_spe_name').textContent = fileName;
+    if (motivationTxt && charCount) {
+        motivationTxt.addEventListener('input', function() {
+            const len = this.value.length;
+            charCount.textContent = `${len} / 500`;
+            
+            if (len > 500) {
+                charCount.style.color = '#ef4444'; // Rouge si ça dépasse
+            } else {
+                charCount.style.color = '#666';
+            }
+        });
+    }
+
+
+    // ── 3. ENVOI DU FORMULAIRE AU BACKEND ──
+    if (volontariatForm) {
+        volontariatForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Empêche le rechargement de la page
+
+            // Récupérer le bouton pour désactiver le double-clic pendant l'upload sur Cloudinary
+            const submitBtn = volontariatForm.querySelector('.btn-submit');
+            const btnText = submitBtn.querySelector('.btn-submit__text');
+            
+            if (submitBtn && btnText) {
+                submitBtn.disabled = true;
+                btnText.textContent = "Envoi en cours...";
+            }
+
+            // Création de l'objet FormData (embarque automatiquement textes, photo et PDF)
+            const formData = new FormData(volontariatForm);
+
+            try {
+                // Appel de ta route API optimisée
+                const response = await fetch('/api/volontaires', {
+                    method: 'POST',
+                    body: formData // Pas de Header Content-Type, le navigateur s'en charge
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // ── SUCCÈS ──
+                    // Afficher le toast magique qui est dans ton HTML
+                    if (toast) {
+                        toast.classList.add('show');
+                        setTimeout(() => {
+                            toast.classList.remove('show');
+                        }, 4000);
+                    } else {
+                        alert("Candidature soumise avec succès !");
+                    }
+
+                    // Réinitialiser le formulaire et les labels
+                    volontariatForm.reset();
+                    document.getElementById('certificatLabel').textContent = 'Choisir le certificat (PDF ou Image)';
+                    document.getElementById('fileLabel').textContent = 'Choisir une photo';
+                    if (charCount) charCount.textContent = "0 / 500";
+
+                } else {
+                    // ── ERREUR SERVEUR ──
+                    alert(`Erreur : ${data.message}`);
+                }
+
+            } catch (error) {
+                // ── ERREUR RÉSEAU ──
+                console.error("Erreur lors de la soumission :", error);
+                alert("Impossible de joindre le serveur. Vérifiez votre connexion.");
+            } finally {
+                // Réactiver le bouton après la fin du traitement
+                if (submitBtn && btnText) {
+                    submitBtn.disabled = false;
+                    btnText.textContent = "Envoyer ma candidature";
+                }
+            }
+        });
+    }
 });
