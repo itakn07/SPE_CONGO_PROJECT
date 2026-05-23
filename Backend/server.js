@@ -475,7 +475,7 @@ function envoyerMailBienvenueMentee(emailDestinataire, nomMentee) {
 }
 
 // Route inscription mentee
-app.post('/api/register-mentee', uploadMentee.fields([{ name: 'photo' }, { name: 'cv' }, {name: 'certificat_spe'}]), (req, res) => {
+app.post('/api/register-mentee', uploadMentee, (req, res) => {
   const { nom_complet, email, domaine_interet, motivations, ecole, user_id } = req.body;
   const photoPath = req.files['photo'] ? req.files['photo'][0].path : null;
   const cvPath = req.files['cv'] ? req.files['cv'][0].path : null;
