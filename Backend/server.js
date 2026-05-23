@@ -426,7 +426,7 @@ function envoyerMailBienvenueMentor(emailDestinataire, nomMentor) {
 }
 
 // Route inscription mentor
-app.post('/api/register-mentor', uploadMentor.fields([{ name: 'photo' }, { name: 'cv' }]), (req, res) => {
+app.post('/api/register-mentor', uploadMentor, (req, res) => {
   const { nom_complet, poste_entreprise, domaine_expertise, email_contact, motivations, user_id } = req.body;
   const photo_path = req.files['photo'] ? req.files['photo'][0].path : null;
   const cv_path = req.files['cv'] ? req.files['cv'][0].path : null;
