@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `spe_congo_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `spe_congo_db`;
+CREATE DATABASE  IF NOT EXISTS "defaultdb" /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `defaultdb`;
 -- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
--- Host: localhost    Database: spe_congo_db
+-- Host: mysql-6d72768-ritakngot3.i.aivencloud.com    Database: defaultdb
 -- ------------------------------------------------------
--- Server version	9.6.0
+-- Server version	8.0.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,33 +23,34 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '3fad1f67-041c-11f1-b373-2c58b9118e64:1-182';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '7f1eedab-40aa-11f1-babe-7a56ef41bfe7:1-85,
+fa98a687-3f30-11f1-98e5-d608561d8da0:1-55';
 
 --
--- Table structure for table `schools`
+-- Table structure for table `events`
 --
 
-DROP TABLE IF EXISTS `schools`;
+DROP TABLE IF EXISTS `events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `schools` (
+CREATE TABLE `events` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `city` varchar(100) DEFAULT NULL,
-  `image_path` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `titre` varchar(255) NOT NULL,
+  `description` text,
+  `date_evenement` datetime NOT NULL,
+  `lieu` varchar(255) DEFAULT 'Pointe-Noire',
+  `statut` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `schools`
+-- Dumping data for table `events`
 --
 
-LOCK TABLES `schools` WRITE;
-/*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (1,'DGC','Pointe-noire','images/schools/2i.png','2026-02-25 14:55:20'),(2,'ecam','Pointe-Noire','images/ucac_logo.png','2026-02-25 14:55:20'),(3,'2i','Pointe-noire','images/ensp_logo.png','2026-02-25 14:55:20'),(4,'UCAC-ICAM','Pointe-Noire','images/istac_logo.png','2026-02-25 14:55:20'),(5,'ATM','Pointe-Noire','images/istac_logo.png','2026-02-25 15:00:20');
-/*!40000 ALTER TABLE `schools` ENABLE KEYS */;
+LOCK TABLES `events` WRITE;
+/*!40000 ALTER TABLE `events` DISABLE KEYS */;
+/*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +63,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11 18:20:37
+-- Dump completed on 2026-05-14 14:32:54

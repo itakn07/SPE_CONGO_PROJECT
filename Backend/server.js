@@ -44,7 +44,9 @@ function getPublicId(url) {
   return afterUpload.replace(/.[^/.]+$/, '');
 }
 
+// ==========================================
 // — CONFIGURATION CLOUDINARY STORAGE —
+// ==========================================
 
 // 1. Stockage pour les News et Flyers
 const storageNews = new CloudinaryStorage({
@@ -74,50 +76,48 @@ const storageGalerie = new CloudinaryStorage({
 
 const uploadGalerie = multer({ storage: storageGalerie });
 
-// 3. Stockage pour les Mentees (Documents PDF)
-const storageMentee = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'spe_congo/mentee_docs',
-    resource_type: 'raw',
-  },
-});
-
-const uploadMentee = multer({ storage: storageMentee });
-
-// 4. Stockage pour les Mentors (Photo + CV)
-const storageMentor = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'spe_congo/mentor_docs',
-    resource_type: 'raw',
-  },
-});
-
-const uploadMentor = multer({ storage: storageMentor });
-
-// 5. Stockage pour les Volontaires (Photo de profil)
-const storageVolontaire = new CloudinaryStorage({
+// 3. Stockage unifié pour le Formulaire de Volontariat (Photo de profil + Certificat SPE)
+const storageVolontaireForm = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'spe_congo/volontaires',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    resource_type: 'auto', // 'auto' gère parfaitement les images ET le PDF du certificat
   },
 });
 
-const uploadVolontaire = multer({ storage: storageVolontaire });
+// Cet outil intercepte les deux fichiers distincts envoyés par ton formulaire HTML mis à jour
+const uploadVolontaire = multer({ storage: storageVolontaireForm }).fields([
+  { name: 'photo', maxCount: 1 },
+  { name: 'certificat', maxCount: 1 }
+]);
 
-//6. Stockage des certificats spe_internationnale des mentes
-const storageCertificatSpe = new CloudinaryStorage({
+// 4. Stockage unifié pour le Formulaire des Mentees (Photo de profil + Certificat SPE)
+const storageMenteeForm = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'spe-congo/certificats-spe',
-    allowed_formats: ['pdf'],
-    resource_type: 'raw'
-  }
+    folder: 'spe_congo/mentee_docs',
+    resource_type: 'auto', // Indispensable pour que Cloudinary conserve l'extension .pdf
+  },
 });
 
-const uploadCertificatSpe = multer({ storage: storageCertificatSpe });
+const uploadMentee = multer({ storage: storageMenteeForm }).fields([
+  { name: 'photo', maxCount: 1 }, // Si tu demandes une photo pour le menti
+  { name: 'certificat', maxCount: 1 } // Le certificat obligatoire demandé par Peter
+]);
+
+// 5. Stockage pour les Mentors (Photo de profil + CV)
+const storageMentorForm = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'spe_congo/mentor_docs',
+    resource_type: 'auto',
+  },
+});
+
+const uploadMentor = multer({ storage: storageMentorForm }).fields([
+  { name: 'photo', maxCount: 1 },
+  { name: 'cv', maxCount: 1 }
+]);
 
 // ==========================================
 // TEMPLATE EMAIL
@@ -1142,84 +1142,100 @@ app.post('/envoyer-felicitations', (req, res) => {
 // ==========================================
 
 // POST — Soumettre une candidature volontaire
-app.post('/api/volontaires', uploadVolontaire.single('photo'), (req, res) => {
-  const { prenom, nom, email, telephone, matricule_spe, domaine, experience, disponibilite, motivation, source } = req.body;
-  const photo = req.file ? req.file.path : null;
+app.post('/api/volontaires', uploadVolontaire, (req, res) => {
+  const { prenom, nom, email, telephone, domaine, experience, disponibilite, motivation, source } = req.body;
 
+  // ── RÉCUPÉRATION SÉCURISÉE DES URLs CLOUDINARY ──
+  const photo = req.files && req.files['photo'] ? req.files['photo'].path : null;
+  const certificat_url = req.files && req.files['certificat'] ? req.files['certificat'].path : null;
+
+  // Sécurité : le certificat est obligatoire selon les consignes de Peter
+  if (!certificat_url) {
+    return res.status(400).json({ success: false, message: "Le certificat d'adhésion SPE est obligatoire." });
+  }
+
+  // ── REQUÊTE SQL MODIFIÉE (Mise à jour avec certificat_url) ──
   const sql = `
     INSERT INTO volontaires 
-    (prenom, nom, email, telephone, matricule_spe, domaine, experience, disponibilite, motivation, source, photo, statut)
+    (prenom, nom, email, telephone, certificat_url, domaine, experience, disponibilite, motivation, source, photo, statut)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'en_attente')
   `;
 
-  db.query(sql, [prenom, nom, email, telephone, matricule_spe, domaine, experience, disponibilite, motivation, source, photo], (err) => {
+  db.query(sql, [prenom, nom, email, telephone, certificat_url, domaine, experience, disponibilite, motivation, source, photo], (err) => {
     if (err) {
       console.error("Erreur insertion volontaire:", err);
       return res.status(500).json({ success: false, message: "Erreur base de données" });
     }
 
-    // ── EMAIL ADMIN ──
-   resend.emails.send({
-  from: 'SPE Congo <onboarding@resend.dev>',
-  to: 'ritakngot3@gmail.com',
-  subject: `Nouvelle candidature volontaire — ${prenom} ${nom}`,
-  html: templateMail({
-    emoji: '📋',
-    titre: 'Nouvelle candidature volontaire',
-    sousTitre: 'SPE Congo Section 117 — Volontariat',
-    contenu: `
-      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Une nouvelle candidature vient d'être soumise.</p>
-      <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;">
-        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569; width:40%;">Nom complet</td><td style="padding:10px 14px; color:#1e293b;">${prenom} ${nom}</td></tr>
-        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Email</td><td style="padding:10px 14px; color:#1e293b;">${email}</td></tr>
-        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Téléphone</td><td style="padding:10px 14px; color:#1e293b;">${telephone || '—'}</td></tr>
-        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Matricule SPE</td><td style="padding:10px 14px; color:#1e293b;">${matricule_spe}</td></tr>
-        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Domaine</td><td style="padding:10px 14px; color:#1e293b;">${domaine}</td></tr>
-        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Expérience</td><td style="padding:10px 14px; color:#1e293b;">${experience}</td></tr>
-        <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Disponibilité</td><td style="padding:10px 14px; color:#1e293b;">${disponibilite}</td></tr>
-        <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Motivations</td><td style="padding:10px 14px; color:#1e293b;">${motivation}</td></tr>
-      </table>
-      <div style="background:#fff7ed; border-left:4px solid #f59e0b; padding:14px 18px; border-radius:8px; margin-top:20px;">
-        <p style="margin:0; color:#92400e; font-size:0.88rem;">⚠️ Pensez à vérifier le matricule SPE <strong>${matricule_spe}</strong> sur le portail SPE International avant de valider.</p>
-      </div>
-    `
-  })
-}).catch(e => console.error("Erreur mail admin volontaire:", e));
+    // ── EMAIL ADMIN (Destinataire: Rita/Thierry/Peter) ──
+    resend.emails.send({
+      from: 'SPE Congo <onboarding@resend.dev>',
+      to: 'ritakngot3@gmail.com',
+      subject: `⚠️ Nouvelle candidature volontaire — ${prenom} ${nom}`,
+      html: templateMail({
+        emoji: '📋',
+        titre: 'Nouvelle candidature volontaire',
+        sousTitre: 'SPE Congo Section 117 — Volontariat',
+        contenu: `
+          <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Une nouvelle candidature vient d'être soumise sur la plateforme.</p>
+          <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;">
+            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569; width:40%;">Nom complet</td><td style="padding:10px 14px; color:#1e293b;">${prenom} ${nom}</td></tr>
+            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Email</td><td style="padding:10px 14px; color:#1e293b;">${email}</td></tr>
+            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Téléphone</td><td style="padding:10px 14px; color:#1e293b;">${telephone || '—'}</td></tr>
+            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Domaine choisi</td><td style="padding:10px 14px; color:#1e293b; font-weight:600;">${domaine}</td></tr>
+            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Expérience</td><td style="padding:10px 14px; color:#1e293b;">${experience}</td></tr>
+            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Disponibilité</td><td style="padding:10px 14px; color:#1e293b;">${disponibilite}</td></tr>
+            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Motivations</td><td style="padding:10px 14px; color:#1e293b; line-height:1.5;">${motivation}</td></tr>
+            <tr>
+              <td style="padding:10px 14px; font-weight:600; color:#475569;">Pièces jointes</td>
+              <td style="padding:10px 14px; color:#1e293b;">
+                ${photo ? `<a href="${photo}" target="_blank" style="color:#0054a6; font-weight:600; text-decoration:none; display:block; margin-bottom:5px;">📸 Voir la Photo de profil</a>` : 'Aucune photo'}
+                <a href="${certificat_url}" target="_blank" style="color:#0054a6; font-weight:600; text-decoration:none; display:block;">📄 Ouvrir le Certificat d'adhésion</a>
+              </td>
+            </tr>
+          </table>
+          <div style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; border-radius:8px; margin-top:20px;">
+            <p style="margin:0; color:#1e40af; font-size:0.88rem;">💡 Les fichiers sont hébergés de manière sécurisée sur Cloudinary. Cliquez sur les liens ci-dessus pour les valider directement.</p>
+          </div>
+        `
+      })
+    }).catch(e => console.error("Erreur mail admin volontaire:", e));
 
-    // ── EMAIL CANDIDAT ──
-   resend.emails.send({
-  from: 'SPE Congo <onboarding@resend.dev>',
-  to: email,
-  subject: 'Candidature volontaire reçue — SPE Congo Section 117',
-  html: templateMail({
-    emoji: '🎉',
-    titre: 'Candidature reçue !',
-    sousTitre: 'SPE Congo Section 117 — Volontariat',
-    contenu: `
-      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${prenom}</strong>,</p>
-      <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
-        Nous avons bien reçu votre candidature pour rejoindre l'équipe de volontaires de la <strong>SPE Congo Section 117</strong>. Merci pour votre intérêt et votre engagement !
-      </p>
-      <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
-        <p style="margin:0 0 6px; color:#0054a6; font-weight:600; font-size:0.9rem;">Récapitulatif de votre candidature</p>
-        <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
-          📌 Domaine : <strong>${domaine}</strong><br>
-          🎓 Niveau : <strong>${experience}</strong><br>
-          🪪 Matricule SPE : <strong>${matricule_spe}</strong>
-        </p>
-      </div>
-      <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
-        Notre comité examinera votre dossier et vous contactera <strong>dans les 72 heures</strong> pour la suite du processus.
-      </p>
-      <p style="color:#475569; font-size:0.9rem; line-height:1.7;">
-        Pour toute question : <a href="mailto:congosection@spemail.org" style="color:#0054a6;">congosection@spemail.org</a>
-      </p>
-      <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
-    `
-  })
-}).catch(e => console.error("Erreur mail candidat volontaire:", e));
+    // ── EMAIL CANDIDAT (Destinataire: Le Volontaire) ──
+    resend.emails.send({
+      from: 'SPE Congo <onboarding@resend.dev>',
+      to: email,
+      subject: 'Candidature volontaire reçue — SPE Congo Section 117',
+      html: templateMail({
+        emoji: '🎉',
+        titre: 'Candidature reçue !',
+        sousTitre: 'SPE Congo Section 117 — Volontariat',
+        contenu: `
+          <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${prenom}</strong>,</p>
+          <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+            Nous avons bien reçu votre dossier complet pour rejoindre l'équipe de volontaires de la <strong>SPE Congo Section 117</strong>. Merci pour votre intérêt et votre engagement !
+          </p>
+          <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
+            <p style="margin:0 0 6px; color:#0054a6; font-weight:600; font-size:0.9rem;">Récapitulatif de votre soumission :</p>
+            <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
+              📌 Domaine d'intérêt : <strong>${domaine}</strong><br>
+              🎓 Niveau d'expérience : <strong>${experience}</strong><br>
+              📄 Statut document : <strong>Certificat d'adhésion transmis (En cours de validation)</strong>
+            </p>
+          </div>
+          <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
+            Le comité de direction de la section examinera votre certificat. Vous recevrez une réponse <strong>dans les 72 heures</strong> concernant la validation définitive de votre rôle.
+          </p>
+          <p style="color:#475569; font-size:0.9rem; line-height:1.7;">
+            Pour toute modification de dossier : <a href="mailto:congosection@spemail.org" style="color:#0054a6;">congosection@spemail.org</a>
+          </p>
+          <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
+        `
+      })
+    }).catch(e => console.error("Erreur mail candidat volontaire:", e));
 
-    res.json({ success: true, message: "Candidature soumise avec succès !" });
+    // Réponse positive renvoyée au frontend
+    res.json({ success: true, message: "Candidature et pièces jointes soumises avec succès !" });
   });
 });
 

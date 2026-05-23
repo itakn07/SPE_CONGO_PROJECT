@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `spe_congo_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `spe_congo_db`;
+CREATE DATABASE  IF NOT EXISTS "defaultdb" /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `defaultdb`;
 -- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
--- Host: localhost    Database: spe_congo_db
+-- Host: mysql-6d72768-ritakngot3.i.aivencloud.com    Database: defaultdb
 -- ------------------------------------------------------
--- Server version	9.6.0
+-- Server version	8.0.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,32 +23,38 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '3fad1f67-041c-11f1-b373-2c58b9118e64:1-182';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '7f1eedab-40aa-11f1-babe-7a56ef41bfe7:1-85,
+fa98a687-3f30-11f1-98e5-d608561d8da0:1-55';
 
 --
--- Table structure for table `news`
+-- Table structure for table `relationships`
 --
 
-DROP TABLE IF EXISTS `news`;
+DROP TABLE IF EXISTS `relationships`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `news` (
+CREATE TABLE `relationships` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `titre` varchar(255) NOT NULL,
-  `contenu` text NOT NULL,
-  `image_couverture` varchar(255) DEFAULT NULL,
-  `date_publication` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `mentor_id` int NOT NULL,
+  `mentee_id` int NOT NULL,
+  `date_debut` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `statut` enum('actif','termine') DEFAULT 'actif',
+  PRIMARY KEY (`id`),
+  KEY `mentor_id` (`mentor_id`),
+  KEY `mentee_id` (`mentee_id`),
+  CONSTRAINT `relationships_ibfk_1` FOREIGN KEY (`mentor_id`) REFERENCES `mentors` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `relationships_ibfk_2` FOREIGN KEY (`mentee_id`) REFERENCES `mentees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `news`
+-- Dumping data for table `relationships`
 --
 
-LOCK TABLES `news` WRITE;
-/*!40000 ALTER TABLE `news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `news` ENABLE KEYS */;
+LOCK TABLES `relationships` WRITE;
+/*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
+INSERT INTO `relationships` VALUES (1,1,1,'2026-05-02 12:15:29','actif');
+/*!40000 ALTER TABLE `relationships` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +67,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11 18:20:37
+-- Dump completed on 2026-05-14 14:32:50

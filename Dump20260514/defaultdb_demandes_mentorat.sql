@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `spe_congo_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `spe_congo_db`;
+CREATE DATABASE  IF NOT EXISTS "defaultdb" /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `defaultdb`;
 -- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
--- Host: localhost    Database: spe_congo_db
+-- Host: mysql-6d72768-ritakngot3.i.aivencloud.com    Database: defaultdb
 -- ------------------------------------------------------
--- Server version	9.6.0
+-- Server version	8.0.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,34 +23,39 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '3fad1f67-041c-11f1-b373-2c58b9118e64:1-182';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '7f1eedab-40aa-11f1-babe-7a56ef41bfe7:1-85,
+fa98a687-3f30-11f1-98e5-d608561d8da0:1-55';
 
 --
--- Table structure for table `events`
+-- Table structure for table `demandes_mentorat`
 --
 
-DROP TABLE IF EXISTS `events`;
+DROP TABLE IF EXISTS `demandes_mentorat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `events` (
+CREATE TABLE `demandes_mentorat` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `titre` varchar(255) NOT NULL,
-  `description` text,
-  `date_evenement` datetime NOT NULL,
-  `lieu` varchar(255) DEFAULT 'Pointe-Noire',
-  `statut` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `mentor_id` int DEFAULT NULL,
+  `mentee_id` int DEFAULT NULL,
+  `message_demande` text,
+  `statut` enum('en_attente','acceptee','refusee') DEFAULT 'en_attente',
+  `date_demande` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `mentor_id` (`mentor_id`),
+  KEY `mentee_id` (`mentee_id`),
+  CONSTRAINT `demandes_mentorat_ibfk_1` FOREIGN KEY (`mentor_id`) REFERENCES `mentors` (`id`),
+  CONSTRAINT `demandes_mentorat_ibfk_2` FOREIGN KEY (`mentee_id`) REFERENCES `mentees` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `events`
+-- Dumping data for table `demandes_mentorat`
 --
 
-LOCK TABLES `events` WRITE;
-/*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'Visite de site',NULL,'2026-05-20 08:00:00','Pointe-Noire','Futur'),(2,'Conference Tech',NULL,'2026-05-20 13:00:00','Pointe-Noire','Futur'),(4,'Meeting sur l\'importance du Mentorship','Faire part de l\'importance du mentorship pour les étudiants ','2026-02-11 00:00:00','Online','A venir'),(5,'V','','2026-02-04 00:00:00','Online','A venir'),(6,'V','','2026-02-28 00:00:00','Online','A venir'),(7,'Meeting sur l\'importance du Mentorship','','2026-01-27 00:00:00','BZV','A venir'),(8,'Meeting sur l\'importance du Mentorship','','2026-02-07 00:00:00','Online','A venir');
-/*!40000 ALTER TABLE `events` ENABLE KEYS */;
+LOCK TABLES `demandes_mentorat` WRITE;
+/*!40000 ALTER TABLE `demandes_mentorat` DISABLE KEYS */;
+INSERT INTO `demandes_mentorat` VALUES (1,1,1,'Bonjour, pouvez vous devenir mon mentor?','acceptee','2026-05-02 12:13:23'),(2,1,1,'Bonjour, pouvez vous devenir mon mentor?','en_attente','2026-05-02 12:13:31');
+/*!40000 ALTER TABLE `demandes_mentorat` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -63,4 +68,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11 18:20:37
+-- Dump completed on 2026-05-14 14:32:36

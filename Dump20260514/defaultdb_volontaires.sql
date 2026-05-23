@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `spe_congo_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `spe_congo_db`;
+CREATE DATABASE  IF NOT EXISTS "defaultdb" /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `defaultdb`;
 -- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
--- Host: localhost    Database: spe_congo_db
+-- Host: mysql-6d72768-ritakngot3.i.aivencloud.com    Database: defaultdb
 -- ------------------------------------------------------
--- Server version	9.6.0
+-- Server version	8.0.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,31 +23,44 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '3fad1f67-041c-11f1-b373-2c58b9118e64:1-182';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '7f1eedab-40aa-11f1-babe-7a56ef41bfe7:1-85,
+fa98a687-3f30-11f1-98e5-d608561d8da0:1-55';
 
 --
--- Table structure for table `partners`
+-- Table structure for table `volontaires`
 --
 
-DROP TABLE IF EXISTS `partners`;
+DROP TABLE IF EXISTS `volontaires`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `partners` (
+CREATE TABLE `volontaires` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nom_entreprise` varchar(100) NOT NULL,
-  `logo_url` varchar(255) DEFAULT NULL,
-  `site_web` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `prenom` varchar(100) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `telephone` varchar(20) DEFAULT NULL,
+  `matricule_spe` varchar(20) NOT NULL,
+  `domaine` varchar(100) NOT NULL,
+  `experience` enum('etudiant','junior','senior','expert') NOT NULL,
+  `disponibilite` varchar(150) NOT NULL,
+  `motivation` text NOT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `statut` enum('en_attente','accepte','refuse') DEFAULT 'en_attente',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `poste` varchar(100) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `partners`
+-- Dumping data for table `volontaires`
 --
 
-LOCK TABLES `partners` WRITE;
-/*!40000 ALTER TABLE `partners` DISABLE KEYS */;
-/*!40000 ALTER TABLE `partners` ENABLE KEYS */;
+LOCK TABLES `volontaires` WRITE;
+/*!40000 ALTER TABLE `volontaires` DISABLE KEYS */;
+/*!40000 ALTER TABLE `volontaires` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +73,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11 18:20:37
+-- Dump completed on 2026-05-14 14:32:59
