@@ -133,9 +133,8 @@
     </div>
 
     <!-- Right panel – Form -->
-    <form class="form" id="volontariatForm">
+    <form class="form" id="volontariatForm" enctype="multipart/form-data">
 
-      <!-- Row 1 -->
       <div class="form__row form__row--2">
         <div class="form__group">
           <label for="prenom">Prénom <span class="required">*</span></label>
@@ -147,7 +146,6 @@
         </div>
       </div>
 
-      <!-- Row 2 -->
       <div class="form__row form__row--2">
         <div class="form__group">
           <label for="email">Email <span class="required">*</span></label>
@@ -157,18 +155,21 @@
           <label for="tel">Téléphone</label>
           <input type="tel" id="tel" name="tel" placeholder="+242 06 000 0000" />
         </div>
+      </div>
+
+      <div class="form__group">
+        <label for="certificat">Certificat d'adhésion SPE internationale <span class="required">*</span></label>
+        <div class="form__file-wrapper">
+          <input type="file" id="certificat" name="certificat" accept=".pdf,image/*" required />
+          <label for="certificat" class="form__file-label">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            <span id="certificatLabel">Choisir le certificat (PDF ou Image)</span>
+          </label>
         </div>
-        <!-- Row 3 - Matricule -->
-<div class="form__row form__row--2">
-  <div class="form__group">
-    <label for="matricule">Matricule SPE <span class="required">*</span></label>
-    <input type="text" id="matricule" name="matricule" placeholder="Ex : 12345678" required />
-    <span class="form__hint">Votre numéro de membre SPE International</span>
-  </div>
-</div>
+        <span class="form__hint">Téléversez votre attestation officielle (PDF, JPG, PNG)</span>
+      </div>
       
 
-      <!-- Domaine -->
       <div class="form__group">
         <label for="domaine">Domaine d'intérêt <span class="required">*</span></label>
         <div class="form__select-wrapper">
@@ -188,7 +189,6 @@
         </div>
       </div>
 
-      <!-- Expérience -->
       <div class="form__group">
         <label>Niveau d'expérience <span class="required">*</span></label>
         <div class="form__radio-group">
@@ -211,33 +211,29 @@
         </div>
       </div>
 
-      <!-- Disponibilité -->
       <div class="form__group">
         <label for="dispo">Disponibilité <span class="required">*</span></label>
         <input type="text" id="dispo" name="dispo" placeholder="Ex : Week-ends, 2h/semaine, soirs…" required />
       </div>
 
-      <!-- Motivations -->
       <div class="form__group">
         <label for="motivation">Vos motivations <span class="required">*</span></label>
         <textarea id="motivation" name="motivation" rows="4" placeholder="Pourquoi souhaitez-vous nous rejoindre ? Quels sont vos objectifs ?" required></textarea>
         <span class="char-count" id="charCount">0 / 500</span>
       </div>
 
-      <!--photos-->
       <div class="form__group">
-  <label for="photo">Photo de profil <span class="required">*</span></label>
-  <div class="form__file-wrapper">
-    <input type="file" id="photo" name="photo" accept="image/*" required />
-    <label for="photo" class="form__file-label">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-      <span id="fileLabel">Choisir une photo</span>
-    </label>
-  </div>
-  <span class="form__hint">JPG, PNG ou WEBP</span>
-</div>
+        <label for="photo">Photo de profil <span class="required">*</span></label>
+        <div class="form__file-wrapper">
+          <input type="file" id="photo" name="photo" accept="image/*" required />
+          <label for="photo" class="form__file-label">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            <span id="fileLabel">Choisir une photo</span>
+          </label>
+        </div>
+        <span class="form__hint">JPG, PNG ou WEBP</span>
+      </div>
 
-      <!-- Comment -->
       <div class="form__group">
         <label for="source">Comment nous avez-vous découverts ?</label>
         <div class="form__select-wrapper">
@@ -253,7 +249,6 @@
         </div>
       </div>
 
-      <!-- Submit -->
       <button type="submit" class="btn-submit">
         <span class="btn-submit__text">Envoyer ma candidature</span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
