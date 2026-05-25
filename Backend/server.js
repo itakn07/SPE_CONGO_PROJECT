@@ -1149,7 +1149,7 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
   const photo = req.files && req.files['photo'] ? req.files['photo'].path : null;
   const certificat_url = req.files && req.files['certificat'] ? req.files['certificat'].path : null;
 
-  // Sécurité : le certificat est obligatoire selon les consignes de Peter
+  // Sécurité : le certificat est obligatoire selon les consignes 
   if (!certificat_url) {
     return res.status(400).json({ success: false, message: "Le certificat d'adhésion SPE est obligatoire." });
   }
