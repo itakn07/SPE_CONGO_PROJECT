@@ -1740,112 +1740,113 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
         console.error("Erreur:", error);
         alert("Impossible de contacter le serveur.");
     }
-});
+ });
 
  // Formulaire de vonlontariat
     document.addEventListener('DOMContentLoaded', () => {
+    // ── 1. SÉLECTION DES ÉLÉMENTS ──
     const volontariatForm = document.getElementById('volontariatForm');
     const toast = document.getElementById('toast');
-
-    // ── 1. GESTION DYNAMIC DES LABELS DE FICHIERS ──
-    // Pour afficher le nom du fichier sélectionné à la place du texte par défaut
-    const setupFileLabel = (inputId, labelId, defaultText) => {
-        const input = document.getElementById(inputId);
-        const label = document.getElementById(labelId);
-        
-        if (input && label) {
-            input.addEventListener('change', function() {
-                if (this.files && this.files.length > 0) {
-                    label.textContent = this.files.name;
-                } else {
-                    label.textContent = defaultText;
-                }
-            });
-        }
-    };
-
-    // Configuration pour le certificat et la photo
-    setupFileLabel('certificat', 'certificatLabel', 'Choisir le certificat (PDF ou Image)');
-    setupFileLabel('photo', 'fileLabel', 'Choisir une photo');
-
-
-    // ── 2. COMPTEUR DE CARACTÈRES POUR LES MOTIVATIONS ──
     const motivationTxt = document.getElementById('motivation');
     const charCount = document.getElementById('charCount');
 
-    if (motivationTxt && charCount) {
-        motivationTxt.addEventListener('input', function() {
-            const len = this.value.length;
-            charCount.textContent = `${len} / 500`;
-            
-            if (len > 500) {
-                charCount.style.color = '#ef4444'; // Rouge si ça dépasse
+    // Elements pour les fichiers
+    const certificatInput = document.getElementById('certificat');
+    const certificatLabel = document.getElementById('certificatLabel');
+    const photoInput = document.getElementById('photo');
+    const photoLabel = document.getElementById('fileLabel');
+
+    // ── 2. MISE À JOUR DYNAMIQUE DES LABELS DE FICHIERS ──
+    if (certificatInput && certificatLabel) {
+        certificatInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                certificatLabel.textContent = this.files.name;
             } else {
-                charCount.style.color = '#666';
+                certificatLabel.textContent = 'Choisir le certificat (PDF ou Image)';
             }
         });
     }
 
+    if (photoInput && photoLabel) {
+        photoInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                photoLabel.textContent = this.files.name;
+            } else {
+                photoLabel.textContent = 'Choisir une photo';
+            }
+        });
+    }
 
-    // ── 3. ENVOI DU FORMULAIRE AU BACKEND ──
+    // ── 3. COMPTEUR DE CARACTÈRES (MOTIVATIONS) ──
+    if (motivationTxt && charCount) {
+        motivationTxt.addEventListener('input', function() {
+            const len = this.value.length;
+            charCount.textContent = `${len} / 500`;
+            charCount.style.color = len > 500 ? '#ef4444' : '#666';
+        });
+    }
+
+    // ── 4. TRAITEMENT ET ENVOI DU FORMULAIRE ──
     if (volontariatForm) {
         volontariatForm.addEventListener('submit', async function(e) {
             e.preventDefault(); // Empêche le rechargement de la page
 
-            // Récupérer le bouton pour désactiver le double-clic pendant l'upload sur Cloudinary
-            const submitBtn = volontariatForm.querySelector('.btn-submit');
-            const btnText = submitBtn.querySelector('.btn-submit__text');
-            
-            if (submitBtn && btnText) {
-                submitBtn.disabled = true;
-                btnText.textContent = "Envoi en cours...";
+            // Validation manuelle de l'expérience pour contourner le bug de validation html
+            const checkedExperience = volontariatForm.querySelector('input[name="experience"]:checked');
+            if (!checkedExperience) {
+                alert("Veuillez sélectionner votre niveau d'expérience.");
+                return;
             }
 
-            // Création de l'objet FormData (embarque automatiquement textes, photo et PDF)
+            // Gestion de l'état du bouton d'envoi (anti double-clic pendant l'upload Cloudinary)
+            const submitBtn = volontariatForm.querySelector('.btn-submit');
+            const btnText = submitBtn ? submitBtn.querySelector('.btn-submit__text') : null;
+            
+            if (submitBtn) submitBtn.disabled = true;
+            if (btnText) btnText.textContent = "Envoi en cours...";
+
+            // Encapsulation automatique de tous les champs (fichiers inclus)
             const formData = new FormData(volontariatForm);
 
             try {
-                // Appel de ta route API optimisée
+                // Requête vers la route optimisée de ton serveur Node.js
                 const response = await fetch('/api/volontaires', {
                     method: 'POST',
-                    body: formData // Pas de Header Content-Type, le navigateur s'en charge
+                    body: formData // Pas de Headers "Content-Type", le navigateur s'en charge avec FormData
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    // ── SUCCÈS ──
-                    // Afficher le toast magique qui est dans ton HTML
+                    // ── SOUVENT PARFAIT : AFFICHAGE DU TOAST DE SUCCÈS ──
                     if (toast) {
                         toast.classList.add('show');
                         setTimeout(() => {
                             toast.classList.remove('show');
                         }, 4000);
                     } else {
-                        alert("Candidature soumise avec succès !");
+                        alert("Candidature transmise avec succès !");
                     }
 
-                    // Réinitialiser le formulaire et les labels
+                    // Réinitialisation complète
                     volontariatForm.reset();
-                    document.getElementById('certificatLabel').textContent = 'Choisir le certificat (PDF ou Image)';
-                    document.getElementById('fileLabel').textContent = 'Choisir une photo';
+                    if (certificatLabel) certificatLabel.textContent = 'Choisir le certificat (PDF ou Image)';
+                    if (photoLabel) photoLabel.textContent = 'Choisir une photo';
                     if (charCount) charCount.textContent = "0 / 500";
 
                 } else {
-                    // ── ERREUR SERVEUR ──
+                    // ── ERREUR RENVOYÉE PAR LE SERVEUR ──
                     alert(`Erreur : ${data.message}`);
                 }
 
             } catch (error) {
-                // ── ERREUR RÉSEAU ──
-                console.error("Erreur lors de la soumission :", error);
-                alert("Impossible de joindre le serveur. Vérifiez votre connexion.");
+                // ── ERREUR RÉSEAU / SERVEUR CRASHÉ ──
+                console.error("Erreur soumission formulaire:", error);
+                alert("Impossible de joindre le serveur. Veuillez réessayer.");
             } finally {
-                // Réactiver le bouton après la fin du traitement
-                if (submitBtn && btnText) {
-                    submitBtn.disabled = false;
-                    btnText.textContent = "Envoyer ma candidature";
-                }
+                // Restauration du bouton dans tous les cas
+                if (submitBtn) submitBtn.disabled = false;
+                if (btnText) btnText.textContent = "Envoyer ma candidature";
             }
         });
     }
