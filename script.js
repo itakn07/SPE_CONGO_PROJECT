@@ -1788,6 +1788,8 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
 
     // ── 4. TRAITEMENT ET ENVOI DU FORMULAIRE ──
     if (volontariatForm) {
+        console.log("Le formulaire est détecté");
+        
         volontariatForm.addEventListener('submit', async function(e) {
             e.preventDefault(); // Empêche le rechargement de la page
 
