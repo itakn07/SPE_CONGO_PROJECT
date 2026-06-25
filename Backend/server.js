@@ -101,8 +101,9 @@ const storageMenteeForm = new CloudinaryStorage({
 });
 
 const uploadMentee = multer({ storage: storageMenteeForm }).fields([
-  { name: 'photo', maxCount: 1 }, // Si tu demandes une photo pour le menti
-  { name: 'certificat', maxCount: 1 } // Le certificat obligatoire demandé par Peter
+  { name: 'photo', maxCount: 1 }, 
+  { name: 'cv', maxCount: 1 },
+  { name: 'certificat_spe', maxCount: 1 } 
 ]);
 
 // 5. Stockage pour les Mentors (Photo de profil + CV)
