@@ -1,14 +1,15 @@
 const mysql = require('mysql2');
 
 const connection = mysql.createPool({
-    host: 'mysql-6d72768-ritakngot3.i.aivencloud.com',
-    user: 'avnadmin',
-    password: 'AVNS_eX0cfvf6ILPvCVN2N2N',
-    database: 'defaultdb',
-    port: 17316,
+   host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    connectTimeout: 20000,
     ssl: {
         rejectUnauthorized: false
-    } 
+    }
 });
 
 
