@@ -1144,11 +1144,11 @@ app.post('/envoyer-felicitations', (req, res) => {
 
 // POST — Soumettre une candidature volontaire
 app.post('/api/volontaires', uploadVolontaire, (req, res) => {
-  const { prenom, nom, email, telephone, domaine, experience, disponibilite, motivation, source } = req.body;
+  const { prenom, nom, email, tel, domaine, experience, dispo, motivation, source } = req.body;
 
   // ── RÉCUPÉRATION SÉCURISÉE DES URLs CLOUDINARY ──
-  const photo = req.files && req.files['photo'] ? req.files['photo'].path : null;
-  const certificat_url = req.files && req.files['certificat'] ? req.files['certificat'].path : null;
+  const photo = req.files && req.files['photo'] ? req.files['photo'][0].path : null;
+  const certificat_url = req.files && req.files['certificat'] ? req.files['certificat'][0].path : null;
 
   // Sécurité : le certificat est obligatoire selon les consignes 
   if (!certificat_url) {
@@ -1162,7 +1162,7 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'en_attente')
   `;
 
-  db.query(sql, [prenom, nom, email, telephone, certificat_url, domaine, experience, disponibilite, motivation, source, photo], (err) => {
+  db.query(sql, [prenom, nom, email, tel, certificat_url, domaine, experience, dispo, motivation, source, photo], (err) => {
     if (err) {
       console.error("Erreur insertion volontaire:", err);
       return res.status(500).json({ success: false, message: "Erreur base de données" });
