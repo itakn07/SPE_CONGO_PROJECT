@@ -1182,10 +1182,10 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
           <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;">
             <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569; width:40%;">Nom complet</td><td style="padding:10px 14px; color:#1e293b;">${prenom} ${nom}</td></tr>
             <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Email</td><td style="padding:10px 14px; color:#1e293b;">${email}</td></tr>
-            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Téléphone</td><td style="padding:10px 14px; color:#1e293b;">${telephone || '—'}</td></tr>
+            <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Téléphone</td><td style="padding:10px 14px; color:#1e293b;">${tel || '—'}</td></tr>
             <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Domaine choisi</td><td style="padding:10px 14px; color:#1e293b; font-weight:600;">${domaine}</td></tr>
             <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Expérience</td><td style="padding:10px 14px; color:#1e293b;">${experience}</td></tr>
-            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Disponibilité</td><td style="padding:10px 14px; color:#1e293b;">${disponibilite}</td></tr>
+            <tr><td style="padding:10px 14px; font-weight:600; color:#475569;">Disponibilité</td><td style="padding:10px 14px; color:#1e293b;">${dispo}</td></tr>
             <tr style="background:#f1f5f9;"><td style="padding:10px 14px; font-weight:600; color:#475569;">Motivations</td><td style="padding:10px 14px; color:#1e293b; line-height:1.5;">${motivation}</td></tr>
             <tr>
               <td style="padding:10px 14px; font-weight:600; color:#475569;">Pièces jointes</td>
