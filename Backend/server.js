@@ -1249,35 +1249,130 @@ app.get('/api/admin/volontaires', (req, res) => {
   });
 });
 
+// PATCH — Mettre à jour le statut et le poste d'un volontaire (admin)
 app.patch('/api/admin/volontaires/:id', (req, res) => {
   const { statut, poste } = req.body;
   const { id } = req.params;
 
-  const champs = [];
-  const valeurs = [];
-
-  if (statut !== undefined) {
-    champs.push("statut = ?");
-    valeurs.push(statut);
-  }
-  if (poste !== undefined) {
-    champs.push("poste = ?");
-    valeurs.push(poste);
-  }
-
-  if (champs.length === 0) {
-    return res.status(400).json({ success: false, message: "Aucune donnée à mettre à jour." });
-  }
-
-  valeurs.push(id);
-  const sql = `UPDATE volontaires SET ${champs.join(", ")} WHERE id = ?`;
-
-  db.query(sql, valeurs, (err) => {
-    if (err) {
-      console.error("Erreur mise à jour volontaire:", err);
-      return res.status(500).json({ success: false });
+  // 1. On récupère l'état actuel avant modification
+  db.query("SELECT * FROM volontaires WHERE id = ?", [id], (err, rows) => {
+    if (err || rows.length === 0) {
+      console.error("Erreur lecture volontaire:", err);
+      return res.status(500).json({ success: false, message: "Volontaire introuvable" });
     }
-    res.json({ success: true });
+
+    const ancien = rows[0];
+    const statutChange = statut !== undefined && statut !== ancien.statut;
+    const posteChange = poste !== undefined && poste !== ancien.poste;
+
+    // 2. Construction dynamique de l'UPDATE
+    const champs = [];
+    const valeurs = [];
+
+    if (statut !== undefined) {
+      champs.push("statut = ?");
+      valeurs.push(statut);
+    }
+    if (poste !== undefined) {
+      champs.push("poste = ?");
+      valeurs.push(poste);
+    }
+
+    if (champs.length === 0) {
+      return res.status(400).json({ success: false, message: "Aucune donnée à mettre à jour." });
+    }
+
+    valeurs.push(id);
+    const sql = `UPDATE volontaires SET ${champs.join(", ")} WHERE id = ?`;
+
+    db.query(sql, valeurs, (err) => {
+      if (err) {
+        console.error("Erreur mise à jour volontaire:", err);
+        return res.status(500).json({ success: false });
+      }
+
+      const posteEffectif = poste !== undefined ? poste : ancien.poste;
+      const nomComplet = `${ancien.prenom} ${ancien.nom}`;
+
+      // 3. Logique d'envoi des mails
+      if (statutChange && statut === 'refuse') {
+        resend.emails.send({
+          from: 'SPE Congo <onboarding@resend.dev>',
+          to: ancien.email,
+          subject: 'Votre candidature volontaire — SPE Congo Section 117',
+          html: templateMail({
+            emoji: '😔',
+            titre: 'Candidature non retenue',
+            sousTitre: 'SPE Congo Section 117 — Volontariat',
+            contenu: `
+              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${ancien.prenom}</strong>,</p>
+              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+                Nous vous remercions sincèrement pour l'intérêt que vous avez porté à la <strong>SPE Congo Section 117</strong>. Après examen de votre dossier, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre candidature pour le moment.
+              </p>
+              <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
+                Nous vous encourageons à rester en contact avec nous pour de futures opportunités de bénévolat.
+              </p>
+              <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">Cordialement,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
+            `
+          })
+        }).catch(e => console.error("Erreur mail refus volontaire:", e));
+
+      } else if (statutChange && statut === 'approuve') {
+        // Premier traitement : mail groupé statut + poste
+        resend.emails.send({
+          from: 'SPE Congo <onboarding@resend.dev>',
+          to: ancien.email,
+          subject: '🎉 Candidature acceptée — SPE Congo Section 117',
+          html: templateMail({
+            emoji: '🎉',
+            titre: 'Félicitations, vous êtes accepté(e) !',
+            sousTitre: 'SPE Congo Section 117 — Volontariat',
+            contenu: `
+              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${ancien.prenom}</strong>,</p>
+              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+                Nous avons le plaisir de vous informer que votre candidature a été <strong>acceptée</strong> ! Bienvenue dans l'équipe de volontaires de la SPE Congo Section 117.
+              </p>
+              <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
+                <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
+                  📌 Poste attribué : <strong>${posteEffectif || 'À confirmer prochainement'}</strong>
+                </p>
+              </div>
+              <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
+                Un membre de l'équipe vous contactera prochainement pour la suite des démarches.
+              </p>
+              <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
+            `
+          })
+        }).catch(e => console.error("Erreur mail approbation volontaire:", e));
+
+      } else if (!statutChange && posteChange && ancien.statut === 'approuve') {
+        // Cas 2 : déjà approuvé, juste le poste qui change
+        resend.emails.send({
+          from: 'SPE Congo <onboarding@resend.dev>',
+          to: ancien.email,
+          subject: 'Mise à jour de votre poste — SPE Congo Section 117',
+          html: templateMail({
+            emoji: '📌',
+            titre: 'Votre poste a été mis à jour',
+            sousTitre: 'SPE Congo Section 117 — Volontariat',
+            contenu: `
+              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7;">Bonjour <strong>${ancien.prenom}</strong>,</p>
+              <p style="color:#1e293b; font-size:0.95rem; line-height:1.7; margin-top:10px;">
+                Votre poste au sein de l'équipe de volontaires vient d'être mis à jour :
+              </p>
+              <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
+                <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
+                  📌 Nouveau poste : <strong>${posteEffectif}</strong>
+                </p>
+              </div>
+              <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
+            `
+          })
+        }).catch(e => console.error("Erreur mail poste volontaire:", e));
+      }
+
+      res.json({ success: true });
+    });
   });
 });
 
