@@ -1776,12 +1776,12 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
     <button class="action-btn" onclick="updateVolontairePoste(${volontaire.id})" style="margin-top: 4px;">Enregistrer</button>
 </td>
                     <td>
-                      <span class="status-badge ${volontaire.statut === 'approuve' ? 'status-active' : 'status-pending'}">
+                      <span class="status-badge ${volontaire.statut === 'accepte' ? 'status-active' : 'status-pending'}">
     ${volontaire.statut || 'en_attente'}
 </span>
                     </td>
                     <td>
-                        <button class="action-btn approve-btn" onclick="updateVolontaireStatus(${volontaire.id}, 'approuve')">Approuver</button>
+                        <button class="action-btn approve-btn" onclick="updateVolontaireStatus(${volontaire.id}, 'accepte')">Approuver</button>
                         <button class="action-btn reject-btn" onclick="updateVolontaireStatus(${volontaire.id}, 'refuse')">Refuser</button>
                     </td>
                 `;
