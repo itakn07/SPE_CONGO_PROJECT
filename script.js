@@ -1771,7 +1771,10 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
                          </td>
                     <td>${volontaire.nom || ''} ${volontaire.prenom || ''}</td>
                     <td>${volontaire.email || ''}</td>
-                    <td><strong>${volontaire.poste || 'Non spécifié'}</strong></td>
+                    <td>
+    <input type="text" class="poste-input" id="poste-${volontaire.id}" value="${volontaire.poste || ''}" placeholder="Assigner un poste..." style="width: 140px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px;">
+    <button class="action-btn" onclick="updateVolontairePoste(${volontaire.id})" style="margin-top: 4px;">Enregistrer</button>
+</td>
                     <td>
                         <span class="status-badge ${volontaire.statut === 'Approuvé' ? 'status-active' : 'status-pending'}">
                             ${volontaire.statut || 'En attente'}
@@ -1802,4 +1805,25 @@ function updateVolontaireStatus(id, newStatus) {
         }
     })
     .catch(err => console.error('Erreur lors de la mise à jour du statut:', err));
+}
+
+function updateVolontairePoste(id) {
+    const input = document.getElementById(`poste-${id}`);
+    const nouveauPoste = input.value.trim();
+
+    fetch(`https://spe-congo-project.onrender.com/api/admin/volontaires/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ poste: nouveauPoste })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("Poste mis à jour !");
+            loadVolontaires();
+        } else {
+            alert("Erreur : " + (data.message || "Échec de la mise à jour"));
+        }
+    })
+    .catch(err => console.error('Erreur lors de la mise à jour du poste:', err));
 }

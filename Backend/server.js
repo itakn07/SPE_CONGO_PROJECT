@@ -1249,13 +1249,34 @@ app.get('/api/admin/volontaires', (req, res) => {
   });
 });
 
-// PATCH — Mettre à jour le statut et le poste d'un volontaire (admin)
 app.patch('/api/admin/volontaires/:id', (req, res) => {
   const { statut, poste } = req.body;
   const { id } = req.params;
 
-  db.query("UPDATE volontaires SET statut = ?, poste = ? WHERE id = ?", [statut, poste, id], (err) => {
-    if (err) return res.status(500).json({ success: false });
+  const champs = [];
+  const valeurs = [];
+
+  if (statut !== undefined) {
+    champs.push("statut = ?");
+    valeurs.push(statut);
+  }
+  if (poste !== undefined) {
+    champs.push("poste = ?");
+    valeurs.push(poste);
+  }
+
+  if (champs.length === 0) {
+    return res.status(400).json({ success: false, message: "Aucune donnée à mettre à jour." });
+  }
+
+  valeurs.push(id);
+  const sql = `UPDATE volontaires SET ${champs.join(", ")} WHERE id = ?`;
+
+  db.query(sql, valeurs, (err) => {
+    if (err) {
+      console.error("Erreur mise à jour volontaire:", err);
+      return res.status(500).json({ success: false });
+    }
     res.json({ success: true });
   });
 });
