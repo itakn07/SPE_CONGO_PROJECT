@@ -1766,7 +1766,7 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
                 tr.innerHTML = `
                 <td>
                     <img src="${photoUrl}" 
-                         alt="${Photo}" 
+                         alt="Photo de ${volontaire.nom}" 
                          style="width: 45px; height: 45px; border-radius: 50px; object-fit: cover;">
                          </td>
                     <td>${volontaire.nom || ''} ${volontaire.prenom || ''}</td>
