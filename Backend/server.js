@@ -1158,7 +1158,7 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
   // ── REQUÊTE SQL MODIFIÉE (Mise à jour avec certificat_url) ──
   const sql = `
     INSERT INTO volontaires 
-    (prenom, nom, email, telephone, certificat_url, domaine, experience, disponibilite, motivation, source, photo, statut)
+    (prenom, nom, email, tel, certificat_url, domaine, experience, dispo, motivation, source, photo, statut)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'en_attente')
   `;
 
@@ -1174,7 +1174,7 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
       to: 'ritakngot3@gmail.com',
       subject: `⚠️ Nouvelle candidature volontaire — ${prenom} ${nom}`,
       html: templateMail({
-        emoji: '📋',
+        emoji: '',
         titre: 'Nouvelle candidature volontaire',
         sousTitre: 'SPE Congo Section 117 — Volontariat',
         contenu: `
@@ -1219,7 +1219,7 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
           <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
             <p style="margin:0 0 6px; color:#0054a6; font-weight:600; font-size:0.9rem;">Récapitulatif de votre soumission :</p>
             <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
-              📌 Domaine d'intérêt : <strong>${domaine}</strong><br>
+              📌 Domaine d'intérêt : <strong>${Domaine}</strong><br>
               🎓 Niveau d'expérience : <strong>${experience}</strong><br>
               📄 Statut document : <strong>Certificat d'adhésion transmis (En cours de validation)</strong>
             </p>
