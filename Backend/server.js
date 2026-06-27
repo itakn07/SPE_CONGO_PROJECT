@@ -1208,7 +1208,7 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
       to: email,
       subject: 'Candidature volontaire reçue — SPE Congo Section 117',
       html: templateMail({
-        emoji: '🎉',
+        emoji: '',
         titre: 'Candidature reçue !',
         sousTitre: 'SPE Congo Section 117 — Volontariat',
         contenu: `
@@ -1219,9 +1219,9 @@ app.post('/api/volontaires', uploadVolontaire, (req, res) => {
           <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
             <p style="margin:0 0 6px; color:#0054a6; font-weight:600; font-size:0.9rem;">Récapitulatif de votre soumission :</p>
             <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
-              📌 Domaine d'intérêt : <strong>${Domaine}</strong><br>
-              🎓 Niveau d'expérience : <strong>${experience}</strong><br>
-              📄 Statut document : <strong>Certificat d'adhésion transmis (En cours de validation)</strong>
+               Domaine d'intérêt : <strong>${Domaine}</strong><br>
+               Niveau d'expérience : <strong>${experience}</strong><br>
+               Statut document : <strong>Certificat d'adhésion transmis (En cours de validation)</strong>
             </p>
           </div>
           <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
@@ -1324,7 +1324,7 @@ app.patch('/api/admin/volontaires/:id', (req, res) => {
           to: ancien.email,
           subject: '🎉 Candidature acceptée — SPE Congo Section 117',
           html: templateMail({
-            emoji: '🎉',
+            emoji: '',
             titre: 'Félicitations, vous êtes accepté(e) !',
             sousTitre: 'SPE Congo Section 117 — Volontariat',
             contenu: `
@@ -1334,7 +1334,7 @@ app.patch('/api/admin/volontaires/:id', (req, res) => {
               </p>
               <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
                 <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
-                  📌 Poste attribué : <strong>${posteEffectif || 'À confirmer prochainement'}</strong>
+                   Poste attribué : <strong>${posteEffectif || 'À confirmer prochainement'}</strong>
                 </p>
               </div>
               <p style="color:#475569; font-size:0.9rem; line-height:1.7; margin-top:20px;">
@@ -1362,7 +1362,7 @@ app.patch('/api/admin/volontaires/:id', (req, res) => {
               </p>
               <div style="background:#f0f9ff; border-left:4px solid #0054a6; padding:15px 20px; border-radius:8px; margin-top:20px;">
                 <p style="margin:0; color:#334155; font-size:0.88rem; line-height:1.7;">
-                  📌 Nouveau poste : <strong>${posteEffectif}</strong>
+                   Nouveau poste : <strong>${posteEffectif}</strong>
                 </p>
               </div>
               <p style="color:#94a3b8; font-size:0.85rem; margin-top:24px;">À bientôt,<br><strong style="color:#0054a6;">L'équipe SPE Congo Section 117</strong></p>
