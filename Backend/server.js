@@ -1301,7 +1301,7 @@ app.patch('/api/admin/volontaires/:id', (req, res) => {
           to: ancien.email,
           subject: 'Votre candidature volontaire — SPE Congo Section 117',
           html: templateMail({
-            emoji: '😔',
+            emoji: '',
             titre: 'Candidature non retenue',
             sousTitre: 'SPE Congo Section 117 — Volontariat',
             contenu: `
@@ -1317,7 +1317,7 @@ app.patch('/api/admin/volontaires/:id', (req, res) => {
           })
         }).catch(e => console.error("Erreur mail refus volontaire:", e));
 
-      } else if (statutChange && statut === 'approuve') {
+      } else if (statutChange && statut === 'accepte') {
         // Premier traitement : mail groupé statut + poste
         resend.emails.send({
           from: 'SPE Congo <onboarding@resend.dev>',
@@ -1352,7 +1352,7 @@ app.patch('/api/admin/volontaires/:id', (req, res) => {
           to: ancien.email,
           subject: 'Mise à jour de votre poste — SPE Congo Section 117',
           html: templateMail({
-            emoji: '📌',
+            emoji: '',
             titre: 'Votre poste a été mis à jour',
             sousTitre: 'SPE Congo Section 117 — Volontariat',
             contenu: `
