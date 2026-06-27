@@ -1762,7 +1762,13 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
 
             data.forEach(volontaire => {
                 const tr = document.createElement('tr');
+                const photoUrl= photo? `/uploads/${photo}`: '/images/default-avatar.png';
                 tr.innerHTML = `
+                <td>
+                    <img src="${photoUrl}" 
+                         alt="${Photo}" 
+                         style="width: 45px; height: 45px; border-radius: 50px; object-fit: cover;">
+                         </td>
                     <td>${volontaire.nom || ''} ${volontaire.prenom || ''}</td>
                     <td>${volontaire.email || ''}</td>
                     <td><strong>${volontaire.poste || 'Non spécifié'}</strong></td>
