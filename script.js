@@ -1762,7 +1762,7 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
 
             data.forEach(volontaire => {
                 const tr = document.createElement('tr');
-                const photoUrl= photo? `/uploads/${photo}`: '/images/default-avatar.png';
+                const photoUrl=volontaire.photo? `/uploads/${volontaire.photo}`: '/images/default-avatar.png';
                 tr.innerHTML = `
                 <td>
                     <img src="${photoUrl}" 
