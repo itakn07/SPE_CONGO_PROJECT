@@ -67,6 +67,7 @@
              <li onclick="showSection('admin-news')">Médias</li>
               <li onclick="showSection('admin-galerie')">Galerie</li>
                <li onclick="showSection('messagerie-section')">Messagerie</li>
+                <li onclick="showSection('volontaires-section')">Volontaires</li>
         </ul>
         <button class="logout-btn" onclick="logout()">Déconnexion</button>
     </nav>
@@ -344,6 +345,28 @@
 </table>
 </div>
    
+</section>
+
+<section id="volontaires-section" class="admin-section hidden">
+    <div class="header-flex">
+        <h2>Gestion des Volontaires</h2>
+        <span class="count-badge" id="total-volontaires-count">0</span>
+    </div>
+    <div class="admin-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nom & Prénom</th>
+                    <th>Email</th>
+                    <th>Poste Souhaité</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="volontaires-list-body">
+                </tbody>
+        </table>
+    </div>
 </section>
 
  

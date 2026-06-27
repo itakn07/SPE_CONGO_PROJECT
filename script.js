@@ -478,6 +478,7 @@ if (sectionId === 'stats-section') loadrefreshGlobalStats();
 if (sectionId === 'admin-news') loadAdminNews();
 if (sectionId === 'admin-galerie') chargerPhotosAdmin();
 if (sectionId === 'messagerie-section') chargerMembresMessagerie();
+if (sectionId === 'volontaires-section') loadVolontaires();
 
 
 };
@@ -1743,3 +1744,56 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
  });
 
  
+ //fonction des volontaires
+ function loadVolontaires() {
+    fetch('/api/admin/volontaires')
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.getElementById('volontaires-list-body');
+            const countBadge = document.getElementById('total-volontaires-count');
+            
+            tbody.innerHTML = '';
+            countBadge.textContent = data.length;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Aucun volontaire inscrit pour le moment.</td></tr>`;
+                return;
+            }
+
+            data.forEach(volontaire => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${volontaire.nom || ''} ${volontaire.prenom || ''}</td>
+                    <td>${volontaire.email || ''}</td>
+                    <td><strong>${volontaire.poste || 'Non spécifié'}</strong></td>
+                    <td>
+                        <span class="status-badge ${volontaire.statut === 'Approuvé' ? 'status-active' : 'status-pending'}">
+                            ${volontaire.statut || 'En attente'}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="action-btn approve-btn" onclick="updateVolontaireStatus(${volontaire.id}, 'Approuvé')">Approuver</button>
+                        <button class="action-btn reject-btn" onclick="updateVolontaireStatus(${volontaire.id}, 'Refusé')">Refuser</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(err => console.error('Erreur lors du chargement des volontaires:', err));
+}
+
+// Fonction pour changer le statut (Approuvé/Refusé) via ta route PATCH
+function updateVolontaireStatus(id, newStatus) {
+    fetch(`/api/admin/volontaires/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ statut: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            loadVolontaires(); // On recharge la liste mise à jour
+        }
+    })
+    .catch(err => console.error('Erreur lors de la mise à jour du statut:', err));
+}
