@@ -1746,7 +1746,7 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
  
  //fonction des volontaires
  function loadVolontaires() {
-    fetch('/api/admin/volontaires')
+    fetch('https://spe-congo-project.onrender.com/api/admin/volontaires')
         .then(res => res.json())
         .then(data => {
             const tbody = document.getElementById('volontaires-list-body');
@@ -1784,7 +1784,7 @@ document.getElementById('form-diffusion').addEventListener('submit', async (e) =
 
 // Fonction pour changer le statut (Approuvé/Refusé) via ta route PATCH
 function updateVolontaireStatus(id, newStatus) {
-    fetch(`/api/admin/volontaires/${id}`, {
+    fetch(`https://spe-congo-project.onrender.com/api/admin/volontaires/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ statut: newStatus })
